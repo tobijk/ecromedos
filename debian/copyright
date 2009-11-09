@@ -1,0 +1,20 @@
+This package was debianized by Tobias Koch <maintainer@ecromedos.net> on
+Mon, 09 Nov 2009 16:38:52 +0100.
+
+It was downloaded from http://ecromedos.net
+
+Upstream Author(s):
+
+    Tobias Koch <tkoch@ecromedos.net>
+
+Copyright:
+
+    <Copyright (C) 2009 Tobias Koch>
+
+License:
+
+    GNU General Public License, version 2
+
+The Debian packaging is (C) 2009, Tobias Koch <tkoch@ecromedos.net> and
+is licensed under the GPL, see `/usr/share/common-licenses/GPL'.
+

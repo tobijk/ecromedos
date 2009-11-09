@@ -1,0 +1,36 @@
+Source: ecromedos
+Section: text
+Priority: extra
+Maintainer: Tobias Koch <maintainer@ecromedos.net>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.7.3
+Homepage: http://ecromedos.net
+
+Package: ecromedos
+Architecture: all
+Depends: ${python:Depends},
+ python-libxml2,
+ python-libxslt1,
+ dvipng, imagemagick,
+ texlive (>= 2007),
+ texlive-latex-extra,
+ texlive-lang-ukenglish,
+ texlive-lang-german,
+ texlive-fonts-extra
+Description: XML-based document authoring system
+ ecromedos is an integrated solution for XML-based publishing in print
+ and on the Web. It is primarily targeted at, but not limited to, the
+ creation of technical documentation in the field of Computer Science.
+ Documents are written in a semantic markup language and converted to
+ representational formats with a special processing toolchain.
+ .
+ Currently, ecromedos supports the target formats XHTML and LaTeX, where
+ the latter can be compiled into high-quality PostScript or PDF by use
+ of the TeX  typesetting system.
+ .
+ The ecromedos Markup Language (ECML) is modelled closely after HTML
+ with some ideas and additional elements borrowed from LaTeX. It lets
+ you compose comprehensive, well-structured documents from a comparably
+ small set of language elements. Users who are already familiar with HTML
+ or document markup languages like DocBook will find learning ECML
+ particularly easy.
