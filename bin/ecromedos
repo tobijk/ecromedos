@@ -164,6 +164,15 @@ if __name__ == "__main__":
 		# CREATE TEMPORARY DIRECTORY
 		options['tmp_dir'] = setupTempDir()
 
+		# GUESS INSTALLATION PATH
+		options.setdefault('install_dir',
+			os.path.normpath(
+				os.path.dirname(
+					os.path.realpath(sys.argv[0])
+				) + os.sep + ".."
+			)
+		)
+
 		# RUN
 		try:
 			try:
