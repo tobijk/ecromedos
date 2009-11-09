@@ -47,16 +47,25 @@ class ECMDSCfgFileReader:
 		# create rexpr $param1|param2|...
 		expr = "|".join([r"\$" + re.escape(key) for key in config.keys()])
 		rexpr = re.compile(expr)
-		
+
 		def sub(match):
 			return config[match.group()[1:]]
 		#end inline function
-		
-		for key, value in config.iteritems():
-			if type(value) == str:
-				config[key] = rexpr.sub(sub, value)
-			#end if
-		#end for
+
+		while True:
+			# continue until there are no more substitutions
+			subst_performed = False
+
+			for key, value in config.iteritems():
+				if type(value) == str:
+					config[key] = rexpr.sub(sub, value)
+					if value != config[key]:
+						subst_performed = True
+				#end if
+			#end for
+
+			if not subst_performed: break
+		#end while
 		
 		return config
 	#end function
@@ -93,7 +102,7 @@ class ECMDSCfgFileReader:
 		except KeyError: return
 		
 		if not lib_dir in sys.path:
-			sys.path.append(lib_dir)
+			sys.path.insert(1, lib_dir)
 		#end if
 	#end function
 
@@ -138,11 +147,11 @@ class ECMDSCfgFileReader:
 			lineno += 1
 		#end for
 
-		# replace variables
-		config = self.__replaceVariables(config)
-
 		# merge user supplied parameters
 		self.config = self.__normPaths(self.updateConfig(config, options))
+
+		# expand variables
+		config = self.__replaceVariables(config)
 
 		# init lib path
 		self.initLibPath()
