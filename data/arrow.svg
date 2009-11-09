@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.44.1"
+   inkscape:export-filename="/home/tobias/aup.gif"
+   inkscape:export-xdpi="5.2351322"
+   inkscape:export-ydpi="5.2351322"
+   sodipodi:docbase="/home/tobias/Code/ecromedos-1.1.0/data"
+   sodipodi:docname="arrow.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="350"
+     inkscape:cy="518.57143"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1024"
+     inkscape:window-height="718"
+     inkscape:window-x="0"
+     inkscape:window-y="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1893"
+       transform="matrix(-1,0,0,1,697.1273,0)"
+       inkscape:export-xdpi="5.8895235"
+       inkscape:export-ydpi="5.8895235"
+       inkscape:export-filename="/home/tobias/aup.gif">
+      <rect
+         transform="scale(-1,1)"
+         y="426.64789"
+         x="-509.69138"
+         height="65.714287"
+         width="320"
+         id="rect1878"
+         style="fill:black;fill-opacity:1;stroke:none" />
+      <rect
+         transform="matrix(-0.702153,0.712026,0.712026,0.702153,0,0)"
+         y="433.52737"
+         x="-3.2242472"
+         height="60.000015"
+         width="174.28575"
+         id="rect1880"
+         style="fill:black;fill-opacity:1;stroke:none" />
+      <rect
+         transform="matrix(0.712026,0.702153,0.702153,-0.712026,0,0)"
+         y="-217.05495"
+         x="477.2883"
+         height="60.000027"
+         width="174.28577"
+         id="rect1883"
+         style="fill:black;fill-opacity:1;stroke:none" />
+    </g>
+  </g>
+</svg>

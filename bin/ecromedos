@@ -1,0 +1,190 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+#
+# Desc:    This file is part of the eCromedos document preparation system
+# Date:    2006/06/19
+# Author:  Tobias Koch (tkoch@ecromedos.net)
+# License: GNU General Public License, version 2
+# URL:     http://www.ecromedos.net
+# Update:  2008/03/28
+#
+
+# std includes
+import os, sys, libxml2, getopt, tempfile
+
+# eCromedos includes
+from error import ECMDSError, ECMDSPluginError
+from ecmdsproc import ECMDSProc
+
+# document templates
+import templates
+
+# exit values
+ECMDS_ERR_INVOCATION = 1
+ECMDS_ERR_PROCESSING = 2
+ECMDS_ERR_UNKNOWN    = 3
+
+# version number
+VERSION = "2.0.0"
+
+
+def printVersion():
+	'''Display version information.'''
+
+	print "eCromedos Document Processor, version %s   " % (VERSION,)
+	print "Copyright (C) 2005-2009 Tobias Koch (tkoch@ecromedos.net)"
+#end function
+
+
+def printUsage():
+	'''Display usage information.'''
+
+	print "                                                            "
+	print "Usage: ecromedos [OPTIONS] <sourcefile>                     "
+	print "                                                            "
+	print "Options:                                                    "
+	print "                                                            "
+	print " --help          Display this information                   "
+	print " --novalid       Do not attempt to validate document        "
+	print "                                                            "
+	print " -c <file>       Use an alternative configuration file      "
+	print " -f <format>     Specify the desired output format          "
+	print " -n <doctype>    Start a new document of given doctype      "
+	print " -s <directory>  Use an alternative stylesheet directory    "
+	print " -v              Print version information and exit         "
+#end function
+
+
+def parseCmdLine():
+	'''Parse and extract arguments of command line options.'''
+
+	options = {}
+
+	try:
+		opts, args = getopt.getopt(sys.argv[1:], "vn:f:s:c:", ["help","novalid"])
+	except getopt.GetoptError, e:
+		msg = "Error while parsing command line: "
+		raise ECMDSError(msg + e.msg)
+	#end try
+
+	for o, v in opts:
+		if o == "--help":
+			printVersion()
+			printUsage()
+			sys.exit(0)
+		elif o == "-v":
+			printVersion()
+			sys.exit(0)
+		elif o == "-n":
+			startDoc(v)
+			sys.exit(0)
+		elif o == "-f":
+			options["target_format"] = v
+		elif o == "-s":
+			options["style_dir"] = v
+		elif o == "-c":
+			options["config_file"] = v
+		elif o == "--novalid":
+			options["do_validate"] = "no"
+		else:
+			msg = "Unrecognized option '%s'." % (o,)
+			raise ECMDSError(msg)
+		#end if
+	#end while
+	
+	return options, args
+#end function
+
+
+def startDoc(doctype):
+	'''Outputs a template for a new document of "doctype" to stdout.'''
+
+	if not hasattr(templates, doctype):
+		msg = "No template available for doctype '" + doctype + "'."
+		raise ECMDSError(msg)
+	else:
+		template = templates.__dict__[doctype]
+	#end if
+
+	sys.stdout.write(template)
+	sys.stdout.flush()
+#end function
+
+
+def setupTempDir():
+	'''Create a temporary directory.'''
+	return tempfile.mkdtemp(prefix="ecmds-")
+#end function
+
+
+def deleteDir(dirname):
+	'''Recursively delete a directory.'''
+
+	# delete subdirs and files
+	for root, dirs, files in os.walk(dirname, topdown=False):
+		for name in files:
+			try:
+				os.remove(os.path.join(root, name))
+			except: pass
+		#end for
+		for name in dirs:
+			try:
+				os.rmdir(os.path.join(root, name))
+			except: pass
+		#end for
+	#end for
+
+	# delete root
+	try:
+		os.rmdir(dirname)
+	except: pass
+#end function
+
+
+if __name__ == "__main__":
+
+	try:
+		# INIT XML-CATALOG
+		libxml2.initializeCatalog()
+
+		# SETUP
+		try:
+			# parse command line
+			options, files = parseCmdLine()
+			if len(files) < 1:
+				msg = "You did not specify an input file."
+				raise ECMDSError(msg)
+			#end if
+		except ECMDSError, e:
+			sys.stderr.write(e.msg() + "\n")
+			sys.stderr.write("Type 'ecromedos --help' for more information.\n")
+			sys.exit(ECMDS_ERR_INVOCATION)
+		#end try
+
+		# CREATE TEMPORARY DIRECTORY
+		options['tmp_dir'] = setupTempDir()
+
+		# RUN
+		try:
+			try:
+				proc = ECMDSProc()
+				proc.process(files[0], options)
+			finally:
+				# TRY TO REMOVE TEMPORARY DIRECTORY
+				deleteDir(options['tmp_dir'])
+			#end try
+		except ECMDSPluginError, e:
+			msg = "Plugin '%s' caused an error:\n %s" % (e.pluginName(), e.msg())
+			sys.stderr.write(msg + "\n")
+			sys.exit(ECMDS_ERR_PROCESSING)
+		except ECMDSError, e:
+			sys.stderr.write(e.msg() + "\n")
+			sys.exit(ECMDS_ERR_PROCESSING)
+		#end try
+
+	except KeyboardInterrupt:
+		sys.stdout.write("\n -> Caught SIGINT, terminating.\n")
+	#end try
+
+#end __main__
+

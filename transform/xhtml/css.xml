@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ - Desc:    This file is part of the eCromedos document preparation system
+ - Date:    2006/09/17
+ - Author:  Tobias Koch (tkoch@ecromedos.net)
+ - License: GNU General Public License, version 2
+ - URL:     http://www.ecromedos.net
+-->
+<css>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  -	Overall settings
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+body {
+	margin: 1.5ex 1em 1.5ex 1em;
+	padding: 0px;
+	color: black;
+	font-family: sans-serif;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Document head
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+#head {
+	margin: 0ex 0em 1.5ex 0em;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	padding-left: 5px;
+}
+
+table.head {
+	width: 100%;
+}
+
+td.head-subject   { font-size: 120%; padding: 0ex 10px 0ex 10px; font-weight: bold; }
+td.head-title     { font-size: 200%; padding: 0ex 10px 0.5ex 10px; font-weight: bold; }
+div.subtitle      { font-size: 70%; }
+td.head-author    { font-size: 100%; padding: 1.5ex 10px 0.5ex 10px; }
+td.head-date      { font-size: 100%; padding: 0.5ex 10px 0.5ex 10px; }
+td.head-publisher { font-size: 100%; padding: 0.5ex 10px 0.5ex 10px; }
+
+
+td.legal {
+	padding: 1.5ex 10px 0ex 10px;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Table of contents
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+#toc {
+	margin: 0ex 0em 1.5ex 0em;
+	padding: 0ex 1.5em 3ex 1em;
+	border-bottom: 1px solid black;
+}
+
+div.toc-heading {
+	padding: 1.5ex 0em 1.5ex 0em;
+	font-size: 140%;
+	font-weight: bold;
+}
+
+div.toc-mainitem {
+	font-weight: normal;
+}
+
+div.toc-subitem {
+	font-weight: normal;
+}
+
+div.toc-spacer {
+	height: 1ex;
+}
+
+div.listof-heading {
+	padding: 2.5ex 0em 1.5ex 0em;
+	font-size: 140%;
+	font-weight: bold;	
+}
+
+div.listof-item {
+	font-weight: normal;
+}
+
+div.minitoc {
+	font-family: sans-serif;
+	margin: 2.5ex 0em 2.5ex 0em;
+}
+
+div.minitoc-heading {
+	font-weight: bold;
+	margin-bottom: 1ex;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Document body
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+#content {
+	margin: 0ex 0em 0ex 0em;
+	font-family: sans-serif;
+}
+
+table.content {
+	width: 100%;
+	height: 350px;
+}
+
+td.textbody {
+	padding: 0ex 1.5em 2.5ex 1.5em;
+	vertical-align: top;
+}
+
+td.margin {
+	width: 10em;
+	padding: 0ex 1em 0ex 1em;
+	vertical-align: top;
+	border-left: 1px dotted black;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Top navigation bar
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+#nav-top {
+	margin: 0ex 0em 0ex 0em;
+}
+
+table.nav-top {
+	width: 100%;
+	border-bottom: 1px solid black;
+}
+
+td.nav-top-title {
+	padding: 2px;
+	font-weight: bold;
+	font-size: 18px;
+	color: #888888;
+}
+
+td.nav-top-buttons {
+	text-align: right;
+	padding: 2px;
+	vertical-align: bottom;
+	white-space: nowrap;
+}
+
+span.nav-button {
+	margin-left: 0.5em;
+}
+
+a.nav-button {
+	font-weight: normal;
+}
+
+img.nav-button {
+	border: 0px;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Bottom navigation bar
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+#nav-bottom {
+	margin: 0ex 0em 0ex 0em;
+}
+
+table.nav-bottom {
+	width: 100%;
+	font-size: 90%;
+}
+
+td.nav-bottom-left {
+	border-top: 1px solid black;
+	text-align: left;
+	padding: 2px 1em 2px 2px;
+	width: 33%;
+	vertical-align: top;
+}
+
+td.nav-bottom-center {
+	border-top: 1px solid black;
+	text-align: center;
+	padding: 2px 1em 2px 1em;
+	width: 34%;
+	vertical-align: top;
+}
+
+td.nav-bottom-right {
+	border-top: 1px solid black;
+	text-align: right;
+	padding: 2px 2px 2px 1em;
+	width: 33%;
+	vertical-align: top;
+}
+
+span.nav-link-dir {
+	font-weight: bold;
+}
+
+a.nav-link {
+	font-weight: normal;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Anchor and container for marginal notes
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+a.marginal {
+	vertical-align: top;
+}
+
+div.marginal {
+	position: relative;
+	width: 8em;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Hyperlinks
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+a:link,
+a:hover,
+a:visited {
+	color: blue;
+}
+
+a.bib:link,
+a.bib:hover,
+a.bib:visited {
+	text-decoration: none;
+}
+
+a.toc-mainitem:link,
+a.toc-mainitem:hover,
+a.toc-mainitem:visited {
+	font-weight: normal;
+}
+
+a.toc-subitem:link,
+a.toc-subitem:hover,
+a.toc-subitem:visited {
+	font-weight: normal;
+}
+
+a.listof:link,
+a.listof:hover,
+a.listof:visited {
+	font-weight: normal;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Headings
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+h1, h2, h3, h4, h5 {
+	clear: both;
+	color: #000000;
+	font-family: sans-serif;
+	margin: 2.5ex 0em 1ex 0em;
+}
+
+h1 { font-size: 180%; }
+h2 { font-size: 150%; }
+h3 { font-size: 130%; }
+h4 { font-size: 115%; }
+h5 { font-size: 100%; }
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Paragraph
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+p {
+	margin: 1ex 0em 1ex 0em;
+	line-height: 130%;
+}
+
+span.title {
+	font-weight: bold;
+	padding-right: 1.5ex;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Lists
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+dl, ol, ul {
+	margin-top: 1.5ex;
+	margin-bottom: 1.5ex;
+}
+
+li {
+	margin: 1ex 0em 1ex 0em;
+}
+
+dd {
+	margin: 0.5ex 0em 1ex 1.5em;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Footnotes
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+a.sup:link,
+a.sup:hover,
+a.sup:visited {
+	line-height: 0ex;
+	text-decoration: none;
+}
+
+sup.footnote {
+	font-weight: normal;
+	text-decoration: none;
+	line-height: 0ex;
+}
+
+div.footnote {
+	font-size: 80%;
+}
+
+hr.above-footnote,
+hr.below-footnote {
+	margin-left: 0px;
+	width: 40%;
+	height: 1px;
+	border: 0px;
+	text-align: left;
+	color: black;
+	background-color: black;
+}
+
+hr.above-footnote {
+	margin-top: 1.5ex;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Listing environment
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+div.listing {
+	padding: 0px;
+	margin: 1.5ex 0em 1.5ex 0em;
+}
+
+div.listing-caption {
+	margin-bottom: 0.2ex;
+}
+
+pre.listing {
+	margin: 0px;
+	padding: 0.5em;
+	font-size: 95%;
+	font-family: "courier new", courier, fixed;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Verbatim environment
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+pre.verbatim {
+	margin-top: 1.5ex;
+	margin-bottom: 1.5ex;
+	font-size: 95%;
+	font-family: "courier new", courier, fixed;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Spacing before and after block elements
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+.block-element {
+	margin: 1.5ex 0em 1.5ex 0em;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Caption text
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+.caption {
+	font-weight: normal;
+}
+.caption-counter {
+	font-weight: bold;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Equation
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+td.eq-counter {
+	width: 8em;
+	padding-left: 2em;
+}
+
+td.eq-content {
+	font-weight: normal;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Glossary
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+div.gllinks {
+	font-size: 110%;
+	font-family: sans-serif;
+}
+hr.glseparator {
+	margin: 2ex 0em 2ex 0em;
+	width: 100%;
+	height: 1px;
+	border: 0px;
+	background-color: #aaaaaa;
+	color: #aaaaaa;
+}
+h1.glsection {
+	padding: 0px;
+	margin: 1ex 0em 1ex 0em;
+	font-size: 150%;
+}
+span.gllink {
+	margin-right: 1em;
+}
+span.glnolink {
+	margin-right: 1em;
+	color: #999999;
+}
+a.gllink {
+	font-weight: normal;
+}
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  - Index
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+div.idxlinks {
+	font-size: 110%;
+	font-family: sans-serif;
+}
+hr.idxseparator {
+	margin: 2ex 0em 2ex 0em;
+	width: 100%;
+	height: 1px;
+	border: 0px;
+	background-color: #aaaaaa;
+	color: #aaaaaa;
+}
+h1.idxsection {
+	padding: 0px;
+	margin: 1ex 0em 1ex 0em;
+	font-size: 150%;
+}
+span.idxlink {
+	margin-right: 1em;
+}
+a.idxlink {
+	font-weight: normal;
+}
+span.idxnolink {
+	margin-right: 1em;
+	color: #999999;
+}
+table.idxlisting {
+	width: 95%;
+	margin-left: 0.5em;
+}
+td.idxitem {
+	border-left: 2px solid #aaaaaa;
+	white-space: nowrap;
+	padding-right: 20px;
+	padding-left: 5px;
+	font-size: 90%;
+	width: 50%;
+}
+a.idxref {
+	text-decoration: none;
+}
+span.idxitem {
+	font-weight: bold;
+}
+span.idxsubitem {
+	margin-left: 2.5em;
+}
+span.idxsubsubitem {
+	margin-left: 5em;
+}
+</css>

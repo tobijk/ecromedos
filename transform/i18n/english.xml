@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ - Desc:    This file is part of the eCromedos document preparation system
+ - Date:    2006/03/09
+ - Author:  Tobias Koch (tkoch@ecromedos.net)
+ - License: GNU General Public License, version 2
+ - URL:     http://www.ecromedos.net
+-->
+<language name="english" id="en">
+
+	<settings format="latex">
+		<babel territory="US"><select>american</select></babel>
+		<babel territiry="AU"><select>australian</select></babel>
+		<babel territory="GB"><select>british</select></babel>
+		<babel territory="CA"><select>canadian</select></babel>
+		<babel territory="NZ"><select>newzealand</select></babel>
+	</settings>
+
+	<dictionary>
+		<translation key="figure">Figure</translation>
+		<translation key="table">Table</translation>
+		<translation key="listing">Listing</translation>
+
+		<translation key="figure"  context="caption">Figure %n</translation>
+		<translation key="table"   context="caption">Table %n</translation>
+		<translation key="listing" context="caption">Listing %n</translation>
+
+		<translation key="contents">Table of Contents</translation>
+		<translation key="lof">List of Figures</translation>
+		<translation key="lot">List of Tables</translation>
+		<translation key="lol">List of Listings</translation>
+		<translation key="minitoc">Contents</translation>
+		<translation key="parttoc">Table of Contents</translation>
+
+		<translation key="biblio">Bibliography</translation>
+		<translation key="biblio" class="article">References</translation>
+
+		<translation key="part">Part %n.</translation>
+		<translation key="abstract">Abstract</translation>
+		<translation key="index">Index</translation>
+		<translation key="glossary">Glossary</translation>
+
+		<translation key="nav-prev">Prev</translation>
+		<translation key="nav-next">Next</translation>
+		<translation key="nav-up">Up</translation>
+
+		<translation key="sectionnumber">%n.</translation>
+
+		<translation key="startquote">&#8220;</translation>
+		<translation key="endquote">&#8221;</translation>
+		<translation key="startnestedquote">&#8216;</translation>
+		<translation key="endnestedquote">&#8217;</translation>
+		<translation key="startsinglequote">&#8216;</translation>
+		<translation key="endsinglequote">&#8217;</translation>
+	</dictionary>
+
+</language>
