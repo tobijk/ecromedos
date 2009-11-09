@@ -20,6 +20,7 @@ set -e
 
 case "$1" in
     configure)
+	ln -s /usr/lib/ecromedos/bin/ecromedos /usr/bin/ecromedos
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
