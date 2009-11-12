@@ -17,10 +17,23 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
+INSTALL_PATH=/usr/lib/ecromedos
 
 case "$1" in
     configure)
-	ln -s /usr/lib/ecromedos/bin/ecromedos /usr/bin/ecromedos
+
+	echo -n "Creating symlinks..."
+	ln -s ${INSTALL_PATH}/bin/ecromedos /usr/bin/ecromedos
+	echo "done."
+
+	echo -n "Pre-compiling Python source files..."
+	find ${INSTALL_PATH} -name "*.py" | \
+	while read filename; do
+		if [ -f $filename ]; then
+			python -c "import py_compile; py_compile.compile('$filename')"
+		fi
+	done
+	echo "done."
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
