@@ -1,11 +1,10 @@
 # -*- coding: UTF-8 -*-
 #
 # Desc:    This file is part of the ecromedos Document Preparation System
-# Date:    2007/02/07
 # Author:  Tobias Koch (tkoch@ecromedos.net)
 # License: GNU General Public License, version 2
 # URL:     http://www.ecromedos.net
-# Update:  2007/02/20
+# Date:    2009/11/15
 #
 
 from error import ECMDSPluginError
