@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 #
-# Desc:    This file is part of the eCromedos document preparation system
+# Desc:    This file is part of the ecromedos Document Preparation System
 # Date:    2006/06/19
 # Author:  Tobias Koch (tkoch@ecromedos.net)
 # License: GNU General Public License, version 2

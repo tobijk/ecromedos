@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- - Desc:    This file is part of the eCromedos document preparation system
+ - Desc:    This file is part of the ecromedos Document Preparation System
  - Update:  2007/12/07
  - Author:  Tobias Koch (tkoch@ecromedos.net)
  - License: GNU General Public License, version 2
