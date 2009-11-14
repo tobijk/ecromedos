@@ -8,6 +8,8 @@
 # Update:  2007/02/20
 #
 
+from error import ECMDSPluginError
+
 def getInstance(config):
 	'''Returns a plugin instance.'''
 	return Plugin(config)
