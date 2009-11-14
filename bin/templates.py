@@ -1,11 +1,10 @@
 # -*- coding: UTF-8 -*-
 #
 # Desc:    This file is part of the ecromedos Document Preparation System
-# Date:    2006/06/19
 # Author:  Tobias Koch (tkoch@ecromedos.net)
 # License: GNU General Public License, version 2
 # URL:     http://www.ecromedos.net
-# Update:  2006/12/30
+# Date:    2009/11/15
 #
 
 book = """<?xml version="1.0" encoding="UTF-8"?>
