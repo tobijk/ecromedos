@@ -70,7 +70,7 @@ class ECMDSGenerator(CodeGenerator):
 
 
 	def header(self, fragment=False):
-		'''Print eCromedos header.'''
+		'''Print ecromedos header.'''
 
 		r, g, b, fmt = self.theme['bgcolor']
 		bgcolor = 0 + (r << 16) + (g << 8) + b
@@ -89,7 +89,7 @@ class ECMDSGenerator(CodeGenerator):
 	
 	
 	def footer(self, fragment=False):
-		'''Close eCromedos document.'''
+		'''Close ecromedos document.'''
 
 		self.out.write("</code>\n")
 		if not fragment:
