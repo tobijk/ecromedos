@@ -461,6 +461,13 @@ class CodeGenerator:
 			#end while
 		except StopIteration: pass
 
+		# flush state stack
+		while len(self.state) > 1:
+			state, group = self.state[-1]
+			self.closeTag(state, group)
+			self.state.pop()
+		#end if
+
 		# close document
 		self.footer(fragment)
 
