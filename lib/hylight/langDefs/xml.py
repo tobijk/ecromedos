@@ -13,7 +13,7 @@ KW_RE['kwb'] = "regex(\\&\\w+;)"
 
 STRINGDELIMITERS = "\""
 
-ML_COMMENT = "<!-- --> <!CDATA[ ]]>"
+ML_COMMENT = "<!-- --> <![CDATA[ ]]>"
 
 IGNORECASE = True
 
