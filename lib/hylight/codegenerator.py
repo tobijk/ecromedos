@@ -558,8 +558,10 @@ class CodeGenerator:
 				elif match.lastgroup == "tag_stop":
 					self.processTagStop(match)
 					break
-				else:
+				elif match.lastgroup == "tag_start":
 					self.printOut(match.start() - self.position)
+				else:
+					self.processDefault(match)
 				#end if
 				if match.end() < self.position:
 					rexpr = self.statedict['default']['rexpr']
