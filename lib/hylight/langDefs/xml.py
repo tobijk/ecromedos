@@ -11,7 +11,9 @@ TAG_DELIM['kwa'] = "< >"
 
 KW_RE['kwb'] = "regex(\\&\\w+;)"
 
-STRINGDELIMITERS = "\""
+KW_RE['kwc'] = "regex([-a-zA-Z0-9]+=(?=[^<]*>))"
+
+KW_RE['kwd'] = "regex((?<==)\"[^\"]*?\")(?=[^<]*>)"
 
 ML_COMMENT = "<!-- --> <![CDATA[ ]]>"
 
@@ -20,3 +22,5 @@ IGNORECASE = True
 IDENTIFIER = ""
 
 DIGIT = ""
+
+SYMBOLS = ""
