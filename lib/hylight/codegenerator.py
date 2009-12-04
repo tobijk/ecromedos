@@ -151,22 +151,6 @@ class CodeGenerator:
 				statedict['ml_comment_start']['rexpr'][start] = re.compile('|'.join(exprlist))
 			#end for
 		#end if
-		
-		# TAG DELIMITERS
-		if hasattr(module, "TAG_DELIM"):
-			key = module.TAG_DELIM.keys()[0]
-			starttag, stoptag = module.TAG_DELIM[key].split()[:2]
-			rexprlist.append("(?P<tag_start>%s)" % (starttag,))
-			statedict['tag_start'] = {}
-			statedict['tag_start']['id'] = CodeGenerator.TAG
-			statedict['tag_start']['function'] = self.processTagStart
-			statedict['tag_start']['group'] = key
-			rexprlist.append("(?P<tag_stop>%s)" % (stoptag,))
-			statedict['tag_stop'] = {}
-			statedict['tag_stop']['id'] = CodeGenerator.TAG
-			statedict['tag_stop']['function'] = self.processTagStop
-			statedict['tag_stop']['group'] = key
-		#end if
 
 		# ESCAPE CHARACTERS
 		escchar = ""
@@ -284,12 +268,28 @@ class CodeGenerator:
 			statedict['symbol']['function'] = self.processDefault
 		#end if
 
+		# TAG DELIMITERS
+		if hasattr(module, "TAG_DELIM"):
+			key = module.TAG_DELIM.keys()[0]
+			starttag, stoptag = module.TAG_DELIM[key].split()[:2]
+			rexprlist.append("(?P<tag_start>%s)" % (starttag,))
+			statedict['tag_start'] = {}
+			statedict['tag_start']['id'] = CodeGenerator.TAG
+			statedict['tag_start']['function'] = self.processTagStart
+			statedict['tag_start']['group'] = key
+			rexprlist.append("(?P<tag_stop>%s)" % (stoptag,))
+			statedict['tag_stop'] = {}
+			statedict['tag_stop']['id'] = CodeGenerator.TAG
+			statedict['tag_stop']['function'] = self.processTagStop
+			statedict['tag_stop']['group'] = key
+		#end if
+
 		# CASE IN/SENSITIVE
 		ignorecase = False
 		if hasattr(module, "IGNORECASE"): ignorecase = module.IGNORECASE
 
 		# COMPILE MASSIVE REGULAR EXPRESSION
-		flags = re.MULTILINE
+		flags = re.MULTILINE | re.DOTALL
 		if ignorecase: flags += re.IGNORECASE
 		statedict['default'] = {}
 		statedict['default']['id'] = -1
@@ -451,7 +451,10 @@ class CodeGenerator:
 					self.printOut(match.start() - self.position)
 					self.writeCloseTags()
 				#end if
-				self.statedict[match.lastgroup]['function'](match)
+				if match.lastgroup.endswith('_stop'):
+					self.printOut(match.end() - match.start())
+				else:
+					self.statedict[match.lastgroup]['function'](match)
 				#end if
 				if match.end() < self.position:
 					rexpr = self.statedict['default']['rexpr']
@@ -559,7 +562,7 @@ class CodeGenerator:
 					self.processTagStop(match)
 					break
 				elif match.lastgroup == "tag_start":
-					self.printOut(match.start() - self.position)
+					self.printOut(match.end() - match.start())
 				else:
 					self.processDefault(match)
 				#end if

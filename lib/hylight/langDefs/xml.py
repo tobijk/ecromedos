@@ -9,17 +9,17 @@ KW_RE = {}
 
 TAG_DELIM['kwa'] = "< >"
 
-KW_RE['kwb'] = "regex(\\&\\w+;)"
+KW_RE['kwc'] = "regex((?<==)\"[^\"]*?\")(?=[^<]*>)"
 
-KW_RE['kwc'] = "regex([-a-zA-Z0-9]+=(?=[^<]*>))"
+KW_RE['kwa'] = "regex([-a-zA-Z0-9]+=(?=[^<]*>))"
 
-KW_RE['kwd'] = "regex((?<==)\"[^\"]*?\")(?=[^<]*>)"
+KW_RE['kwd'] = "regex(\\&\\w+;)"
 
-ML_COMMENT = "<!-- --> <![CDATA[ ]]>"
+ML_COMMENT = "<!-- -->"
 
 IGNORECASE = True
 
-IDENTIFIER = ""
+IDENTIFIER = "regex(\\<\\!\\[CDATA\\[.*?\\]\\]\\>)"
 
 DIGIT = ""
 
