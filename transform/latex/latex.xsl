@@ -326,22 +326,6 @@
 		<xsl:text>menucolor=ecmdslinkcolor,pagecolor=ecmdslinkcolor,urlcolor=ecmdslinkcolor</xsl:text>
 
 		<!-- start meta info -->
-		<xsl:if test="//head/subject">
-			<xsl:text>,pdfsubject={</xsl:text><xsl:value-of select="//head/subject"/><xsl:text>}</xsl:text>
-		</xsl:if>
-		<xsl:if test="//head/title">
-			<xsl:text>,pdftitle={</xsl:text><xsl:value-of select="//head/title"/><xsl:text>}</xsl:text>
-		</xsl:if>
-		<xsl:if test="//head/author">
-			<xsl:text>,pdfauthor={</xsl:text>
-			<xsl:for-each select="//head/author">
-				<xsl:value-of select="."/>
-				<xsl:if test="position() != last()">
-					<xsl:text>, </xsl:text>
-				</xsl:if>
-			</xsl:for-each>
-			<xsl:text>}</xsl:text>
-		</xsl:if>
 		<xsl:text>,pdfcreator={</xsl:text><xsl:value-of select="$global.version"/><xsl:text>}</xsl:text>
 		<!-- end meta info -->
 		
