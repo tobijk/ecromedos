@@ -250,7 +250,8 @@
 	<xsl:text>\usepackage{calc}&#x0a;</xsl:text>
 	<xsl:text>\doublerulesepcolor{white}&#x0a;</xsl:text>
 	<xsl:text>\newlength{\ecmdstablewidth}&#x0a;</xsl:text>
-	<xsl:text>\newlength{\ecmdscolsep}&#x0a;&#x0a;</xsl:text>
+	<xsl:text>\newlength{\ecmdscolsep}&#x0a;</xsl:text>
+ 	<xsl:text>\usepackage{multirow}&#x0a;&#x0a;</xsl:text>
  
 	<xsl:text>% Environment for nested block elements&#x0a;</xsl:text>
 	<xsl:text>\newenvironment{blockelement}{%&#x0a;</xsl:text>
@@ -322,7 +323,29 @@
 		<xsl:text>\usepackage[hyperindex=false,colorlinks=true,breaklinks=true,unicode=true,&#x0a;</xsl:text>
 		<xsl:text>linkcolor=ecmdslinkcolor,anchorcolor=ecmdslinkcolor,citecolor=ecmdslinkcolor,&#x0a;</xsl:text>
 		<xsl:text>bookmarksopen=true,bookmarksnumbered=true,filecolor=ecmdslinkcolor,&#x0a;</xsl:text>
-		<xsl:text>menucolor=ecmdslinkcolor,pagecolor=ecmdslinkcolor,urlcolor=ecmdslinkcolor]{hyperref}&#x0a;&#x0a;</xsl:text>
+		<xsl:text>menucolor=ecmdslinkcolor,pagecolor=ecmdslinkcolor,urlcolor=ecmdslinkcolor</xsl:text>
+
+		<!-- start meta info -->
+		<xsl:if test="//head/subject">
+			<xsl:text>,pdfsubject={</xsl:text><xsl:value-of select="//head/subject"/><xsl:text>}</xsl:text>
+		</xsl:if>
+		<xsl:if test="//head/title">
+			<xsl:text>,pdftitle={</xsl:text><xsl:value-of select="//head/title"/><xsl:text>}</xsl:text>
+		</xsl:if>
+		<xsl:if test="//head/author">
+			<xsl:text>,pdfauthor={</xsl:text>
+			<xsl:for-each select="//head/author">
+				<xsl:value-of select="."/>
+				<xsl:if test="position() != last()">
+					<xsl:text>, </xsl:text>
+				</xsl:if>
+			</xsl:for-each>
+			<xsl:text>}</xsl:text>
+		</xsl:if>
+		<xsl:text>,pdfcreator={</xsl:text><xsl:value-of select="$global.version"/><xsl:text>}</xsl:text>
+		<!-- end meta info -->
+		
+		<xsl:text>]{hyperref}&#x0a;&#x0a;</xsl:text>
 	</xsl:if>
 
 	<xsl:text>% Recalculate layout&#x0a;</xsl:text>
