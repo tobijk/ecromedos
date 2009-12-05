@@ -289,7 +289,7 @@ class CodeGenerator:
 		if hasattr(module, "IGNORECASE"): ignorecase = module.IGNORECASE
 
 		# COMPILE MASSIVE REGULAR EXPRESSION
-		flags = re.MULTILINE | re.DOTALL
+		flags = re.MULTILINE
 		if ignorecase: flags += re.IGNORECASE
 		statedict['default'] = {}
 		statedict['default']['id'] = -1

@@ -19,7 +19,7 @@ ML_COMMENT = "<!-- -->"
 
 IGNORECASE = True
 
-IDENTIFIER = "regex(\\<\\!\\[CDATA\\[.*?\\]\\]\\>)"
+IDENTIFIER = "regex((?s)\\<\\!\\[CDATA\\[.*?\\]\\]\\>)"
 
 DIGIT = ""
 
