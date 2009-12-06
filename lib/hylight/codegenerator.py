@@ -95,9 +95,9 @@ class CodeGenerator:
 				directive = re.escape(directive)
 				if hasattr(module, "CONTINUATIONSYMBOL"):
 					contsym = re.escape(module.CONTINUATIONSYMBOL.strip())
-					expr = "%s(%s\\s+|.)*(?=(\n|\\Z))" % (directive, contsym)
+					expr = "%s(%s\\s+|.)*$" % (directive, contsym)
 				else:
-					expr = "%s.*(?=(\n|\\Z))"
+					expr = "%s.*$"
 				#end if
 			#end if
 			rexprlist.append("(?P<directive>%s)" % (expr,))
@@ -114,7 +114,7 @@ class CodeGenerator:
 				comments = module.SL_COMMENT.split()
 				exprlist = []
 				for expr in comments:
-					exprlist.append("%s.*(?=(\n|\\Z))" % (expr,))
+					exprlist.append("%s.*$" % (expr,))
 				#end for
 				expr = '|'.join(exprlist)
 			#end if
