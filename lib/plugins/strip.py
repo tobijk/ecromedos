@@ -46,7 +46,8 @@ class Plugin:
 			"counter",
 			"ref",
 			"idref",
-			"cite"
+			"cite",
+			"entity"
 		]
 
 		phantom_nodes = [
