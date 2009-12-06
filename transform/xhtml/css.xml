@@ -163,7 +163,6 @@ img.nav-button {
 
 table.nav-bottom {
 	width: 100%;
-	font-size: 90%;
 }
 
 td.nav-bottom-left {
