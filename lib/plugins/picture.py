@@ -138,10 +138,10 @@ class Plugin:
 
 		# build command line
 		if width:
-			cmd = [self.convert_bin, "-antialias", "-quiet",
+			cmd = [self.convert_bin, "-antialias",
 			        "-density", self.convert_dpi, "-scale", width+"x", src, dst]
 		else:
-			cmd = [self.convert_bin, "-antialias", "-quiet",
+			cmd = [self.convert_bin, "-antialias",
 			        "-density", self.convert_dpi, src, dst]
 		#end if
 
