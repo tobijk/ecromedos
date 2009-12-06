@@ -118,7 +118,7 @@
   - Set typewriter text.
 -->
 <xsl:template match="tt">
-	<span style="font-family: 'courier new', courier, fixed"><xsl:apply-templates/></span>
+	<span style="font-family: monospace"><xsl:apply-templates/></span>
 </xsl:template>
 
 <!--
