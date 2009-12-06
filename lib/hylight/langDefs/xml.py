@@ -9,9 +9,9 @@ KW_RE = {}
 
 TAG_DELIM['kwa'] = "< >"
 
-KW_RE['kwc'] = "regex((?<==)\"[^\"]*?\")(?=[^<]*>)"
+KW_RE['kwc'] = "regex(\"[^\"]*?\")(?=[^<]*>)"
 
-KW_RE['kwa'] = "regex([-a-zA-Z0-9]+=(?=[^<]*>))"
+KW_RE['kwa'] = "regex([-a-zA-Z0-9]+\\s*=(?=[^<]*>))"
 
 KW_RE['kwd'] = "regex(\\&\\w+;)"
 
