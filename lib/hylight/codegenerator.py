@@ -137,7 +137,7 @@ class CodeGenerator:
 				startlist.append(commentlist[2*i])
 				stoplist.append(commentlist[2*i+1])
 			#end for
-			rexprlist.append("(?P<ml_comment_start>%s)" % ( '|'.join(map(re.escape, startlist)),))
+			rexprlist.append("(?P<ml_comment_start>%s)" % '|'.join(map(re.escape, startlist)))
 			statedict['ml_comment_start'] = {}
 			statedict['ml_comment_start']['id'] = CodeGenerator.ML_COMMENT
 			statedict['ml_comment_start']['function'] = self.processMLComment
@@ -145,7 +145,7 @@ class CodeGenerator:
 			for start, stop in zip(startlist, stoplist):
 				exprlist = []
 				if allownestedcomments:
-					exprlist.append("(?P<ml_comment_start>%s)" % (re.escape(start),))
+					exprlist.append("(?P<ml_comment_start>%s)" % '|'.join(map(re.escape, startlist)))
 				#end if
 				exprlist.append("(?P<ml_comment_stop>%s)" % (re.escape(stop),))
 				statedict['ml_comment_start']['rexpr'][start] = re.compile('|'.join(exprlist))
@@ -523,7 +523,7 @@ class CodeGenerator:
 					self.processMLComment(match, False)
 				#end if
 				if match.end() < self.position:
-					rexpr = self.statedict['default']['rexpr']
+					rexpr = self.statedict['ml_comment_start']['rexpr'][start]
 					iterator = rexpr.finditer(self.buf, self.position)
 				#end if
 				match = iterator.next()
