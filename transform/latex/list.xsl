@@ -115,9 +115,9 @@
 
 <!-- item in glossary list... -->
 <xsl:template match="dt">
-	<xsl:text>\item[</xsl:text>
+	<xsl:text>\item[\parbox{\textwidth}{</xsl:text>
 	<xsl:apply-templates/>
-	<xsl:text>]</xsl:text>
+	<xsl:text>}]</xsl:text>
 </xsl:template>
 
 <!-- ...and its definition -->
