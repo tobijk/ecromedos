@@ -14,7 +14,9 @@
 		<document-subtitle>\normalsize</document-subtitle>
 		<sectioning-title>\normalsize\sffamily\bfseries</sectioning-title>
 		<chapter-title>\LARGE\sffamily\bfseries</chapter-title>
+		<minitoc-chapter-title>\Large\sffamily\bfseries</minitoc-chapter-title>
 		<section-title>\Large\sffamily\bfseries</section-title>
+		<minitoc-section-title>\large\sffamily\bfseries</minitoc-section-title>
 		<subsection-title>\large\sffamily\bfseries</subsection-title>
 		<subsubsection-title>\normalsize\sffamily\bfseries</subsubsection-title>
 		<description-label>\normalsize\rmfamily\bfseries</description-label>
@@ -24,6 +26,7 @@
 		<page-number>\normalsize\upshape\rmfamily</page-number>
 		<paragraph-title>\normalsize\rmfamily\bfseries</paragraph-title>
 		<part-title>\huge\sffamily\bfseries</part-title>
+		<minitoc-part-title>\Large\sffamily\bfseries</minitoc-part-title>
 		<part-number>\huge\sffamily\bfseries</part-number>
 		<page-head>\normalsize\slshape</page-head>
 		<caption-setup>font=small,font=rm,labelfont=bf,format=hang,labelformat=simple</caption-setup>
@@ -54,6 +57,7 @@
 		<document-subtitle>\normalsize</document-subtitle>
 		<sectioning-title>\normalsize\sffamily\bfseries</sectioning-title>
 		<chapter-title>\LARGE\sffamily\bfseries</chapter-title>
+		<minitoc-chapter-title>\Large\sffamily\bfseries</minitoc-chapter-title>
 		<section-title>\Large\sffamily\bfseries</section-title>
 		<subsection-title>\large\sffamily\bfseries</subsection-title>
 		<subsubsection-title>\normalsize\sffamily\bfseries</subsubsection-title>
@@ -64,6 +68,7 @@
 		<page-number>\normalsize\upshape\rmfamily</page-number>
 		<paragraph-title>\normalsize\rmfamily\bfseries</paragraph-title>
 		<part-title>\huge\sffamily\bfseries</part-title>
+		<minitoc-part-title>\Large\sffamily\bfseries</minitoc-part-title>
 		<part-number>\huge\sffamily\bfseries</part-number>
 		<page-head>\normalsize\slshape</page-head>
 		<caption-setup>font=small,font=rm,labelfont=bf,format=hang,labelformat=simple</caption-setup>
@@ -87,8 +92,8 @@
 		<document-title>\large\sffamily\bfseries</document-title>
 		<document-subtitle>\normalsize</document-subtitle>
 		<sectioning-title>\normalsize\sffamily\bfseries</sectioning-title>
-		<chapter-title>\LARGE\sffamily\bfseries</chapter-title>
 		<section-title>\Large\sffamily\bfseries</section-title>
+		<minitoc-section-title>\large\sffamily\bfseries</minitoc-section-title>
 		<subsection-title>\large\sffamily\bfseries</subsection-title>
 		<subsubsection-title>\normalsize\sffamily\bfseries</subsubsection-title>
 		<description-label>\normalsize\rmfamily\bfseries</description-label>
@@ -97,13 +102,10 @@
 		<footnote-reference>\footnotesize\rmfamily</footnote-reference>
 		<page-number>\normalsize\upshape\rmfamily</page-number>
 		<paragraph-title>\normalsize\rmfamily\bfseries</paragraph-title>
-		<part-title>\huge\sffamily\bfseries</part-title>
-		<part-number>\huge\sffamily\bfseries</part-number>
 		<page-head>\normalsize\slshape</page-head>
 		<caption-setup>font=small,font=rm,labelfont=bf,format=hang,labelformat=simple</caption-setup>
 		<page-style>scrheadings</page-style>
 		<titlepage-style>scrplain</titlepage-style>
-		<partpage-style>empty</partpage-style>
 		<chapterpage-style>scrheadings</chapterpage-style>
 		<indexpage-style>scrheadings</indexpage-style>
 		<page-head-fields>

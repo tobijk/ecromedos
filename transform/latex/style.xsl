@@ -23,10 +23,10 @@
 	<xsl:text>\setkomafont{sectioning}{</xsl:text>
 		<xsl:value-of select="$global.stylesheet/style/child::*[name() = $documentclass]/sectioning-title"/>
 	<xsl:text>}&#x0a;</xsl:text>
-	<xsl:text>\setkomafont{part}{</xsl:text>
-		<xsl:value-of select="$global.stylesheet/style/child::*[name() = $documentclass]/part-title"/>
-	<xsl:text>}&#x0a;</xsl:text>
 	<xsl:if test="$documentclass != 'article'">
+		<xsl:text>\setkomafont{part}{</xsl:text>
+			<xsl:value-of select="$global.stylesheet/style/child::*[name() = $documentclass]/part-title"/>
+		<xsl:text>}&#x0a;</xsl:text>
 		<xsl:text>\setkomafont{chapter}{</xsl:text>
 			<xsl:value-of select="$global.stylesheet/style/child::*[name() = $documentclass]/chapter-title"/>
 		<xsl:text>}&#x0a;</xsl:text>
@@ -72,9 +72,34 @@
 	<xsl:text>\setkomafont{pagenumber}{</xsl:text>
 		<xsl:value-of select="$global.stylesheet/style/child::*[name() = $documentclass]/page-number"/>
 	<xsl:text>}&#x0a;</xsl:text>
-	<xsl:text>\setkomafont{partnumber}{</xsl:text>
-		<xsl:value-of select="$global.stylesheet/style/child::*[name() = $documentclass]/part-number"/>
-	<xsl:text>}&#x0a;&#x0a;</xsl:text>
+	<xsl:if test="$documentclass != 'article'">
+		<xsl:text>\setkomafont{partnumber}{</xsl:text>
+			<xsl:value-of select="$global.stylesheet/style/child::*[name() = $documentclass]/part-number"/>
+		<xsl:text>}&#x0a;&#x0a;</xsl:text>
+	</xsl:if>
+
+	<!-- minitoc -->
+	<xsl:choose>
+		<xsl:when test="$documentclass != 'article'">
+			<!-- part-level toc style -->
+			<xsl:text>\mtcsettitlefont{parttoc}{</xsl:text>
+				<xsl:value-of select="$global.stylesheet/style/child::*[name() = $documentclass]/minitoc-part-title"/>
+			<xsl:text>}&#x0a;</xsl:text>
+			<xsl:text>\setlength{\ptcindent}{1em}&#x0a;</xsl:text>
+			<!-- chapter-level toc style -->
+			<xsl:text>\mtcsettitlefont{minitoc}{</xsl:text>
+				<xsl:value-of select="$global.stylesheet/style/child::*[name() = $documentclass]/minitoc-chapter-title"/>
+			<xsl:text>}&#x0a;</xsl:text>
+			<xsl:text>\setlength{\mtcindent}{1em}&#x0a;</xsl:text>
+		</xsl:when>
+		<xsl:otherwise>
+			<!-- section level toc style -->
+			<xsl:text>\mtcsettitlefont{secttoc}{</xsl:text>
+				<xsl:value-of select="$global.stylesheet/style/child::*[name() = $documentclass]/minitoc-section-title"/>
+			<xsl:text>}&#x0a;</xsl:text>
+			<xsl:text>\setlength{\stcindent}{1em}&#x0a;</xsl:text>
+		</xsl:otherwise>
+	</xsl:choose>
 
 </xsl:template>
 
