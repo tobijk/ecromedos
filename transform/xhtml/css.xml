@@ -337,7 +337,7 @@ div.listing-caption {
 pre.listing {
 	margin: 0px;
 	padding: 0.5em;
-	font-family: monospace;
+	font-family: "Courier New", monospace;
 }
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -346,7 +346,7 @@ pre.listing {
 pre.verbatim {
 	margin-top: 1.5ex;
 	margin-bottom: 1.5ex;
-	font-family: monospace;
+	font-family: "Courier New", monospace;
 }
 
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
