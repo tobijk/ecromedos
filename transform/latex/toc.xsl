@@ -25,7 +25,7 @@
 	<xsl:if test="//chapter/make-overview">
 		<xsl:text>\dominitoc{}&#x0a;</xsl:text>
 	</xsl:if>
-	<xsl:if test="//section/make-overview">
+	<xsl:if test="/article and //section/make-overview">
 		<xsl:text>\dosecttoc{}&#x0a;</xsl:text>
 	</xsl:if>
 

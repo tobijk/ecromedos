@@ -84,6 +84,8 @@ div.listof-item {
 div.minitoc {
 	font-family: sans-serif;
 	margin: 2.5ex 0em 2.5ex 0em;
+	border-left: 2px solid black;
+	padding: 0ex 1em 0ex 1em;
 }
 
 div.minitoc-heading {
