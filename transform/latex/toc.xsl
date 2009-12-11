@@ -193,6 +193,7 @@
 		<xsl:when test="/report">
 			<xsl:text>\maketitle&#x0a;&#x0a;</xsl:text>
 			<xsl:text>\vfill&#x0a;</xsl:text>
+			<xsl:text>\thispagestyle{empty}&#x0a;</xsl:text>
 			<xsl:apply-templates select="legal"/>
 		</xsl:when>
 		<xsl:otherwise>
