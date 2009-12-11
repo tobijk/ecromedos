@@ -38,19 +38,23 @@ def printVersion():
 def printUsage():
 	'''Display usage information.'''
 
-	print "                                                            "
-	print "Usage: ecromedos [OPTIONS] <sourcefile>                     "
-	print "                                                            "
-	print "Options:                                                    "
-	print "                                                            "
-	print " --help          Display this information                   "
-	print " --novalid       Do not attempt to validate document        "
-	print "                                                            "
-	print " -c <file>       Use an alternative configuration file      "
-	print " -f <format>     Specify the desired output format          "
-	print " -n <doctype>    Start a new document of given doctype      "
-	print " -s <directory>  Use an alternative stylesheet directory    "
-	print " -v              Print version information and exit         "
+	print "                                                                      "
+	print "Usage: ecromedos [OPTIONS] <sourcefile>                               "
+	print "                                                                      "
+	print "Options:                                                              "
+	print "                                                                      "
+	print " --help          display this information                             "
+	print " --novalid       skip validation of the document                      "
+	print "                                                                      "
+	print " -c <file>       use an alternative configuration file                "
+	print " -f <format>     generate specified output format                     "
+	print "                 (xhtml, latex, pdflatex or xelatex)                  "
+	print " -n <doctype>    start a new document of given doctype                "
+	print "                 (article, book or report)                            "
+	print " -b <directory>  use an alternative base directory from where to look "
+	print "                 up the transformation rules                          "
+	print " -s <file>       use an alternative style definition file             " 
+	print " -v              print version information and exit                   "
 #end function
 
 
@@ -60,10 +64,11 @@ def parseCmdLine():
 	options = {}
 
 	try:
-		opts, args = getopt.getopt(sys.argv[1:], "vn:f:s:c:", ["help","novalid"])
+		opts, args = getopt.getopt(sys.argv[1:], "vn:f:s:b:c:", ["help","novalid"])
 	except getopt.GetoptError, e:
-		msg = "Error while parsing command line: "
-		raise ECMDSError(msg + e.msg)
+		msg  = "Error while parsing command line: %s\n" % e.msg
+		msg += "Type 'ecromedos --help' for more information."
+		raise ECMDSError(msg)
 	#end try
 
 	for o, v in opts:
@@ -79,14 +84,24 @@ def parseCmdLine():
 			sys.exit(0)
 		elif o == "-f":
 			options["target_format"] = v
-		elif o == "-s":
+		elif o == "-b":
 			options["style_dir"] = v
 		elif o == "-c":
 			options["config_file"] = v
 		elif o == "--novalid":
 			options["do_validate"] = "no"
+		elif o == "-s":
+			if not os.path.isfile(v):
+				msg = "Style definition file '%s' not found." % v
+				raise ECMDSError(msg)
+			else:
+				v = os.path.abspath(v)
+			#end if
+			params = options.setdefault("xsl_params", {})
+			params["global.stylesheet"] = "document('%s')" % v
 		else:
-			msg = "Unrecognized option '%s'." % (o,)
+			msg = "Unrecognized option '%s'.\n" % (o,)
+			msg = "Type 'ecromedos --help' for more information."
 			raise ECMDSError(msg)
 		#end if
 	#end while
@@ -151,12 +166,11 @@ if __name__ == "__main__":
 			# parse command line
 			options, files = parseCmdLine()
 			if len(files) < 1:
-				msg = "You did not specify an input file."
+				msg = "No input file specified."
 				raise ECMDSError(msg)
 			#end if
 		except ECMDSError, e:
 			sys.stderr.write(e.msg() + "\n")
-			sys.stderr.write("Type 'ecromedos --help' for more information.\n")
 			sys.exit(ECMDS_ERR_INVOCATION)
 		#end try
 

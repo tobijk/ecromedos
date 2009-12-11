@@ -8,8 +8,6 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:param name="global.stylesheet" select="document('style.xml')"/>
-
 <!--
   - Filter out labels to avoid nested links.
 -->
@@ -518,7 +516,8 @@
   - Print CSS definitions
 -->
 <xsl:template name="css.definitions">
-	<xsl:value-of select="$global.stylesheet/css"/>
+	<xsl:param name="css.stylesheet" select="document('css.xml')"/>
+	<xsl:value-of select="$css.stylesheet/css"/>
 </xsl:template>
 
 <!--
