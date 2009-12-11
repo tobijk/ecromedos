@@ -24,8 +24,13 @@ class ECMDSXslProc:
 	def applyStylesheet(self, document, stylesheet):
 		'''Apply stylesheet to document.'''
 
+		params = None
 		try:
-			result = stylesheet.applyStylesheet(document, None)
+			params = self.config['xsl_params']
+		except KeyError: pass
+
+		try:
+			result = stylesheet.applyStylesheet(document, params)
 		except libxml2.libxmlError, e:
 			msg = "Error while transforming document:\n %s." % (str(e),)
 			raise ECMDSError(msg)

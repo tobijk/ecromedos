@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ - Desc:    This file is part of the ecromedos Document Preparation System
+ - Date:    2009/11/15
+ - Author:  Tobias Koch (tkoch@ecromedos.net)
+ - License: GNU General Public License, version 2
+ - URL:     http://www.ecromedos.net
+-->
+<entities>
+
+	<value key="tex">T<sub style="text-transform:uppercase;vertical-align:-0.5ex;
+		margin-left:-0.1667em;line-height:0ex;margin-right:-0.125em;font-size:1em;">e</sub>X</value>
+	<value key="latex">L<sup style="text-transform: uppercase; line-height:0ex;
+		letter-spacing: 1px;font-size: 0.85em;vertical-align: 0.15em;margin-left: -0.36em;margin-right: -0.15em;">a</sup>T<sub
+		style="text-transform:uppercase;vertical-align:-0.5ex;margin-left:-0.1667em;line-height:0ex;
+		margin-right:-0.125em;font-size:1em;">e</sub>X</value>
+	<value key="xetex">X<sub style="vertical-align:-0.5ex;
+		margin-left:-0.125em;line-height:0ex;margin-right:-0.1667em;font-size:1em;">&#x018e;</sub>T<sub
+		style="text-transform:uppercase;vertical-align:-0.5ex;margin-left:-0.1667em;line-height:0ex;
+		margin-right:-0.125em;font-size:1em;">e</sub>X</value>
+	<value key="xelatex">X<sub style="vertical-align:-0.5ex;
+		margin-left:-0.125em;line-height:0ex;margin-right:-0.1em;font-size:1em;">&#x018e;</sub>L<sup
+		style="text-transform: uppercase; line-height:0ex;letter-spacing: 1px;
+		font-size: 0.85em;vertical-align: 0.15em;margin-left: -0.36em;margin-right: -0.15em;">a</sup>T<sub
+		style="text-transform:uppercase;vertical-align:-0.5ex;margin-left:-0.1667em;line-height:0ex;
+		margin-right:-0.125em;font-size:1em;">e</sub>X</value>
+	<value key="nbsp">&#x00a0;</value>
+	<value key="zwsp"><!-- remove --></value>
+	<value key="endash">&#x2013;</value>
+	<value key="emdash">&#x2014;</value>
+	<value key="dots">...</value>
+	<value key="check">&#x2714;</value>
+	<value key="cross">&#x2718;</value>
+
+</entities>
