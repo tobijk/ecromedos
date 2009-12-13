@@ -6,7 +6,8 @@
  - License: GNU General Public License, version 2
  - URL:     http://www.ecromedos.net
 -->
-<css>
+<style>
+	<css>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   -	Overall settings
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -464,4 +465,5 @@ span.idxsubitem {
 span.idxsubsubitem {
 	margin-left: 5em;
 }
-</css>
+	</css>
+</style>
