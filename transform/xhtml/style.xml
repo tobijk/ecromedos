@@ -401,10 +401,10 @@ h1.glsection {
 	font-size: 150%;
 }
 span.gllink {
-	margin-right: 1em;
+	margin-right: 0.5em;
 }
 span.glnolink {
-	margin-right: 1em;
+	margin-right: 0.5em;
 	color: #999999;
 }
 a.gllink {
@@ -432,13 +432,13 @@ h1.idxsection {
 	font-size: 150%;
 }
 span.idxlink {
-	margin-right: 1em;
+	margin-right: 0.5em;
 }
 a.idxlink {
 	font-weight: normal;
 }
 span.idxnolink {
-	margin-right: 1em;
+	margin-right: 0.5em;
 	color: #999999;
 }
 table.idxlisting {
