@@ -168,7 +168,10 @@ if __name__ == "__main__":
 			if len(files) < 1:
 				msg = "No input file specified."
 				raise ECMDSError(msg)
-			#end if
+			if not os.path.isfile(files[0]):
+				msg = "No such file '%s'." % files[0]
+				raise ECMDSError(msg)
+			#end ifs
 		except ECMDSError, e:
 			sys.stderr.write(e.msg() + "\n")
 			sys.exit(ECMDS_ERR_INVOCATION)
