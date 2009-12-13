@@ -30,11 +30,13 @@
 								<xsl:value-of select="normalize-space(@name)"/>
 							</a>
 						</span>
+						<xsl:text> </xsl:text>
 					</xsl:when>
 					<xsl:otherwise>
 						<span class="glnolink">
 							<xsl:value-of select="normalize-space(@name)"/>
 						</span>
+						<xsl:text> </xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:for-each>
