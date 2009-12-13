@@ -518,7 +518,7 @@
   - Print CSS definitions
 -->
 <xsl:template name="css.definitions">
-	<xsl:value-of select="$global.stylesheet/css"/>
+	<xsl:value-of select="$global.stylesheet/style/css"/>
 </xsl:template>
 
 <!--
