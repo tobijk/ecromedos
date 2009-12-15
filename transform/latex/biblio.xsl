@@ -26,7 +26,9 @@
 	<xsl:text>\begin{thebibliography}{</xsl:text>
 	<xsl:choose>
 		<xsl:when test="@number='no'">
+			<xsl:text>9</xsl:text>
 			<xsl:apply-templates select="bibitem[1]" mode="longest"/>
+			<xsl:text>9</xsl:text>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:text>9</xsl:text>
