@@ -115,14 +115,14 @@
 
 <!-- item in glossary list... -->
 <xsl:template match="dt">
-	<xsl:text>\item[</xsl:text>
+	<xsl:text>\item[{\parbox[b]{\linewidth}{</xsl:text>
 	<xsl:apply-templates/>
-	<xsl:text>]</xsl:text>
+	<xsl:text>}}]</xsl:text>
 </xsl:template>
 
 <!-- ...and its definition -->
 <xsl:template match="dd">
-	<xsl:text>{</xsl:text>
+	<xsl:text>{\hfill\\</xsl:text>
 	<xsl:apply-templates/>
 	<xsl:text>}&#x0a;</xsl:text>
 </xsl:template>

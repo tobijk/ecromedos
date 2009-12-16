@@ -224,14 +224,18 @@ class Plugin:
 			self.out.write("\\begin{document}\n")
 		#end if
 
+		# save TeX markup
+		formula = node.getContent()
+
 		# give each formula one page
-		self.out.write("$%s$\n\\clearpage{}\n" % (node.getContent(),))
+		self.out.write("$%s$\n\\clearpage{}\n" % formula)
 
 		# replace node
 		copy_node = libxml2.newNode("copy")
 		img_node = libxml2.newNode("img")
 		img_node.newProp("src", "m%06d.gif" % (self.counter,))
-		img_node.newProp("alt", "")
+		img_node.newProp("alt", "formula")
+		img_node.newProp("class", "math")
 		copy_node.addChild(img_node)
 		node.replaceNode(copy_node)
 		node.freeNode()
