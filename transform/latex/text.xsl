@@ -248,7 +248,7 @@
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:text>\ref</xsl:text>
-			<xsl:if test="ancestor::link and $cmdopt.hyperref = 'yes'">
+			<xsl:if test="ancestor::link and $global.hyperref = 'yes'">
 				<xsl:text>*</xsl:text>
 			</xsl:if>
 			<xsl:text>{</xsl:text>
@@ -261,7 +261,7 @@
 <xsl:template match="pageref">
 	<xsl:variable name="idref" select="@idref"/>
 	<xsl:text>\pageref</xsl:text>
-	<xsl:if test="ancestor::link and $cmdopt.hyperref = 'yes'">
+	<xsl:if test="ancestor::link and $global.hyperref = 'yes'">
 		<xsl:text>*</xsl:text>
 	</xsl:if>
 	<xsl:text>{</xsl:text>

@@ -58,7 +58,7 @@
 -->
 <xsl:template match="link">
 	<xsl:choose>
-		<xsl:when test="$cmdopt.hyperref = 'yes'">
+		<xsl:when test="$global.hyperref = 'yes'">
 			<xsl:choose>
 				<xsl:when test="@url">
 					<xsl:text>\href{</xsl:text>
