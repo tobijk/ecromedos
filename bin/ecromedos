@@ -45,7 +45,10 @@ def printUsage():
 	print "                                                                      "
 	print " --draft         don't generate glossary or keyword indexes, which    "
 	print "                 can save substantial amounts of time                 "
+	print " --finedtp       disable lazy typesetting, this can result in overful "
+	print "                 horizontal boxes                                     "
 	print " --help          display this information                             "
+	print " --nohyperref    disable active links in PDF output                   "
 	print " --novalid       skip validation of the document                      "
 	print "                                                                      "
 	print " -b <directory>  use an alternative base directory from where to look "
@@ -67,21 +70,26 @@ def parseCmdLine():
 
 	try:
 		opts, args = getopt.getopt(sys.argv[1:], "vn:f:s:b:c:",
-			["draft", "help","novalid"])
+			["draft", "finedtp", "help", "nohyperref", "novalid"])
 	except getopt.GetoptError, e:
 		msg  = "Error while parsing command line: %s\n" % e.msg
 		msg += "Type 'ecromedos --help' for more information."
 		raise ECMDSError(msg)
 	#end try
 
+	params = options.setdefault("xsl_params", {})
+
 	for o, v in opts:
 		if o == "--draft":
-			params = options.setdefault("xsl_params", {})
 			params["global.draft"] = "'yes'"
+		elif o == "--finedtp":
+			params["global.lazydtp"] = "'no'"
 		elif o == "--help":
 			printVersion()
 			printUsage()
 			sys.exit(0)
+		elif o == "--nohyperref":
+			params["global.hyperref"] = "'no'"
 		elif o == "--novalid":
 			options["do_validate"] = "no"
 		elif o == "-b":
@@ -100,7 +108,6 @@ def parseCmdLine():
 			else:
 				v = os.path.abspath(v)
 			#end if
-			params = options.setdefault("xsl_params", {})
 			params["global.stylesheet"] = "document('%s')" % v
 		elif o == "-v":
 			printVersion()

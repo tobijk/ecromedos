@@ -9,13 +9,8 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <!-- command line parameters -->
-<xsl:param name="cmdopt.hyperref" select="'yes'"/>
-<xsl:param name="cmdopt.lazy" select="'yes'"/>
-
-<!-- activate fixes for prevailing latex bugs -->
-<xsl:param name="cmdopt.colortblfix" select="'no'"/>
-<xsl:param name="cmdopt.multicolumnfix" select="'no'"/>
-<xsl:param name="cmdopt.pagebreakfix" select="'no'"/>
+<xsl:param name="global.hyperref" select="'yes'"/>
+<xsl:param name="global.lazydtp" select="'yes'"/>
 
 <!--
   - Column mode
@@ -128,82 +123,7 @@
   - Insert some fixes for prevailing latex bugs
 -->
 <xsl:template name="latex.fixes">
-
-	<xsl:if test="$cmdopt.colortblfix = 'yes'">
-		<xsl:text>% some colortbl.stys cause problems with doubleruleseps in longtable&#x0a;</xsl:text>
-		<xsl:text>\makeatletter&#x0a;</xsl:text>
-		<xsl:text>\AtBeginDocument{&#x0a;</xsl:text>
-		<xsl:text>  \ifx\longtable\@undefined\else&#x0a;</xsl:text>
-		<xsl:text>    \def\LT@@hline{%&#x0a;</xsl:text>
-		<xsl:text>      \ifx\@let@token\hline&#x0a;</xsl:text>
-		<xsl:text>        \global\let\@let@token\@gobble&#x0a;</xsl:text>
-		<xsl:text>        \ifx\CT@drsc@\relax&#x0a;</xsl:text>
-		<xsl:text>          \gdef\CT@LT@sep{%&#x0a;</xsl:text>
-		<xsl:text>            \noalign{\penalty-\@medpenalty\vskip\doublerulesep}}%&#x0a;</xsl:text>
-		<xsl:text>        \else&#x0a;</xsl:text>
-		<xsl:text>          \gdef\CT@LT@sep{%&#x0a;</xsl:text>
-		<xsl:text>            \multispan\LT@cols{%&#x0a;</xsl:text>
-		<xsl:text>              \CT@drsc@\leaders\hrule\@height\doublerulesep\hfill}\cr}%&#x0a;</xsl:text>
-		<xsl:text>        \fi&#x0a;</xsl:text>
-		<xsl:text>      \else&#x0a;</xsl:text>
-		<xsl:text>        \global\let\@let@token\@empty&#x0a;</xsl:text>
-		<xsl:text>        \gdef\CT@LT@sep{%&#x0a;</xsl:text>
-		<xsl:text>          \noalign{\penalty-\@lowpenalty\vskip-\arrayrulewidth}}%&#x0a;</xsl:text>
-		<xsl:text>      \fi&#x0a;</xsl:text>
-		<xsl:text>      \ifnum0=`{\fi}%&#x0a;</xsl:text>
-		<xsl:text>      \multispan\LT@cols&#x0a;</xsl:text>
-		<xsl:text>      {\CT@arc@\leaders\hrule\@height\arrayrulewidth\hfill}\cr&#x0a;</xsl:text>
-		<xsl:text>      \CT@LT@sep&#x0a;</xsl:text>
-		<xsl:text>      \multispan\LT@cols&#x0a;</xsl:text>
-		<xsl:text>      {\CT@arc@\leaders\hrule\@height\arrayrulewidth\hfill}\cr&#x0a;</xsl:text>
-		<xsl:text>      \noalign{\penalty\@M}%&#x0a;</xsl:text>
-		<xsl:text>      \@let@token}&#x0a;</xsl:text>
-		<xsl:text>    \fi}&#x0a;</xsl:text>
-		<xsl:text>\makeatother&#x0a;&#x0a;</xsl:text>
-	</xsl:if>
-
-	<xsl:if test="$cmdopt.pagebreakfix = 'yes'">
-		<xsl:text>\makeatletter&#x0a;</xsl:text>
-		<xsl:text>\typeout{fix for tools/2796}&#x0a;</xsl:text>
-		<xsl:text>\def\LT@start{%&#x0a;</xsl:text>
-		<xsl:text>  \let\LT@start\endgraf&#x0a;</xsl:text>
-		<xsl:text>  \endgraf\penalty\z@\vskip\LTpre&#x0a;</xsl:text>
-		<xsl:text>  \dimen@\pagetotal&#x0a;</xsl:text>
-		<xsl:text>  \advance\dimen@ \ht\ifvoid\LT@firsthead\LT@head\else\LT@firsthead\fi&#x0a;</xsl:text>
-		<xsl:text>  \advance\dimen@ \dp\ifvoid\LT@firsthead\LT@head\else\LT@firsthead\fi&#x0a;</xsl:text>
-		<xsl:text>  \advance\dimen@ \ht\LT@foot&#x0a;</xsl:text>
-		<xsl:text>  \dimen@ii\vfuzz&#x0a;</xsl:text>
-		<xsl:text>  \vfuzz\maxdimen&#x0a;</xsl:text>
-		<xsl:text>    \setbox\tw@\copy\z@&#x0a;</xsl:text>
-		<xsl:text>    \setbox\tw@\vsplit\tw@ to \ht\@arstrutbox&#x0a;</xsl:text>
-		<xsl:text>    \setbox\tw@\vbox{\unvbox\tw@}%&#x0a;</xsl:text>
-		<xsl:text>  \vfuzz\dimen@ii&#x0a;</xsl:text>
-		<xsl:text>  \advance\dimen@ \ht&#x0a;</xsl:text>
-		<xsl:text>        \ifdim\ht\@arstrutbox>\ht\tw@\@arstrutbox\else\tw@\fi&#x0a;</xsl:text>
-		<xsl:text>  \advance\dimen@\dp&#x0a;</xsl:text>
-		<xsl:text>        \ifdim\dp\@arstrutbox>\dp\tw@\@arstrutbox\else\tw@\fi&#x0a;</xsl:text>
-		<xsl:text>  \advance\dimen@ -\pagegoal&#x0a;</xsl:text>
-		<xsl:text>%  \ifdim \dimen@>\z@\vfil\break\fi&#x0a;</xsl:text>
-		<xsl:text>  \ifdim \dimen@>\z@\unskip\vfil\break\fi&#x0a;</xsl:text>
-		<xsl:text>      \global\@colroom\@colht&#x0a;</xsl:text>
-		<xsl:text>  \ifvoid\LT@foot\else&#x0a;</xsl:text>
-		<xsl:text>    \advance\vsize-\ht\LT@foot&#x0a;</xsl:text>
-		<xsl:text>    \global\advance\@colroom-\ht\LT@foot&#x0a;</xsl:text>
-		<xsl:text>    \dimen@\pagegoal\advance\dimen@-\ht\LT@foot\pagegoal\dimen@&#x0a;</xsl:text>
-		<xsl:text>    \maxdepth\z@&#x0a;</xsl:text>
-		<xsl:text>  \fi&#x0a;</xsl:text>
-		<xsl:text>  \ifvoid\LT@firsthead\copy\LT@head\else\box\LT@firsthead\fi&#x0a;</xsl:text>
-		<xsl:text>  \output{\LT@output}}&#x0a;</xsl:text>
-		<xsl:text>\makeatother&#x0a;&#x0a;</xsl:text>
-	</xsl:if>
-
-	<xsl:if test="$cmdopt.multicolumnfix = 'yes'">
-		<xsl:text>% in some versions multicolumn does not accept multiple paragraphs&#x0a;</xsl:text>
-		<xsl:text>\expandafter\renewcommand\expandafter\multicolumn&#x0a;</xsl:text>
-		<xsl:text>  \expandafter[\expandafter3\expandafter]\expandafter{%&#x0a;</xsl:text>
-		<xsl:text>    \multicolumn{#1}{#2}{#3}}&#x0a;&#x0a;</xsl:text>
-	</xsl:if>
-
+	<!-- add here fixes for broken packages -->
 </xsl:template>
 
 <!--
@@ -317,7 +237,7 @@
 	<xsl:text>% For per chapter overviews&#x0a;</xsl:text>
 	<xsl:text>\usepackage[checkfiles,tight]{minitoc}&#x0a;&#x0a;</xsl:text>
 
-	<xsl:if test="$cmdopt.hyperref='yes'">
+	<xsl:if test="$global.hyperref='yes'">
 		<xsl:text>\definecolor{ecmdslinkcolor}{rgb}{0.11,0.11,0.44}&#x0a;&#x0a;</xsl:text>
 		<xsl:text>%Bookmarks, Links and URLs in PDF&#x0a;</xsl:text>
 		<xsl:text>\usepackage[hyperindex=false,colorlinks=true,breaklinks=true,unicode=true,&#x0a;</xsl:text>
@@ -353,7 +273,7 @@
 	</xsl:choose>
 	<xsl:text>}&#x0a;&#x0a;</xsl:text>
 
-	<xsl:if test="$cmdopt.lazy = 'yes'">
+	<xsl:if test="$global.lazydtp = 'yes'">
 		<xsl:text>% Turn on lazy typesetting.&#x0a;</xsl:text>
 		<xsl:text>\sloppy&#x0a;&#x0a;</xsl:text>
 		<xsl:text>\clubpenalty=9999&#x0a;</xsl:text>
