@@ -30,8 +30,8 @@ VERSION = "2.0.0"
 def printVersion():
 	'''Display version information.'''
 
-	print "ecromedos Document Processor, version %s   " % (VERSION,)
-	print "Copyright (C) 2005-2009 Tobias Koch (tkoch@ecromedos.net)"
+	print "ecromedos Document Processor, version %s    " % (VERSION,)
+	print "Copyright (C) 2005-2009, Tobias Koch (tkoch@ecromedos.net)"
 #end function
 
 
@@ -43,8 +43,8 @@ def printUsage():
 	print "                                                                      "
 	print "Options:                                                              "
 	print "                                                                      "
-	print " --draft         don't generate glossary or keyword indexes when      "
-	print "                 producing XHTML in order to save time                "
+	print " --draft         don't generate glossary or keyword indexes, which    "
+	print "                 can save substantial amounts of time                 "
 	print " --help          display this information                             "
 	print " --novalid       skip validation of the document                      "
 	print "                                                                      "
