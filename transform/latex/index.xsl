@@ -10,10 +10,10 @@
 
 <!--
  - All 'make-index' elements are replaced with an 'index' section
- - by the pre-processor. So this should never match...
+ - by the pre-processor. So this should never match, unless in draft mode.
 -->
 <xsl:template match="make-index">
-	<xsl:message>Warning: unprocessed 'make-index' element found.</xsl:message>
+	<!-- cut -->
 </xsl:template>
 
 <!--
@@ -99,10 +99,10 @@
 
 <!--
  - All 'idxterm' elements are replaced with an in-text label
- - by the pre-processor. So this should never match...
+ - by the pre-processor. So this should never match, unless in draft mode.
 -->
 <xsl:template match="idxterm">
-	<xsl:message>Warning: unprocessed 'idxterm' element found.</xsl:message>
+	<!-- cut -->
 </xsl:template>
 
 </xsl:stylesheet>

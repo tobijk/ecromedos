@@ -43,16 +43,18 @@ def printUsage():
 	print "                                                                      "
 	print "Options:                                                              "
 	print "                                                                      "
+	print " --draft         don't generate glossary or keyword indexes when      "
+	print "                 producing XHTML in order to save time                "
 	print " --help          display this information                             "
 	print " --novalid       skip validation of the document                      "
 	print "                                                                      "
+	print " -b <directory>  use an alternative base directory from where to look "
+	print "                 up the transformation rules                          "
 	print " -c <file>       use an alternative configuration file                "
 	print " -f <format>     generate specified output format                     "
 	print "                 (xhtml, latex, pdflatex or xelatex)                  "
 	print " -n <doctype>    start a new document of given doctype                "
 	print "                 (article, book or report)                            "
-	print " -b <directory>  use an alternative base directory from where to look "
-	print "                 up the transformation rules                          "
 	print " -s <file>       use an alternative style definition file             " 
 	print " -v              print version information and exit                   "
 #end function
@@ -64,7 +66,8 @@ def parseCmdLine():
 	options = {}
 
 	try:
-		opts, args = getopt.getopt(sys.argv[1:], "vn:f:s:b:c:", ["help","novalid"])
+		opts, args = getopt.getopt(sys.argv[1:], "vn:f:s:b:c:",
+			["draft", "help","novalid"])
 	except getopt.GetoptError, e:
 		msg  = "Error while parsing command line: %s\n" % e.msg
 		msg += "Type 'ecromedos --help' for more information."
@@ -72,24 +75,24 @@ def parseCmdLine():
 	#end try
 
 	for o, v in opts:
-		if o == "--help":
+		if o == "--draft":
+			params = options.setdefault("xsl_params", {})
+			params["global.draft"] = "'yes'"
+		elif o == "--help":
 			printVersion()
 			printUsage()
 			sys.exit(0)
-		elif o == "-v":
-			printVersion()
-			sys.exit(0)
-		elif o == "-n":
-			startDoc(v)
-			sys.exit(0)
-		elif o == "-f":
-			options["target_format"] = v
+		elif o == "--novalid":
+			options["do_validate"] = "no"
 		elif o == "-b":
 			options["style_dir"] = v
 		elif o == "-c":
 			options["config_file"] = v
-		elif o == "--novalid":
-			options["do_validate"] = "no"
+		elif o == "-f":
+			options["target_format"] = v
+		elif o == "-n":
+			startDoc(v)
+			sys.exit(0)
 		elif o == "-s":
 			if not os.path.isfile(v):
 				msg = "Style definition file '%s' not found." % v
@@ -99,11 +102,14 @@ def parseCmdLine():
 			#end if
 			params = options.setdefault("xsl_params", {})
 			params["global.stylesheet"] = "document('%s')" % v
+		elif o == "-v":
+			printVersion()
+			sys.exit(0)
 		else:
 			msg = "Unrecognized option '%s'.\n" % (o,)
 			msg = "Type 'ecromedos --help' for more information."
 			raise ECMDSError(msg)
-		#end if
+		#end ifs
 	#end while
 	
 	return options, args

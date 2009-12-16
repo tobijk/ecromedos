@@ -16,6 +16,22 @@
 </xsl:template>
 
 <!--
+ - The 'make-glossary' is replaced with a 'glossary' section
+ - by the pre-processor. So this should never match, unless in draft mode.
+-->
+<xsl:template match="make-glossary">
+	<!-- cut -->
+</xsl:template>
+
+<!--
+ - All 'defterm' elements are moved to the 'glossary' section
+ - by the pre-processor. So this should never match, unless in draft mode.
+-->
+<xsl:template match="defterm">
+	<!-- cut -->
+</xsl:template>
+
+<!--
  - Sets a glossary section
 -->
 <xsl:template match="glossary">
