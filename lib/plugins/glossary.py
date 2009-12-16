@@ -24,6 +24,10 @@ class Plugin:
 
 	def __init__(self, config):
 		self.__glossary = [];
+		try:
+			self.__draft = config['xsl_params']['global.draft']
+		except KeyError:
+			self.__draft = "'no'"
 	#end function
 
 
@@ -50,6 +54,9 @@ class Plugin:
 	def process(self, node, format):
 		"""Saves a glossary entry or sorts and builds the glossary,
 		depending on what type of node triggered the plugin."""
+
+		# skip if in draft mode
+		if self.__draft == "'yes'": return node
 
 		if node.name == "defterm":
 			node = self.__saveNode(node)
