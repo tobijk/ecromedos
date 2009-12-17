@@ -182,7 +182,7 @@ if __name__ == "__main__":
 				msg = "No input file specified."
 				raise ECMDSError(msg)
 			if not os.path.isfile(files[0]):
-				msg = "No such file '%s'." % files[0]
+				msg = "No such file: '%s'." % files[0]
 				raise ECMDSError(msg)
 			#end ifs
 		except ECMDSError, e:
