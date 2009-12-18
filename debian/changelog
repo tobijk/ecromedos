@@ -1,3 +1,9 @@
+ecromedos (2.0.0-1) unstable; urgency=low
+
+  * First official release of version 2.0
+
+ -- Tobias Koch <tkoch@ecromedos.net>  Fri, 18 Dec 2009 17:26:00 +0100
+
 ecromedos (2.0.0~1) unstable; urgency=low
 
   * Unofficial release candidate 
