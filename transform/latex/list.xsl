@@ -122,7 +122,7 @@
 
 <!-- ...and its definition -->
 <xsl:template match="dd">
-	<xsl:text>{\hfill\\</xsl:text>
+	<xsl:text>{\hfill{}\mbox{}\newline{}</xsl:text>
 	<xsl:apply-templates/>
 	<xsl:text>}&#x0a;</xsl:text>
 </xsl:template>
