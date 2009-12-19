@@ -38,6 +38,7 @@ class Plugin:
 			"dedication",
 			"caption",
 			"dt",
+			"dd",
 			"equation",
 			"td",
 			"li"]
