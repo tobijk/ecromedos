@@ -62,7 +62,7 @@
 	<xsl:param name="documentclass" select="name(/*[1])"/>
 
 	<!-- start document class and set driver to load -->
-	<xsl:text>\documentclass[</xsl:text>
+	<xsl:text>\documentclass[tableabovecaptionskip,</xsl:text>
 	<xsl:if test="$global.texdriver">
 		<xsl:value-of select="$global.texdriver"/><xsl:text>,</xsl:text>
 	</xsl:if>
@@ -243,7 +243,7 @@
 		<xsl:text>\usepackage[hyperindex=false,colorlinks=true,breaklinks=true,unicode=true,&#x0a;</xsl:text>
 		<xsl:text>linkcolor=ecmdslinkcolor,anchorcolor=ecmdslinkcolor,citecolor=ecmdslinkcolor,&#x0a;</xsl:text>
 		<xsl:text>bookmarksopen=true,bookmarksnumbered=true,filecolor=ecmdslinkcolor,&#x0a;</xsl:text>
-		<xsl:text>menucolor=ecmdslinkcolor,pagecolor=ecmdslinkcolor,urlcolor=ecmdslinkcolor</xsl:text>
+		<xsl:text>menucolor=ecmdslinkcolor,urlcolor=ecmdslinkcolor</xsl:text>
 
 		<!-- start meta info -->
 		<xsl:text>,pdfcreator={</xsl:text><xsl:value-of select="$global.version"/><xsl:text>}</xsl:text>
