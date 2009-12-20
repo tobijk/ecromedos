@@ -19,7 +19,7 @@ Depends: ${python:Depends},
  texlive-lang-german,
  texlive-fonts-extra,
  texlive-xetex
-Description: XML-based document authoring system
+Description: powerful and user-friendly XML document authoring system
  ecromedos is an integrated solution for XML-based publishing in print
  and on the Web. It is primarily targeted at, but not limited to, the
  creation of technical documentation in the field of Computer Science.
@@ -28,7 +28,8 @@ Description: XML-based document authoring system
  .
  Currently, ecromedos supports the target formats XHTML and LaTeX, where
  the latter can be compiled into high-quality PostScript or PDF by use
- of the TeX  typesetting system.
+ of the TeX  typesetting system. No previous knowledge of TeX is
+ required on the part of the user.
  .
  The ecromedos Markup Language (ECML) is modelled closely after HTML
  with some ideas and additional elements borrowed from LaTeX. It lets
