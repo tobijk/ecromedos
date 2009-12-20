@@ -174,9 +174,6 @@
 				<xsl:text>\captionsetup{singlelinecheck=off,justification=raggedleft}%&#x0a;</xsl:text>
 			</xsl:when>
 		</xsl:choose>
-		<!-- swap spacings around caption -->
-		<xsl:text>\setlength{\belowcaptionskip}{10pt}%&#x0a;</xsl:text>
-		<xsl:text>\setlength{\abovecaptionskip}{0pt}%&#x0a;</xsl:text>
 		<xsl:text>\caption{</xsl:text>
 			<xsl:apply-templates select="caption"/>
 		<xsl:text>}%&#x0a;</xsl:text>
