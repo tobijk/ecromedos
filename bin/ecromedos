@@ -38,28 +38,30 @@ def printVersion():
 def printUsage():
 	'''Display usage information.'''
 
-	print "                                                                      "
-	print "Usage: ecromedos [OPTIONS] <sourcefile>                               "
-	print "                                                                      "
-	print "Options:                                                              "
-	print "                                                                      "
-	print " --draft         don't generate glossary or keyword indexes, which    "
-	print "                 can save substantial amounts of time                 "
-	print " --finedtp       activate pedantic typesetting, this can result in    "
-	print "                 overful horizontal boxes                             "
-	print " --help          display this information                             "
-	print " --nohyperref    disable active links in PDF output                   "
-	print " --novalid       skip validation of the document                      "
-	print "                                                                      "
-	print " -b <directory>  use an alternative base directory from where to look "
-	print "                 up the transformation rules                          "
-	print " -c <file>       use an alternative configuration file                "
-	print " -f <format>     generate specified output format                     "
-	print "                 (xhtml, latex, pdflatex or xelatex)                  "
-	print " -n <doctype>    start a new document of given doctype                "
-	print "                 (article, book or report)                            "
-	print " -s <file>       use an alternative style definition file             " 
-	print " -v              print version information and exit                   "
+	print "                                                                          "
+	print "Usage: ecromedos [OPTIONS] <sourcefile>                                   "
+	print "                                                                          "
+	print "Options:                                                                  "
+	print "                                                                          "
+	print " --draft            don't generate glossary or keyword indexes, which can "
+	print "                    save substantial amounts of time                      "
+	print " --finedtp          activate pedantic typesetting, this can result in     "
+	print "                    overful horizontal boxes                              "
+	print " --help             display this information                              "
+	print " --nohyperref       disable active links in PDF output                    "
+	print " --novalid          skip validation of the document                       "
+	print " --texlive=<year>   if you are using texlive, you may specify the release "
+	print "                    year to activate workarounds for bugs in that version "
+	print "                                                                          "
+	print " -b <directory>     use an alternative base directory from where to look  "
+	print "                    up the transformation rules                           "
+	print " -c <file>          use an alternative configuration file                 "
+	print " -f <format>        generate specified output format                      "
+	print "                    (xhtml, latex, pdflatex or xelatex)                   "
+	print " -n <doctype>       start a new document of given doctype                 "
+	print "                    (article, book or report)                             "
+	print " -s <file>          use an alternative style definition file              " 
+	print " -v                 print version information and exit                    "
 #end function
 
 
@@ -70,7 +72,8 @@ def parseCmdLine():
 
 	try:
 		opts, args = getopt.getopt(sys.argv[1:], "vn:f:s:b:c:",
-			["draft", "finedtp", "help", "nohyperref", "novalid"])
+			["draft", "finedtp", "help", "nohyperref", "novalid",
+			"texlive="])
 	except getopt.GetoptError, e:
 		msg  = "Error while parsing command line: %s\n" % e.msg
 		msg += "Type 'ecromedos --help' for more information."
@@ -92,6 +95,9 @@ def parseCmdLine():
 			params["global.hyperref"] = "'no'"
 		elif o == "--novalid":
 			options["do_validate"] = "no"
+		elif o == "--texlive":
+			params["global.texlive.version"] = v
+			print v
 		elif o == "-b":
 			options["style_dir"] = v
 		elif o == "-c":
