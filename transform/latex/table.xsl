@@ -174,6 +174,12 @@
 				<xsl:text>\captionsetup{singlelinecheck=off,justification=raggedleft}%&#x0a;</xsl:text>
 			</xsl:when>
 		</xsl:choose>
+		<!-- START: WORKAROUND -->
+		<xsl:if test="$global.texlive.version &lt; 2008">
+			<xsl:text>\setlength{\belowcaptionskip}{10pt}%&#x0a;</xsl:text>
+			<xsl:text>\setlength{\abovecaptionskip}{0pt}%&#x0a;</xsl:text>
+		</xsl:if>
+		<!-- END:   WORKAROUND -->
 		<xsl:text>\caption{</xsl:text>
 			<xsl:apply-templates select="caption"/>
 		<xsl:text>}%&#x0a;</xsl:text>
