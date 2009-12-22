@@ -175,7 +175,7 @@
 			</xsl:when>
 		</xsl:choose>
 		<!-- START: WORKAROUND -->
-		<xsl:if test="$global.texlive.version &lt; 2008">
+		<xsl:if test="$global.texlive.version != '' and $global.texlive.version &lt; 2008">
 			<xsl:text>\setlength{\belowcaptionskip}{10pt}%&#x0a;</xsl:text>
 			<xsl:text>\setlength{\abovecaptionskip}{0pt}%&#x0a;</xsl:text>
 		</xsl:if>
