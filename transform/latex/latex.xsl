@@ -11,6 +11,7 @@
 <!-- command line parameters -->
 <xsl:param name="global.hyperref" select="'yes'"/>
 <xsl:param name="global.lazydtp" select="'yes'"/>
+<xsl:param name="global.texlive.version"/>
 
 <!--
   - Column mode
