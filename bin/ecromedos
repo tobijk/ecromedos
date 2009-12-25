@@ -103,7 +103,7 @@ def parseCmdLine():
 		elif o == "-c":
 			options["config_file"] = v
 		elif o == "-f":
-			options["target_format"] = v
+			options["target_format"] = v.lower()
 		elif o == "-n":
 			startDoc(v)
 			sys.exit(0)
