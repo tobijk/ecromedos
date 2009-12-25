@@ -36,7 +36,7 @@ git archive --prefix=ecromedos-${TAG}/ --format=tar ${TAG} | \
 	tar -czf ecromedos_${TAG}.orig.tar.gz ecromedos-${TAG} \
 	&& rm -fr ecromedos-${TAG})
 
-git archive --prefix=ecromedos-${TAG}/ --format=tar pkg | \
+git archive --prefix=ecromedos-${TAG}/ --format=tar pkg-deb | \
 	(cd ${TMPDIR} && tar -x --exclude=.gitignore --exclude=debian/package.sh -f -)
 
 (cd ${TMPDIR}/ecromedos-${TAG} &&
