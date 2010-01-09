@@ -97,7 +97,6 @@ def parseCmdLine():
 			options["do_validate"] = "no"
 		elif o == "--texlive":
 			params["global.texlive.version"] = v
-			print v
 		elif o == "-b":
 			options["style_dir"] = v
 		elif o == "-c":
