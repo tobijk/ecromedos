@@ -32,8 +32,8 @@ Description: powerful and user-friendly XML document authoring system
  required on the part of the user.
  .
  The ecromedos Markup Language (ECML) is modelled closely after HTML
- with some ideas and additional elements borrowed from LaTeX. It lets
- you compose comprehensive, well-structured documents from a comparably
+ with some ideas and additional elements borrowed from LaTeX. It allows
+ you to compose comprehensive, well-structured documents from a comparably
  small set of language elements. Users who are already familiar with HTML
  or document markup languages like DocBook will find learning ECML
  particularly easy.
