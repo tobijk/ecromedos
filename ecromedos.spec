@@ -6,8 +6,7 @@ License: GPL
 Group: Applications/Publishing
 Source: http://ecromedos.net/files/2.0.0/ecromedos-%{version}.tar.gz
 BuildRoot: /var/tmp/%{name}-buildroot
-#BuildRequires: ecromedos
-
+Requires: ImageMagick, texlive-latex, texlive-xetex, python, libxslt-python, libxml2-python
 
 %description
 ecromedos is an integrated solution for XML-based publishing in print
