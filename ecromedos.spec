@@ -36,11 +36,11 @@ particularly easy.
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/usr/lib/ecromedos
 
-#for dir in $(ls); do 
-#  if [ -d $dir ] && [ "$dir" != "debian" ]; then
-#    cp -a "$dir" $RPM_BUILD_ROOT/usr/lib/ecromedos
-#  fi
-#done
+for dir in $(ls); do 
+  if [ -d $dir ] && [ "$dir" != "debian" ]; then
+    cp -a "$dir" $RPM_BUILD_ROOT/usr/lib/ecromedos
+  fi
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
