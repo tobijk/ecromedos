@@ -73,7 +73,7 @@
 	<!-- section name, usually a
 	letter from the alphabet -->
 	<xsl:if test="@name">
-		<xsl:text>\vspace{3ex}{\sffamily\bfseries\large{}</xsl:text>
+		<xsl:text>\vspace{3ex plus .5ex minus .25ex}{\sffamily\bfseries\large{}</xsl:text>
 		<xsl:value-of select="normalize-space(@name)"/>
 		<xsl:text>}\hfil\nopagebreak\vspace{3pt}</xsl:text>
 	</xsl:if>
