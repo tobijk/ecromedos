@@ -304,7 +304,7 @@
 	<xsl:text>\usepackage{textcomp}&#x0a;</xsl:text>
 	<xsl:text>\usepackage{courier}&#x0a;</xsl:text>
 	<xsl:text>\usepackage{helvet}&#x0a;</xsl:text>
-	<xsl:text>\usepackage{mathptmx}&#x0a;&#x0a;</xsl:text>
+	<xsl:text>\usepackage{lmodern}&#x0a;&#x0a;</xsl:text>
 </xsl:template>
 
 <!--
