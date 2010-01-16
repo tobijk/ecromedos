@@ -19,7 +19,7 @@ Depends: ${python:Depends},
  texlive-lang-german,
  texlive-fonts-extra,
  texlive-xetex
-Description: powerful and user-friendly XML document authoring system
+Description: a powerful and user-friendly XML document authoring system
  ecromedos is an integrated solution for XML-based publishing in print
  and on the Web. It is primarily targeted at, but not limited to, the
  creation of technical documentation in the field of Computer Science.
