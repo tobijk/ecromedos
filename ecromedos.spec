@@ -67,6 +67,11 @@ find /usr/lib/ecromedos -name "*.pyc" -exec rm {} \;
 rm -f /usr/bin/ecromedos
 
 %changelog
+* Sun Jan 16 2010 Tobias Koch <tobias@ecromedos.net>
+- Math is rendered properly when producing PDF via XeLaTeX
+- Activate some fixes from the 'xltxtra' LaTeX package
+- Made Computer Modern fonts default for all LaTeX formats
+
 * Sun Jan 10 2010 Tobias Koch <tobias@ecromedos.net> 
 - Initial release of ecromedos version 2
 
