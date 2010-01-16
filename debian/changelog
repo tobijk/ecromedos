@@ -1,8 +1,15 @@
+ecromedos (2.0.1-1) unstable; urgency=low
+
+  * Math is rendered properly when producing PDF via XeLaTeX
+  * Activate some fixes from the 'xltxtra' LaTeX package
+
+ -- Tobias Koch <tobias@ecromedos.net>  Sat, 16 Jan 2010 14:50:00 +0100
+
 ecromedos (2.0.0-1) unstable; urgency=low
 
   * First official release of version 2.0
 
- -- Tobias Koch <tobias@ecromedos.net>  Sat, 10 Jan 2009 04:02:00 +0100
+ -- Tobias Koch <tobias@ecromedos.net>  Sat, 10 Jan 2010 04:02:00 +0100
 
 ecromedos (2.0.0~1) unstable; urgency=low
 
