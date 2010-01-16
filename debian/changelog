@@ -2,6 +2,7 @@ ecromedos (2.0.1-1) unstable; urgency=low
 
   * Math is rendered properly when producing PDF via XeLaTeX
   * Activate some fixes from the 'xltxtra' LaTeX package
+  * Made Computer Modern fonts default for all LaTeX formats
 
  -- Tobias Koch <tobias@ecromedos.net>  Sat, 16 Jan 2010 14:50:00 +0100
 
