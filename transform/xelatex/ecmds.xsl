@@ -20,14 +20,28 @@
 	<xsl:text>\usepackage{fontspec}&#x0a;</xsl:text>
 	<xsl:text>\usepackage{xunicode}&#x0a;</xsl:text>
 	<xsl:text>\usepackage{pifont}&#x0a;</xsl:text>
-	<xsl:text>\usepackage{mathptmx}&#x0a;</xsl:text>
-
 	<!-- Computer Modern Unicode fonts are loaded, when available. If
 	you wish to use specific system fonts, take a look at the "fontspec"
 	package documentation -->
 </xsl:template>
 
 <xsl:template name="latex.preamble.misc">
+
+	<xsl:text>\usepackage{fixltx2e}&#x0a;&#x0a;</xsl:text>
+
+	<xsl:text>\DeclareRobustCommand\em&#x0a;</xsl:text>
+	<xsl:text>  {\@nomath\em&#x0a;</xsl:text>
+	<xsl:text>   \edef\@tempa{\f@shape}%&#x0a;</xsl:text>
+	<xsl:text>   \edef\@tempb{\itdefault}%&#x0a;</xsl:text>
+	<xsl:text>   \ifx\@tempa\@tempb&#x0a;</xsl:text>
+	<xsl:text>     \eminnershape&#x0a;</xsl:text>
+	<xsl:text>   \else&#x0a;</xsl:text>
+	<xsl:text>     \emshape&#x0a;</xsl:text>
+	<xsl:text>   \fi}&#x0a;</xsl:text>
+	<xsl:text>\DeclareTextFontCommand{\emph}{\em}&#x0a;</xsl:text>
+	<xsl:text>\let\emshape\itshape&#x0a;</xsl:text>
+	<xsl:text>\let\eminnershape\upshape&#x0a;&#x0a;</xsl:text>
+
 	<xsl:text>&#x0a;</xsl:text>
 	<xsl:text>\makeatletter&#x0a;</xsl:text>
 	<xsl:text>\newlength\xxt@kern@Te&#x0a;</xsl:text>
