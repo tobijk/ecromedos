@@ -20,6 +20,8 @@
 	<xsl:text>\usepackage{fontspec}&#x0a;</xsl:text>
 	<xsl:text>\usepackage{xunicode}&#x0a;</xsl:text>
 	<xsl:text>\usepackage{pifont}&#x0a;</xsl:text>
+	<xsl:text>\usepackage{mathptmx}&#x0a;</xsl:text>
+
 	<!-- Computer Modern Unicode fonts are loaded, when available. If
 	you wish to use specific system fonts, take a look at the "fontspec"
 	package documentation -->
