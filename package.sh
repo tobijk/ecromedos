@@ -39,7 +39,7 @@ git archive --prefix=ecromedos-${TAG}/ --format=tar ${TAG} | \
 	&& rm -fr ecromedos-${TAG})
 
 cat ecromedos.spec | sed "s/###TAG###/$TAG/" > $TMPDIR/SPECS/ecromedos-${TAG}.spec
-rpmbuild --target="noarch" --define="%_topdir $TMPDIR" -ba $TMPDIR/SPECS/ecromedos-${TAG}.spec
+rpmbuild --nodeps --target="noarch" --define="%_topdir $TMPDIR" -ba $TMPDIR/SPECS/ecromedos-${TAG}.spec
 mv $TMPDIR/RPMS/*/*.rpm $OUTDIR
 mv $TMPDIR/SRPMS/*.rpm $OUTDIR
 rm -fr $TMPDIR
