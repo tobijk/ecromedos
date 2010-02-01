@@ -19,7 +19,6 @@ def getInstance(config):
 	return Plugin(config)
 #end function
 
-
 class Plugin:
 
 	def __init__(self, config):
@@ -62,7 +61,7 @@ class Plugin:
 		except KeyError:
 			self.dvipng_dpi = 100
 		#end try
-		
+
 		# output document
 		self.out = cStringIO.StringIO()
 	#end function
@@ -102,9 +101,11 @@ class Plugin:
 		'''Mark node, to be copied 1:1 to output document.'''
 
 		# enclose text in copy node
-		string = node.getContent()
 		copy_node = libxml2.newNode("copy")
-		copy_node.setContent(string)
+		for child in node.children:
+			child.unlinkNode()
+			copy_node.addChild(child)
+		#end for
 		math_node = libxml2.newNode("m")
 		math_node.addChild(copy_node)
 
