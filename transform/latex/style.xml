@@ -88,7 +88,7 @@
 	</report>
 	<article>
 		<document-font>\renewcommand{\familydefault}{\rmdefault}</document-font>
-		<document-options>pointednumbers,automark,pagesize,abstracton,headinclude,footexclude,bibtotoc</document-options>
+		<document-options>pointlessnumbers,automark,pagesize,abstracton,headinclude,footexclude,bibtotoc</document-options>
 		<document-title>\large\sffamily\bfseries</document-title>
 		<document-subtitle>\normalsize</document-subtitle>
 		<sectioning-title>\normalsize\sffamily\bfseries</sectioning-title>
