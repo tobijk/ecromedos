@@ -36,8 +36,8 @@ table.head {
 td.head-subject   { font-size: 120%; padding: 0ex 10px 0ex 10px; font-weight: bold; }
 td.head-title     { font-size: 200%; padding: 0ex 10px 0.5ex 10px; font-weight: bold; }
 div.subtitle      { font-size: 70%; }
-td.head-author    { font-size: 100%; padding: 1.5ex 10px 0.5ex 10px; }
-td.head-date      { font-size: 100%; padding: 0.5ex 10px 0.5ex 10px; }
+td.head-author    { font-size: 100%; padding: 0.5ex 10px 0.5ex 10px; }
+td.head-date      { font-size: 100%; padding: 1.5ex 10px 0.5ex 10px; }
 td.head-publisher { font-size: 100%; padding: 0.5ex 10px 0.5ex 10px; }
 
 
