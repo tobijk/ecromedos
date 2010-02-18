@@ -45,6 +45,7 @@
 		<translation key="nav-up">Up</translation>
 
 		<translation key="sectionnumber">%n.</translation>
+		<translation key="sectionnumber" class="article">%n</translation>
 
 		<translation key="startquote">&#8220;</translation>
 		<translation key="endquote">&#8221;</translation>
