@@ -23,7 +23,7 @@ systemexit typeerror valueerror zerodivisionerror'''
 KW_LIST['kwb'] = '''break continue del except exec finally pass print raise return
 try assert def for while if elif  else and in is not or'''
 
-KW_LIST['kwc'] = '''import from abs apply callable self'''
+KW_LIST['kwc'] = '''import from abs apply callable self None'''
 
 KW_RE['kwd'] = "regex((\\w+?)\\s*(?=\\())"
 
