@@ -47,9 +47,6 @@ function check_outdir #(outdir)
 		echo "No such directory '$outdir'."
 		exit $ERR_NODIR
 	}
-
-	# return abs path
-	echo $(cd ${outdir} && pwd)
 }
 
 function build_rpm #(tag, outdir)
@@ -103,8 +100,11 @@ TAG=$1
 OUTDIR=$2
 
 # SANITY CHECKS
-OUTDIR=eval "check_outdir $OUTDIR"
+check_outdir $OUTDIR
 check_tag $TAG
+
+# GET ABS PATH FOR OUTDIR
+OUTDIR="`echo $(cd ${outdir} && pwd)`"
 
 # BUILD PACKAGES
 build_rpm $TAG $OUTDIR
