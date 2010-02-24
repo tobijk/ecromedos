@@ -122,6 +122,46 @@ function build_tgz #(tag, outdir)
 	echo "done"
 }
 
+function build_deb #(tag, outdir)
+{
+	local tag=$1
+	local outdir=$2
+	local tmpdir="`mktemp -d`"
+
+	echo -n "Building Debian package in $tmpdir..."
+
+	# build orig-tarball
+	git archive --prefix=ecromedos-${tag}/ --format=tar ${tag} | \
+		(cd ${tmpdir} && \
+		tar -x \
+			--exclude=.gitignore \
+			--exclude=debian \
+			--exclude=ecromedos.spec \
+			--exclude=package.sh -f - && \
+		tar -czf ecromedos_${tag}.orig.tar.gz ecromedos-${tag} && \
+		rm -fr ecromedos-${tag})
+
+	# extract plain sources with debian-dir
+	git archive --prefix=ecromedos-${tag}/ --format=tar pkg-deb | \
+		(cd ${tmpdir} && \
+		tar -x \
+			--exclude=.gitignore \
+			--exclude=debian \
+			--exclude=ecromedos.spec \
+			--exclude=package.sh -f -)
+
+	# build packages
+	(cd ${tmpdir}/ecromedos-${tag} &&
+		dpkg-buildpackage -us -uc &&
+		cd .. &&
+		mv *.{changes,deb,dsc,diff.gz,tar.gz} ${outdir})
+
+	# cleanup
+	rm -fr ${tmpdir}
+
+	echo "done"
+}
+
 ###############################################################################
 
 if [ $# -ne 2 ]; then
@@ -142,6 +182,7 @@ OUTDIR="`echo $(cd ${OUTDIR} && pwd)`"
 # BUILD PACKAGES
 build_rpm $TAG $OUTDIR
 build_tgz $TAG $OUTDIR
+build_deb $TAG $OUTDIR
 
 echo "Collect artifacts from $OUTDIR."
 
