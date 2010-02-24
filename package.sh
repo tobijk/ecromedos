@@ -85,8 +85,8 @@ function build_rpm #(tag, outdir)
 	fi
 
 	# fetch build artifacts
-	mv $tmpdir/RPMS/*/*.rpm $outdir
-	mv $tmpdir/SRPMS/*.rpm $outdir
+	mv $tmpdir/RPMS/*/*.rpm $outdir/rpm
+	mv $tmpdir/SRPMS/*.rpm $outdir/rpm
 
 	# cleanup
 	rm -fr $tmpdir
@@ -114,7 +114,7 @@ function build_tgz #(tag, outdir)
 		rm -fr ecromedos-${tag})
 
 	# fetch build artifacts
-	mv $tmpdir/ecromedos-${tag}.tar.gz $outdir
+	mv $tmpdir/ecromedos-${tag}.tar.gz ${outdir}/tgz
 
 	# cleanup
 	rm -fr $tmpdir
@@ -153,7 +153,7 @@ function build_deb #(tag, outdir)
 	(cd ${tmpdir}/ecromedos-${tag} &&
 		dpkg-buildpackage -us -uc &&
 		cd .. &&
-		mv *.{changes,deb,dsc,diff.gz,tar.gz} ${outdir})
+		mv *.{changes,deb,dsc,diff.gz,tar.gz} ${outdir}/deb)
 
 	# cleanup
 	rm -fr ${tmpdir}
@@ -177,6 +177,9 @@ check_tag $TAG
 
 # GET ABS PATH FOR OUTDIR
 OUTDIR="`echo $(cd ${OUTDIR} && pwd)`"
+
+# MAKE SUBDIRS
+mkdir $OUTDIR/{deb,tgz,rpm}
 
 # BUILD PACKAGES
 build_rpm $TAG $OUTDIR
