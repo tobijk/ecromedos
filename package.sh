@@ -94,7 +94,7 @@ function build_rpm #(tag, outdir)
 	echo "done"
 }
 
-function build_tar_gz #(tag, outdir)
+function build_tgz #(tag, outdir)
 {
 	local tag=$1
 	local outdir=$2
@@ -141,6 +141,7 @@ OUTDIR="`echo $(cd ${OUTDIR} && pwd)`"
 
 # BUILD PACKAGES
 build_rpm $TAG $OUTDIR
+build_tgz $TAG $OUTDIR
 
 echo "Collect artifacts from $OUTDIR."
 
