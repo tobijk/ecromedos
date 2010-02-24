@@ -146,7 +146,6 @@ function build_deb #(tag, outdir)
 		(cd ${tmpdir} && \
 		tar -x \
 			--exclude=.gitignore \
-			--exclude=debian \
 			--exclude=ecromedos.spec \
 			--exclude=package.sh -f -)
 
