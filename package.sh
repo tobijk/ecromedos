@@ -76,12 +76,45 @@ function build_rpm #(tag, outdir)
 		$tmpdir/SPECS/ecromedos-${tag}.spec
 
 	# build package
-	rpmbuild --nodeps --target="noarch" --define="%_topdir $tmpdir" \
-		-ba $tmpdir/SPECS/ecromedos-${tag}.spec
+	if [ $DEBUG ]; then
+		rpmbuild --nodeps --target="noarch" --define="%_topdir $tmpdir" \
+			-ba $tmpdir/SPECS/ecromedos-${tag}.spec
+	else
+		rpmbuild --nodeps --target="noarch" --define="%_topdir $tmpdir" \
+			-ba $tmpdir/SPECS/ecromedos-${tag}.spec	> /dev/null
+	fi
 
 	# fetch build artifacts
 	mv $tmpdir/RPMS/*/*.rpm $outdir
 	mv $tmpdir/SRPMS/*.rpm $outdir
+
+	# cleanup
+	rm -fr $tmpdir
+
+	echo "done"
+}
+
+function build_tar_gz #(tag, outdir)
+{
+	local tag=$1
+	local outdir=$2
+	local tmpdir="`mktemp -d`"
+
+	echo -n "Building TGZ package in $tmpdir..."
+
+	# build tarball
+	git archive --prefix=ecromedos-${tag}/ --format=tar ${tag} | \
+		(cd ${tmpdir} && \
+		tar -x \
+			--exclude=.gitignore \
+			--exclude=debian \
+			--exclude=ecromedos.spec \
+			--exclude=package.sh -f - && \
+		fakeroot tar -czf ecromedos-${tag}.tar.gz ecromedos-${tag} && \
+		rm -fr ecromedos-${tag})
+
+	# fetch build artifacts
+	mv $tmpdir/ecromedos-${tag}.tar.gz $outdir
 
 	# cleanup
 	rm -fr $tmpdir
