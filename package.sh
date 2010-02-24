@@ -142,7 +142,7 @@ function build_deb #(tag, outdir)
 		rm -fr ecromedos-${tag})
 
 	# extract plain sources with debian-dir
-	git archive --prefix=ecromedos-${tag}/ --format=tar pkg-deb | \
+	git archive --prefix=ecromedos-${tag}/ --format=tar ${tag} | \
 		(cd ${tmpdir} && \
 		tar -x \
 			--exclude=.gitignore \
