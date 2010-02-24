@@ -35,7 +35,7 @@ function check_tag #(tag)
 		git checkout $current_branch > /dev/null 2>&1
 	else
 		git checkout $master > /dev/null 2>&1
-	#end if
+	fi
 }
 
 function check_outdir #(outdir)
@@ -103,7 +103,7 @@ TAG=$1
 OUTDIR=$2
 
 # SANITY CHECKS
-check_outdir $OUTDIR
+OUTDIR=eval "check_outdir $OUTDIR"
 check_tag $TAG
 
 # BUILD PACKAGES
