@@ -67,6 +67,12 @@ find /usr/lib/ecromedos -name "*.pyc" -exec rm {} \;
 rm -f /usr/bin/ecromedos
 
 %changelog
+* Wed Feb 24 2010 Tobias Koch <tobias@ecromedos.net>
+- Added 'None' as keyword to Python langdef for syntax highlighter
+- Corrected spacing between title, author and date in XHTML
+- Render section numbers in articles without a trailing dot
+- Copy child nodes instead of text content when processing math nodes
+
 * Sun Jan 16 2010 Tobias Koch <tobias@ecromedos.net>
 - Math is rendered properly when producing PDF via XeLaTeX
 - Activate some fixes from the 'xltxtra' LaTeX package
