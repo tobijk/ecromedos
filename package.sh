@@ -104,7 +104,7 @@ check_outdir $OUTDIR
 check_tag $TAG
 
 # GET ABS PATH FOR OUTDIR
-OUTDIR="`echo $(cd ${outdir} && pwd)`"
+OUTDIR="`echo $(cd ${OUTDIR} && pwd)`"
 
 # BUILD PACKAGES
 build_rpm $TAG $OUTDIR
