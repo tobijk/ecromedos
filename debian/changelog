@@ -1,3 +1,9 @@
+ecromedos (2.0.2-2) unstable; urgency=low
+
+  * Corrected version number in source files
+
+ -- Tobias Koch <tobias@ecromedos.net>  Thu, 04 Mar 2010 17:10:00 +0200
+
 ecromedos (2.0.2-1) unstable; urgency=low
 
   * Added 'None' as keyword to Python langdef for syntax highlighter
