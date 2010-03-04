@@ -1,7 +1,7 @@
 Summary: A powerful and user-friendly XML document authoring system
 Name: ecromedos
 Version: ###TAG###
-Release: 1
+Release: 2 
 License: GPL
 Group: Applications/Publishing
 Source: http://ecromedos.net/files/2.0.0/ecromedos-%{version}.tar.gz
