@@ -5,6 +5,7 @@
 ERR_USAGE=1
 ERR_NOTAG=2
 ERR_NODIR=3
+ERR_TAGNO=4
 
 ###############################################################################
 
@@ -161,6 +162,19 @@ function build_deb #(tag, outdir)
 	echo "done"
 }
 
+function check_version #(tag)
+{
+	local tag=$1
+
+	if ! grep "VERSION = \"$tag\"" bin/ecromedos > /dev/null; then
+		error $ERR_TAGNO "Wrong version number in bin/ecromedos."
+	fi
+
+	if ! grep "ecromedos Document Preparation System V${tag}" transform/shared/version.xsl > /dev/null; then
+		error $ERR_TAGNO "Wrong version number in transform/shared/version.xsl."
+	fi
+}
+
 ###############################################################################
 
 if [ $# -ne 2 ]; then
@@ -174,6 +188,7 @@ OUTDIR=$2
 # SANITY CHECKS
 check_outdir $OUTDIR
 check_tag $TAG
+check_version $TAG
 
 # GET ABS PATH FOR OUTDIR
 OUTDIR="`echo $(cd ${OUTDIR} && pwd)`"
