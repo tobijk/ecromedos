@@ -340,7 +340,7 @@ div.listing-caption {
 
 pre.listing {
 	margin: 0px;
-	padding: 0.5em;
+	padding: 0.5ex 0.5em 0.5ex 0.5em;
 	font-family: "Courier New", monospace;
 }
 
@@ -348,8 +348,8 @@ pre.listing {
   - Verbatim environment
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 pre.verbatim {
-	margin-top: 1.5ex;
-	margin-bottom: 1.5ex;
+	padding: 0.5ex 0.5em 0.5ex 0.5em;
+	margin: 1.5ex 0em 1.5ex 0em;
 	font-family: "Courier New", monospace;
 }
 

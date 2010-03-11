@@ -58,7 +58,13 @@
 -->
 <xsl:template match="verbatim">
 	<pre class="verbatim">
-	<xsl:apply-templates/>
+		<xsl:if test="@bgcolor">
+			<xsl:attribute name="style">
+				<xsl:text>background-color: </xsl:text>
+				<xsl:value-of select="@bgcolor"/>
+			</xsl:attribute>
+		</xsl:if>
+		<xsl:apply-templates/>
 	</pre>
 </xsl:template>
 

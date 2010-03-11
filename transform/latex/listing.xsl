@@ -64,6 +64,9 @@
 					<xsl:when test="$parskip = 'half'">
 						<xsl:text>\vspace{0.5\parskip}%&#x0a;</xsl:text>
 					</xsl:when>
+					<xsl:when test="$parskip = 'full'">
+						<!-- noop -->
+					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>\vspace{1.2ex}%&#x0a;</xsl:text>
 					</xsl:otherwise>
@@ -83,7 +86,7 @@
 				<xsl:value-of select="normalize-space(@bgcolor)"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:text>#eeeeee</xsl:text>
+				<xsl:text>#ffffff</xsl:text>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
