@@ -362,7 +362,10 @@
 <!ATTLIST listing id ID #IMPLIED>
 
 <!ELEMENT verbatim (#PCDATA | %inline-elements;)*>
-<!ATTLIST verbatim strip (yes|no) #IMPLIED>
+<!ATTLIST verbatim
+	strip   (yes|no) #IMPLIED
+	bgcolor CDATA    #IMPLIED
+>
 <!-- ================================================================== -->
 <!-- END: listing                                                       -->
 <!-- ================================================================== -->

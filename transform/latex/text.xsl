@@ -69,9 +69,67 @@
   - Set verbatim text
 -->
 <xsl:template match="verbatim">
-	<xsl:text>{\setlength{\topsep}{0ex}\begin{alltt}</xsl:text>
+	<xsl:variable name="parskip">
+		<xsl:call-template name="util.getparskip"/>
+	</xsl:variable>
+
+	<xsl:variable name="bgcolor">
+		<xsl:choose>
+			<xsl:when test="@bgcolor">
+				<xsl:value-of select="normalize-space(@bgcolor)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>#ffffff</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+
+	<!-- correct vertical spacing -->
+	<xsl:choose>
+		<xsl:when test="$parskip = 'half'">
+			<xsl:text>\vspace{0.8\parskip}%&#x0a;</xsl:text>
+		</xsl:when>
+		<xsl:when test="$parskip = 'full'">
+			<xsl:text>\vspace{0.7\parskip}%&#x0a;</xsl:text>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:text>\vspace{1.2ex}%&#x0a;</xsl:text>
+		</xsl:otherwise>
+	</xsl:choose>
+
+	<xsl:text>\rgbshadecolor{</xsl:text>
+	<xsl:call-template name="color.component">
+		<xsl:with-param name="component" select="substring($bgcolor, string-length($bgcolor) - 5, 2)"/>
+	</xsl:call-template>
+	<xsl:text>}{</xsl:text>
+	<xsl:call-template name="color.component">
+		<xsl:with-param name="component" select="substring($bgcolor, string-length($bgcolor) - 3, 2)"/>
+	</xsl:call-template>
+	<xsl:text>}{</xsl:text>
+	<xsl:call-template name="color.component">
+		<xsl:with-param name="component" select="substring($bgcolor, string-length($bgcolor) - 1, 2)"/>
+	</xsl:call-template>
+	<xsl:text>}</xsl:text>
+
+	<xsl:text>{\setlength{\partopsep}{0ex}\setlength{\topsep}{0ex}\setlength{\parskip}{0ex}</xsl:text>
+	<xsl:text>\begin{alltt}</xsl:text>
+	<xsl:text>\begin{shaded}</xsl:text>
 		<xsl:apply-templates/>
+	<xsl:text>\end{shaded}</xsl:text>
 	<xsl:text>\end{alltt}}</xsl:text>
+
+	<!-- correct vertical spacing -->
+	<xsl:choose>
+		<xsl:when test="$parskip = 'half'">
+			<xsl:text>\vspace{-0.2\parskip}%&#x0a;</xsl:text>
+		</xsl:when>
+		<xsl:when test="$parskip = 'full'">
+			<xsl:text>\vspace{-0.3\parskip}%&#x0a;</xsl:text>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:text>\vspace{1.2ex}%&#x0a;</xsl:text>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <!-- font size -->

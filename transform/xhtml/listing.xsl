@@ -46,19 +46,13 @@
   - Set program listing helper
 -->
 <xsl:template match="code">
-	<xsl:variable name="bgcolor">
-		<xsl:choose>
-			<xsl:when test="@bgcolor">
-				<xsl:value-of select="normalize-space(@bgcolor)"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:text>#eeeeee</xsl:text>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-
-	<!-- program listing -->
-	<pre class="listing" style="background-color: {$bgcolor}">
+	<pre class="listing">
+		<xsl:if test="@bgcolor">
+			<xsl:attribute name="style">
+				<xsl:text>background-color: </xsl:text>
+				<xsl:value-of select="@bgcolor"/>
+			</xsl:attribute>
+		</xsl:if>
 		<xsl:apply-templates/>
 	</pre>
 </xsl:template>
