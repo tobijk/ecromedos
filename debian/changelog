@@ -1,3 +1,12 @@
+ecromedos (2.0.3-1) unstable; urgency=low
+
+  * Enable 'bgcolor' attribute on verbatim element
+  * Make background of listings transparent/white
+  * Handle bgcolor attribute more elegantly in XSL
+  * Minor improvements to the CSS style
+
+ -- Tobias Koch <tobias@ecromedos.net>  Mon, 15 Mar 2010 13:52:00 +0200
+
 ecromedos (2.0.2-2) unstable; urgency=low
 
   * Corrected version number in source files

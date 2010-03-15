@@ -67,6 +67,12 @@ find /usr/lib/ecromedos -name "*.pyc" -exec rm {} \;
 rm -f /usr/bin/ecromedos
 
 %changelog
+* Mon Mar 15 2010 Tobias Koch <tobias@ecromedos.net>
+- Enable 'bgcolor' attribute on verbatim element
+- Make background of listings transparent/white
+- Handle bgcolor attribute more elegantly in XSL
+- Minor improvements to the CSS style
+
 * Wed Feb 24 2010 Tobias Koch <tobias@ecromedos.net>
 - Added 'None' as keyword to Python langdef for syntax highlighter
 - Corrected spacing between title, author and date in XHTML
