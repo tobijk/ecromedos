@@ -63,7 +63,7 @@
 	<xsl:param name="documentclass" select="name(/*[1])"/>
 
 	<!-- start document class and set driver to load -->
-	<xsl:text>\documentclass[tableabovecaptionskip,</xsl:text>
+	<xsl:text>\documentclass[captions=tableheading,</xsl:text>
 	<xsl:if test="$global.texdriver">
 		<xsl:value-of select="$global.texdriver"/><xsl:text>,</xsl:text>
 	</xsl:if>
@@ -93,10 +93,10 @@
 			<!-- noop -->
 		</xsl:when>
 		<xsl:when test="@parskip = 'full'">
-			<xsl:text>parskip,</xsl:text>
+			<xsl:text>parskip=full,</xsl:text>
 		</xsl:when>
 		<xsl:otherwise>
-			<xsl:text>halfparskip,</xsl:text>
+			<xsl:text>parskip=half,</xsl:text>
 		</xsl:otherwise>
 	</xsl:choose>
 	<!-- number of columns -->

@@ -9,7 +9,7 @@
 <style>
 	<book>
 		<document-font>\renewcommand{\familydefault}{\rmdefault}</document-font>
-		<document-options>pointednumbers,cleardoubleempty,automark,pagesize,headsepline,headinclude,footexclude,bibtotoc</document-options>
+		<document-options>numbers=enddot,cleardoubleempty,automark,pagesize,headsepline,headinclude,footinclude=false,bibliography=totoc</document-options>
 		<document-title>\large\sffamily\bfseries</document-title>
 		<document-subtitle>\normalsize</document-subtitle>
 		<sectioning-title>\normalsize\sffamily\bfseries</sectioning-title>
@@ -29,7 +29,7 @@
 		<minitoc-part-title>\Large\sffamily\bfseries</minitoc-part-title>
 		<part-number>\huge\sffamily\bfseries</part-number>
 		<page-head>\normalsize\slshape</page-head>
-		<caption-setup>font=small,font=rm,labelfont=bf,format=hang,labelformat=simple</caption-setup>
+		<caption-setup>font=small,font=rm,labelfont=bf,format=hang,labelformat=simple,tableposition=top</caption-setup>
 		<page-style>scrheadings</page-style>
 		<titlepage-style>empty</titlepage-style>
 		<partpage-style>empty</partpage-style>
@@ -52,7 +52,7 @@
 	</book>
 	<report>
 		<document-font>\renewcommand{\familydefault}{\rmdefault}</document-font>
-		<document-options>pointednumbers,automark,pagesize,headinclude,footexclude,bibtotoc</document-options>
+		<document-options>numbers=enddot,automark,pagesize,headinclude,footinclude=false,bibliography=totoc</document-options>
 		<document-title>\large\sffamily\bfseries</document-title>
 		<document-subtitle>\normalsize</document-subtitle>
 		<sectioning-title>\normalsize\sffamily\bfseries</sectioning-title>
@@ -71,7 +71,7 @@
 		<minitoc-part-title>\Large\sffamily\bfseries</minitoc-part-title>
 		<part-number>\huge\sffamily\bfseries</part-number>
 		<page-head>\normalsize\slshape</page-head>
-		<caption-setup>font=small,font=rm,labelfont=bf,format=hang,labelformat=simple</caption-setup>
+		<caption-setup>font=small,font=rm,labelfont=bf,format=hang,labelformat=simple,tableposition=top</caption-setup>
 		<page-style>scrheadings</page-style>
 		<titlepage-style>empty</titlepage-style>
 		<partpage-style>empty</partpage-style>
@@ -88,7 +88,7 @@
 	</report>
 	<article>
 		<document-font>\renewcommand{\familydefault}{\rmdefault}</document-font>
-		<document-options>pointlessnumbers,automark,pagesize,abstracton,headinclude,footexclude,bibtotoc</document-options>
+		<document-options>numbers=noenddot,automark,pagesize,abstracton,headinclude,footinclude=false,bibliography=totoc</document-options>
 		<document-title>\large\sffamily\bfseries</document-title>
 		<document-subtitle>\normalsize</document-subtitle>
 		<sectioning-title>\normalsize\sffamily\bfseries</sectioning-title>
@@ -103,7 +103,7 @@
 		<page-number>\normalsize\upshape\rmfamily</page-number>
 		<paragraph-title>\normalsize\rmfamily\bfseries</paragraph-title>
 		<page-head>\normalsize\slshape</page-head>
-		<caption-setup>font=small,font=rm,labelfont=bf,format=hang,labelformat=simple</caption-setup>
+		<caption-setup>font=small,font=rm,labelfont=bf,format=hang,labelformat=simple,tableposition=top</caption-setup>
 		<page-style>scrheadings</page-style>
 		<titlepage-style>scrplain</titlepage-style>
 		<chapterpage-style>scrheadings</chapterpage-style>
