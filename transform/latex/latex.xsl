@@ -241,10 +241,15 @@
 	<xsl:if test="$global.hyperref='yes'">
 		<xsl:text>\definecolor{ecmdslinkcolor}{rgb}{0.11,0.11,0.44}&#x0a;&#x0a;</xsl:text>
 		<xsl:text>%Bookmarks, Links and URLs in PDF&#x0a;</xsl:text>
-		<xsl:text>\usepackage[hyperindex=false,colorlinks=true,breaklinks=true,unicode=true,&#x0a;</xsl:text>
+		<xsl:text>\usepackage[hyperindex=false,colorlinks=true,breaklinks=true,&#x0a;</xsl:text>
 		<xsl:text>linkcolor=ecmdslinkcolor,anchorcolor=ecmdslinkcolor,citecolor=ecmdslinkcolor,&#x0a;</xsl:text>
 		<xsl:text>bookmarksopen=true,bookmarksnumbered=true,filecolor=ecmdslinkcolor,&#x0a;</xsl:text>
 		<xsl:text>menucolor=ecmdslinkcolor,urlcolor=ecmdslinkcolor</xsl:text>
+
+                <!-- work around for xetex -->
+                <xsl:if test="$global.texdriver != ''">
+                    <xsl:text>,unicode=true</xsl:text>
+                </xsl:if>
 
 		<!-- start meta info -->
 		<xsl:text>,pdfcreator={</xsl:text><xsl:value-of select="$global.version"/><xsl:text>}</xsl:text>
