@@ -1,7 +1,7 @@
 Source: ecromedos
 Section: text
 Priority: extra
-Maintainer: Tobias Koch <maintainer@ecromedos.net>
+Maintainer: Tobias Koch <tobias.koch@gmail.com>
 Build-Depends: debhelper (>= 7)
 Standards-Version: 3.7.3
 Homepage: http://ecromedos.net
