@@ -9,12 +9,12 @@ ERR_TAGNO=4
 
 ###############################################################################
 
-function usage #()
+usage()
 {
 	echo "Usage: package.sh <tag> <outdir>"
 }
 
-function error #(code, msg)
+error()
 {
 	local code=$1
 	local msg=$2
@@ -22,7 +22,7 @@ function error #(code, msg)
 	exit $code
 }
 
-function check_tag #(tag)
+check_tag()
 {
 	local tag=$1
 	local current_branch=`git branch | egrep "^\*" | cut -d' ' -f2`
@@ -39,7 +39,7 @@ function check_tag #(tag)
 	fi
 }
 
-function check_outdir #(outdir)
+check_outdir()
 {
 	local outdir=$1
 
@@ -50,7 +50,7 @@ function check_outdir #(outdir)
 	}
 }
 
-function build_rpm #(tag, outdir)
+build_rpm()
 {
 	local tag=$1
 	local outdir=$2
@@ -95,7 +95,7 @@ function build_rpm #(tag, outdir)
 	echo "done"
 }
 
-function build_tgz #(tag, outdir)
+build_tgz()
 {
 	local tag=$1
 	local outdir=$2
@@ -123,7 +123,7 @@ function build_tgz #(tag, outdir)
 	echo "done"
 }
 
-function build_deb #(tag, outdir)
+build_deb()
 {
 	local tag=$1
 	local outdir=$2
@@ -162,7 +162,7 @@ function build_deb #(tag, outdir)
 	echo "done"
 }
 
-function check_version #(tag)
+check_version()
 {
 	local tag=$1
 
@@ -191,7 +191,7 @@ check_tag $TAG
 check_version $TAG
 
 # GET ABS PATH FOR OUTDIR
-OUTDIR="`echo $(cd ${OUTDIR} && pwd)`"
+OUTDIR="`cd ${OUTDIR} && pwd`"
 
 # MAKE SUBDIRS
 mkdir $OUTDIR/{deb,tgz,rpm}
