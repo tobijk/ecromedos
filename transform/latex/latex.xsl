@@ -68,6 +68,7 @@
 		<xsl:value-of select="$global.texdriver"/><xsl:text>,</xsl:text>
 	</xsl:if>
 	<!-- font size -->
+	<xsl:text>fontsize=</xsl:text>
 	<xsl:choose>
 		<xsl:when test="@fontsize">
 			<xsl:value-of select="@fontsize"/>
@@ -246,10 +247,10 @@
 		<xsl:text>bookmarksopen=true,bookmarksnumbered=true,filecolor=ecmdslinkcolor,&#x0a;</xsl:text>
 		<xsl:text>menucolor=ecmdslinkcolor,urlcolor=ecmdslinkcolor</xsl:text>
 
-                <!-- work around for xetex -->
-                <xsl:if test="$global.texdriver != ''">
-                    <xsl:text>,unicode=true</xsl:text>
-                </xsl:if>
+		<!-- work around for xetex -->
+		<xsl:if test="$global.texdriver != ''">
+			<xsl:text>,unicode=true</xsl:text>
+		</xsl:if>
 
 		<!-- start meta info -->
 		<xsl:text>,pdfcreator={</xsl:text><xsl:value-of select="$global.version"/><xsl:text>}</xsl:text>
