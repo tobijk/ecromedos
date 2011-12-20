@@ -29,7 +29,7 @@
 		<minitoc-part-title>\Large\sffamily\bfseries</minitoc-part-title>
 		<part-number>\huge\sffamily\bfseries</part-number>
 		<page-head>\normalsize\slshape</page-head>
-		<caption-setup>font=small,font=rm,labelfont=bf,format=hang,labelformat=simple,tableposition=top</caption-setup>
+		<caption-setup>font=small,font=rm,labelfont=bf,format=hang,labelformat=simple</caption-setup>
 		<page-style>scrheadings</page-style>
 		<titlepage-style>empty</titlepage-style>
 		<partpage-style>empty</partpage-style>
@@ -71,7 +71,7 @@
 		<minitoc-part-title>\Large\sffamily\bfseries</minitoc-part-title>
 		<part-number>\huge\sffamily\bfseries</part-number>
 		<page-head>\normalsize\slshape</page-head>
-		<caption-setup>font=small,font=rm,labelfont=bf,format=hang,labelformat=simple,tableposition=top</caption-setup>
+		<caption-setup>font=small,font=rm,labelfont=bf,format=hang,labelformat=simple</caption-setup>
 		<page-style>scrheadings</page-style>
 		<titlepage-style>empty</titlepage-style>
 		<partpage-style>empty</partpage-style>
@@ -103,7 +103,7 @@
 		<page-number>\normalsize\upshape\rmfamily</page-number>
 		<paragraph-title>\normalsize\rmfamily\bfseries</paragraph-title>
 		<page-head>\normalsize\slshape</page-head>
-		<caption-setup>font=small,font=rm,labelfont=bf,format=hang,labelformat=simple,tableposition=top</caption-setup>
+		<caption-setup>font=small,font=rm,labelfont=bf,format=hang,labelformat=simple</caption-setup>
 		<page-style>scrheadings</page-style>
 		<titlepage-style>scrplain</titlepage-style>
 		<chapterpage-style>scrheadings</chapterpage-style>
