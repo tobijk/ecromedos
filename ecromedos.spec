@@ -1,4 +1,4 @@
-Summary: A powerful and user-friendly XML document authoring system
+Summary: an easy to learn and easy to use XML document preparation system
 Name: ecromedos
 Version: ###TAG###
 Release: 2 
