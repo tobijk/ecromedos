@@ -8,6 +8,6 @@
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:param name="global.version" select="'ecromedos Document Preparation System V2.0.3'"/>
+<xsl:param name="global.version" select="'ecromedos Document Preparation System V2.0.4'"/>
 
 </xsl:stylesheet>
