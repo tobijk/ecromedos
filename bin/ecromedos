@@ -31,7 +31,7 @@ def printVersion():
 	'''Display version information.'''
 
 	print "ecromedos Document Processor, version %s    " % (VERSION,)
-	print "Copyright (C) 2005-2010, Tobias Koch (tkoch@ecromedos.net)"
+	print "Copyright (C) 2005-2011, Tobias Koch <tobias.koch@gmail.com>"
 #end function
 
 
