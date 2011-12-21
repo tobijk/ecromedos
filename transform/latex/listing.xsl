@@ -57,7 +57,7 @@
 		<xsl:choose>
 			<xsl:when test="caption">
 				<xsl:text>\setlength{\ecmdstmplength}{\belowcaptionskip-\parskip}%&#x0a;</xsl:text>
-				<xsl:text>\vspace{\ecmdstmplength}%&#x0a;</xsl:text>
+				<xsl:text>\vspace*{\ecmdstmplength}%&#x0a;</xsl:text>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:choose>
