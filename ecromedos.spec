@@ -67,23 +67,29 @@ find /usr/lib/ecromedos -name "*.pyc" -exec rm {} \;
 rm -f /usr/bin/ecromedos
 
 %changelog
-* Mon Mar 15 2010 Tobias Koch <tobias@ecromedos.net>
+* Wed Dec 21 2011 Tobias Koch <tobias.koch@gmail.com>
+- Use vspace* to set off listing caption
+- Prevent indentation of listings inside list environments
+- Pass fontsize as 'fontsize=XXpt' to Koma Script
+- Remove tableposition=top from default latex style
+- Don't pass unicode=true to package hyperref when using xetex
+
+* Mon Mar 15 2010 Tobias Koch <tobias.koch@gmail.com>
 - Enable 'bgcolor' attribute on verbatim element
 - Make background of listings transparent/white
 - Handle bgcolor attribute more elegantly in XSL
 - Minor improvements to the CSS style
 
-* Wed Feb 24 2010 Tobias Koch <tobias@ecromedos.net>
+* Wed Feb 24 2010 Tobias Koch <tobias.koch@gmail.com>
 - Added 'None' as keyword to Python langdef for syntax highlighter
 - Corrected spacing between title, author and date in XHTML
 - Render section numbers in articles without a trailing dot
 - Copy child nodes instead of text content when processing math nodes
 
-* Sun Jan 16 2010 Tobias Koch <tobias@ecromedos.net>
+* Sun Jan 16 2010 Tobias Koch <tobias.koch@gmail.com>
 - Math is rendered properly when producing PDF via XeLaTeX
 - Activate some fixes from the 'xltxtra' LaTeX package
 - Made Computer Modern fonts default for all LaTeX formats
 
-* Sun Jan 10 2010 Tobias Koch <tobias@ecromedos.net> 
+* Sun Jan 10 2010 Tobias Koch <tobias.koch@gmail.com> 
 - Initial release of ecromedos version 2
-
