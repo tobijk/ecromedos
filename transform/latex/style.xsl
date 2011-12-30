@@ -109,10 +109,10 @@
 <xsl:template name="style.pagestyle">
 	<xsl:variable name="documentclass" select="name(/*[1])"/>
 
-	<xsl:text>\renewcommand*{\partpagestyle}{</xsl:text>
-		<xsl:value-of select="$global.stylesheet/style/child::*[name() = $documentclass]/partpage-style"/>
-	<xsl:text>}&#x0a;</xsl:text>
 	<xsl:if test="$documentclass != 'article'">
+		<xsl:text>\renewcommand*{\partpagestyle}{</xsl:text>
+			<xsl:value-of select="$global.stylesheet/style/child::*[name() = $documentclass]/partpage-style"/>
+		<xsl:text>}&#x0a;</xsl:text>
 		<xsl:text>\renewcommand*{\chapterpagestyle}{</xsl:text>
 			<xsl:value-of select="$global.stylesheet/style/child::*[name() = $documentclass]/chapterpage-style"/>
 		<xsl:text>}&#x0a;</xsl:text>
