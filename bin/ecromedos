@@ -24,7 +24,7 @@ ECMDS_ERR_PROCESSING = 2
 ECMDS_ERR_UNKNOWN    = 3
 
 # version number
-VERSION = "2.0.4"
+VERSION = "2.0.5"
 
 
 def printVersion():
