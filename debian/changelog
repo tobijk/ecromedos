@@ -1,3 +1,9 @@
+ecromedos (2.0.5-1) unstable; urgency=low
+
+  * Don't define partpagestyle for articles
+
+ -- Tobias Koch <tobias.koch@gmail.com>  Fri, 30 Dec 2011 23:46:24 +0200
+
 ecromedos (2.0.4-1) unstable; urgency=low
 
   * Use vspace* to set off listing caption

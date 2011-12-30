@@ -67,6 +67,9 @@ find /usr/lib/ecromedos -name "*.pyc" -exec rm {} \;
 rm -f /usr/bin/ecromedos
 
 %changelog
+* Fri Dec 30 2011 Tobias Koch <tobias.koch@gmail.com>
+- Don't define partpagestyle for articles
+
 * Wed Dec 21 2011 Tobias Koch <tobias.koch@gmail.com>
 - Use vspace* to set off listing caption
 - Prevent indentation of listings inside list environments
