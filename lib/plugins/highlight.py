@@ -12,11 +12,12 @@ import libxml2
 
 # ecmds includes
 from error import ECMDSPluginError
+from ecmds.highlight.formatter import ECMLFormatter
 
-# hylight
-from hylight.ecmdsgenerator import ECMDSGenerator
-from hylight.error import HLError
-
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.styles import get_style_by_name
+from pygments.util import ClassNotFound as PygmentsClassNotFound
 
 def getInstance(config):
 	'''Returns a plugin instance.'''
@@ -24,10 +25,10 @@ def getInstance(config):
 #end function
 
 
-class Plugin(ECMDSGenerator):
+class Plugin(object):
 
 	def __init__(self, config):
-		ECMDSGenerator.__init__(self)
+		pass
 	#end function
 
 
@@ -54,13 +55,17 @@ class Plugin(ECMDSGenerator):
 
 		# fetch content and highlight
 		string = node.getContent()
-		result = self.highlight(string, options)
+		try:
+			result = self.highlight(string, options)
+		except Exception, e:
+			print e
+			raise
 
 		# parse result
 		doc = libxml2.parseDoc(result)
 		root = doc.getRootElement()
 		root.unlinkNode()
-	
+
 		# replace original node
 		prop = node.properties
 		while prop:
@@ -87,38 +92,52 @@ class Plugin(ECMDSGenerator):
 	def highlight(self, string, options):
 		'''Call syntax highlighter.'''
 
+		# output line numbers?
 		try:
-			try:
-				startline = int(options["startline"])
-				self.lineNumbers(True)
-			except ValueError:
-				msg = "Invalid start line '%s'." % (options["startline"],)
-				raise ECMDSPluginError(msg, "highlight")
-			except KeyError:
-				self.lineNumbers(False)
-				startline = 1
-			#end try
-			try:
-				stepping = int(options["linestep"])
-				self.lineStepping(stepping)
-			except ValueError:
-				msg = "Invalid line stepping '%s'." % (options["linestep"],)
-				raise ECMDSPluginError(msg, "highlight")
-			except KeyError:
-				self.lineStepping(1)
-			#end try
-			try:
-				result = self.highlightString(string,
-					options['syntax'], startline, options['colorscheme'], True)
-			except KeyError:
-				result = self.highlightString(string,
-					options['syntax'], startline, "print", True)
-			#end try
-		except HLError, e:
-			raise ECMDSPluginError(str(e), "highlight")
+			self.__startline = int(options["startline"])
+			self.__haveLineNumbers = True
+		except ValueError:
+			msg = "Invalid start line '%s'." % (options["startline"],)
+			raise ECMDSPluginError(msg, "highlight")
+		except KeyError:
+			self.__haveLineNumbers = False
+			self.__startline = 1
 		#end try
 
-		return result
+		# increment to add to each line
+		try:
+			self.__lineStepping = int(options["linestep"])
+		except ValueError:
+			msg = "Invalid line stepping '%s'." % (options["linestep"],)
+			raise ECMDSPluginError(msg, "highlight")
+		except KeyError:
+			self.__lineStepping = 1
+		#end try
+
+		# style to use
+		try:
+			self.__style = get_style_by_name(options['colorscheme'])
+		except PygmentsClassNotFound:
+			msg = "No style by name '%s'" % options["colorscheme"]
+			raise ECMDSPluginError(msg, "highlight")
+		except KeyError:
+			self.__style = get_style_by_name("default")
+		#end try
+
+		# get a lexer for given syntax
+		try:
+			lexer = get_lexer_by_name(options["syntax"])
+		except PygmentsClassNotFound:
+			msg = "No lexer class found for '%s'." % options["syntax"]
+			raise ECMDSPluginError(msg, "highlight")
+		#end try
+
+		# do the actual highlighting
+		formatter = ECMLFormatter(emit_line_numbers=self.__haveLineNumbers,
+			startline=self.__startline, line_step=self.__lineStepping,
+			encoding='utf-8', style=self.__style)
+		
+		return highlight(string, lexer, formatter)
 	#end function
 
 #end class
