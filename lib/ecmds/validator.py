@@ -11,7 +11,7 @@
 import libxml2, sys, os
 
 # ecmds includes
-from error import ECMDSError, validateErrorHandler
+from ecmds.error import ECMDSError, validateErrorHandler
 
 class ECMDSValidator:
 

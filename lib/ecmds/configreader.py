@@ -11,7 +11,7 @@
 import os, sys, re
 
 # ecmds includes
-from error import ECMDSError
+from ecmds.error import ECMDSError
 
 
 class ECMDSCfgFileReader:

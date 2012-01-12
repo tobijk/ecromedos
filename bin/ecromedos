@@ -11,12 +11,20 @@
 # std includes
 import os, sys, libxml2, getopt, tempfile
 
+# make ecromedos relocatable
+ECMDS_INSTALL_DIR = os.path.normpath(
+		os.path.dirname(
+			os.path.realpath(sys.argv[0])
+		) + os.sep + ".." )
+
+sys.path.insert(1, ECMDS_INSTALL_DIR + os.sep + 'lib')
+
 # ecromedos includes
-from error import ECMDSError, ECMDSPluginError
-from ecmdsproc import ECMDSProc
+from ecmds.error import ECMDSError, ECMDSPluginError
+from ecmds.ecmdsproc import ECMDSProc
 
 # document templates
-import templates
+import ecmds.templates as document_templates
 
 # exit values
 ECMDS_ERR_INVOCATION = 1
@@ -131,11 +139,11 @@ def parseCmdLine():
 def startDoc(doctype):
 	'''Outputs a template for a new document of "doctype" to stdout.'''
 
-	if not hasattr(templates, doctype):
+	if not hasattr(document_templates, doctype):
 		msg = "No template available for doctype '" + doctype + "'."
 		raise ECMDSError(msg)
 	else:
-		template = templates.__dict__[doctype]
+		template = document_templates.__dict__[doctype]
 	#end if
 
 	sys.stdout.write(template)
@@ -198,14 +206,8 @@ if __name__ == "__main__":
 		# CREATE TEMPORARY DIRECTORY
 		options['tmp_dir'] = setupTempDir()
 
-		# GUESS INSTALLATION PATH
-		options.setdefault('install_dir',
-			os.path.normpath(
-				os.path.dirname(
-					os.path.realpath(sys.argv[0])
-				) + os.sep + ".."
-			)
-		)
+		# SET INSTALLATION PATH
+		options.setdefault('install_dir', ECMDS_INSTALL_DIR)
 
 		# RUN
 		try:

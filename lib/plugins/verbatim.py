@@ -8,7 +8,7 @@
 #
 
 # ecmds includes
-from error import ECMDSPluginError
+from ecmds.error import ECMDSPluginError
 
 
 def getInstance(config):

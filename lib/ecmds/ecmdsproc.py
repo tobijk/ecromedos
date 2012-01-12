@@ -11,12 +11,12 @@
 import os, sys, libxml2, urllib
 
 #ecmds includes
-from error import ECMDSError, parserErrorHandler, ECMDSPluginError
+from ecmds.error import ECMDSError, parserErrorHandler, ECMDSPluginError
 
-from configreader import ECMDSCfgManager
-from validator    import ECMDSValidator
-from preprocessor import ECMDSPreproc
-from xslprocessor import ECMDSXslProc
+from ecmds.configreader import ECMDSCfgManager
+from ecmds.validator    import ECMDSValidator
+from ecmds.preprocessor import ECMDSPreproc
+from ecmds.xslprocessor import ECMDSXslProc
 
 
 class ECMDSProc(ECMDSCfgManager, ECMDSPreproc, ECMDSXslProc, ECMDSValidator):

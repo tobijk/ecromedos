@@ -11,7 +11,7 @@
 import os, sys, imp
 
 # ecmds includes
-from error import ECMDSError, ECMDSPluginError
+from ecmds.error import ECMDSError, ECMDSPluginError
 
 
 class ECMDSPreproc:

@@ -11,7 +11,7 @@
 import os, libxml2, libxslt
 
 # ecmds includes
-from error import ECMDSError
+from ecmds.error import ECMDSError
 
 
 class ECMDSXslProc:

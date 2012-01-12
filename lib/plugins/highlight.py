@@ -11,7 +11,7 @@
 import libxml2
 
 # ecmds includes
-from error import ECMDSPluginError
+from ecmds.error import ECMDSPluginError
 from ecmds.highlight.formatter import ECMLFormatter
 
 from pygments import highlight

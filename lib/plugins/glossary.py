@@ -11,7 +11,7 @@
 import libxml2, sys, locale
 
 # ecmds includes
-from error import ECMDSPluginError
+from ecmds.error import ECMDSPluginError
 
 
 def getInstance(config):
