@@ -67,6 +67,10 @@ find /usr/lib/ecromedos -name "*.pyc" -exec rm {} \;
 rm -f /usr/bin/ecromedos
 
 %changelog
+* Thu Jan 12 2012 Tobias Koch <tobias.koch@gmail.com>
+- Move all modules into namespace 'ecmds'
+- Use Pygments for syntax highlighting
+
 * Fri Dec 30 2011 Tobias Koch <tobias.koch@gmail.com>
 - Don't define partpagestyle for articles
 
