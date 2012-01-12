@@ -17,6 +17,11 @@ class ECMLFormatter(Formatter):
 	def __init__(self, **options):
 		Formatter.__init__(self, **options)
 		self.__tstyle = dict(options['style'])
+		try:
+			self.__bgcolor = options['style'].background_color
+		except AttributeError:
+			self.__bgcolor = None
+		#end try
 		self.__emit_line_numbers = options['emit_line_numbers']
 		self.__line_no = options['startline']
 		self.__line_step = options['line_step']
@@ -26,7 +31,13 @@ class ECMLFormatter(Formatter):
 
 	def format(self, tokensource, outfile):
 		outfile.write('<?xml version="1.0" encoding="utf-8"?>\n')
-		outfile.write('<code>')
+		
+		if self.__bgcolor:
+			outfile.write("<code bgcolor=\"#%s\">" % self.__bgcolor\
+				.lower().lstrip('#'))
+		else:
+			outfile.write('<code>')
+		#end if
 
 		for ttype, tvalue in tokensource:
 			while ttype not in self.__tstyle:
@@ -75,7 +86,8 @@ class ECMLFormatter(Formatter):
 		style = self.__tstyle[ttype]
 
 		if style['color']:
-			outfile.write("<color rgb=\"#%s\">" % style['color'].lower())
+			outfile.write("<color rgb=\"#%s\">" % style['color']\
+				.lower().lstrip('#'))
 		if style['underline']:
 			outfile.write('<u>')
 		if style['italic']:
