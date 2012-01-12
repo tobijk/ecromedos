@@ -1,7 +1,7 @@
 Summary: an easy to learn and easy to use XML document preparation system
 Name: ecromedos
 Version: ###TAG###
-Release: 2 
+Release: 1 
 License: GPL
 Group: Applications/Publishing
 Source: http://ecromedos.net/files/2.0.0/ecromedos-%{version}.tar.gz
