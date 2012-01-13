@@ -14,7 +14,7 @@ import os, libxml2, libxslt
 from ecmds.error import ECMDSError
 
 
-class ECMDSXslProc:
+class ECMDSXslProc(object):
 
 	def __init__(self):
 		pass

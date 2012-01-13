@@ -13,7 +13,7 @@ import libxml2, sys, os
 # ecmds includes
 from ecmds.error import ECMDSError, validateErrorHandler
 
-class ECMDSValidator:
+class ECMDSValidator(object):
 
 	def __init__(self):
 		pass

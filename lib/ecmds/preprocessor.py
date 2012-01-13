@@ -14,7 +14,7 @@ import os, sys, imp
 from ecmds.error import ECMDSError, ECMDSPluginError
 
 
-class ECMDSPreproc:
+class ECMDSPreproc(object):
 
 	def __init__(self):
 		self.plugins = {}

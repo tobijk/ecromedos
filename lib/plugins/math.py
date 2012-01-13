@@ -19,7 +19,7 @@ def getInstance(config):
 	return Plugin(config)
 #end function
 
-class Plugin:
+class Plugin(object):
 
 	def __init__(self, config):
 

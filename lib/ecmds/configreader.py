@@ -14,7 +14,7 @@ import os, sys, re
 from ecmds.error import ECMDSError
 
 
-class ECMDSCfgFileReader:
+class ECMDSCfgFileReader(object):
 
 	def __init__(self):
 		self.config = None
@@ -159,7 +159,7 @@ class ECMDSCfgFileReader:
 #end class
 
 
-class ECMDSPluginsMapReader:
+class ECMDSPluginsMapReader(object):
 
 	def __init__(self):
 		self.pmap = {}
