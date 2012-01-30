@@ -55,7 +55,7 @@ def printUsage():
 	print "                    save substantial amounts of time                      "
 	print " --finedtp          activate pedantic typesetting, this can result in     "
 	print "                    overful horizontal boxes                              "
-	print " --help             display this information                              "
+	print " --help, -h         display this information                              "
 	print " --nohyperref       disable active links in PDF output                    "
 	print " --novalid          skip validation of the document                       "
 	print " --texlive=<year>   if you are using texlive, you may specify the release "
@@ -79,7 +79,7 @@ def parseCmdLine():
 	options = {}
 
 	try:
-		opts, args = getopt.getopt(sys.argv[1:], "vn:f:s:b:c:",
+		opts, args = getopt.getopt(sys.argv[1:], "hvn:f:s:b:c:",
 			["draft", "finedtp", "help", "nohyperref", "novalid",
 			"texlive="])
 	except getopt.GetoptError, e:
@@ -95,7 +95,7 @@ def parseCmdLine():
 			params["global.draft"] = "'yes'"
 		elif o == "--finedtp":
 			params["global.lazydtp"] = "'no'"
-		elif o == "--help":
+		elif o in [ "--help", "-h" ]:
 			printVersion()
 			printUsage()
 			sys.exit(0)
@@ -192,10 +192,11 @@ if __name__ == "__main__":
 			# parse command line
 			options, files = parseCmdLine()
 			if len(files) < 1:
-				msg = "No input file specified."
+				msg = "ecromedos: no source file specified"
 				raise ECMDSError(msg)
 			if not os.path.isfile(files[0]):
-				msg = "No such file: '%s'." % files[0]
+				msg = "ecromedos: '%s' doesn't exist or is not a file"\
+					% files[0]
 				raise ECMDSError(msg)
 			#end ifs
 		except ECMDSError, e:
