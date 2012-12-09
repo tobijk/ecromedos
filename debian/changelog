@@ -1,3 +1,9 @@
+ecromedos (2.1.0-2) unstable; urgency=low
+
+  * Fix dependencies on tetex language packages
+
+ -- Tobias Koch <tobias.koch@gmail.com>  Mon, 10 Dec 2012 01:03:27 +0200
+
 ecromedos (2.1.0-1) unstable; urgency=low
 
   * Move all modules into namespace 'ecmds'

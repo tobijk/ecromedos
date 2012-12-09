@@ -16,7 +16,7 @@ Depends: ${python:Depends},
  python-pygments,
  texlive (>= 2007),
  texlive-latex-extra,
- texlive-lang-ukenglish,
+ texlive-lang-english|texlive-lang-ukenglish,
  texlive-lang-german,
  texlive-fonts-extra,
  texlive-xetex
