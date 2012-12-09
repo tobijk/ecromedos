@@ -166,6 +166,10 @@ check_version()
 {
 	local tag=$1
 
+        if [ -n "`echo $tag | grep '-'`" ]; then
+            tag="`echo $tag | cut -d'-' -f1`"
+        fi
+
 	if ! grep "VERSION = \"$tag\"" bin/ecromedos > /dev/null; then
 		error $ERR_TAGNO "Wrong version number in bin/ecromedos."
 	fi
