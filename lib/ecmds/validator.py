@@ -15,47 +15,45 @@ from ecmds.error import ECMDSError, validateErrorHandler
 
 class ECMDSValidator(object):
 
-	def __init__(self):
-		pass
-	#end function
+    def __init__(self):
+        pass
+    #end function
 
+    def setupCatalog(self):
+        '''Add temporary entries to shared catalog.'''
 
-	def setupCatalog(self):
-		'''Add temporary entries to shared catalog.'''
+        try:
+            style_dir = self.config['style_dir']
+        except KeyError:
+            msg = "Please specify the location of the stylesheets."
+            raise ECMDSError(msg)
+        #end try
 
-		try:
-			style_dir = self.config['style_dir']
-		except KeyError:
-			msg = "Please specify the location of the stylesheets."
-			raise ECMDSError(msg)
-		#end try
+        for name in ["book", "article", "report", "ecromedos"]:
+            system_id  = "http://www.ecromedos.net/dtd/2.0/" + name + ".dtd"
+            system_uri = os.sep.join([style_dir, "DTD", "ecromedos.dtd"])
+            libxml2.catalogAdd("system", system_id, system_uri)
+        #end for
 
-		for name in ["book", "article", "report", "ecromedos"]:
-			system_id  = "http://www.ecromedos.net/dtd/2.0/" + name + ".dtd"
-			system_uri = os.sep.join([style_dir, "DTD", "ecromedos.dtd"])
-			libxml2.catalogAdd("system", system_id, system_uri)
-		#end for
+    #end function
 
-	#end function
+    def isValidDocument(self, document):
+        '''Validate the given document.'''
 
+        system_id = "http://www.ecromedos.net/dtd/2.0/ecromedos.dtd"
 
-	def isValidDocument(self, document):
-		'''Validate the given document.'''
-
-		system_id = "http://www.ecromedos.net/dtd/2.0/ecromedos.dtd"
-
-		dtd = libxml2.parseDTD("", system_id)
-		if not dtd:
-			msg = "Failed to load the DTD."
-			raise ECMDSError(msg)
-		#end if
-		
-		validator = libxml2.newValidCtxt()
-		validator.setValidityErrorHandler(validateErrorHandler, validateErrorHandler, validator)
-		retval = validator.validateDtd(document, dtd)
-	
-		return retval
-	#end function
+        dtd = libxml2.parseDTD("", system_id)
+        if not dtd:
+            msg = "Failed to load the DTD."
+            raise ECMDSError(msg)
+        #end if
+        
+        validator = libxml2.newValidCtxt()
+        validator.setValidityErrorHandler(validateErrorHandler, validateErrorHandler, validator)
+        retval = validator.validateDtd(document, dtd)
+    
+        return retval
+    #end function
 
 #end class
 

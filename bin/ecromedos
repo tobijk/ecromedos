@@ -13,9 +13,9 @@ import os, sys, libxml2, getopt, tempfile
 
 # make ecromedos relocatable
 ECMDS_INSTALL_DIR = os.path.normpath(
-		os.path.dirname(
-			os.path.realpath(sys.argv[0])
-		) + os.sep + ".." )
+        os.path.dirname(
+            os.path.realpath(sys.argv[0])
+        ) + os.sep + ".." )
 
 sys.path.insert(1, ECMDS_INSTALL_DIR + os.sep + 'lib')
 
@@ -34,203 +34,194 @@ ECMDS_ERR_UNKNOWN    = 3
 # version number
 VERSION = "2.1.0"
 
-
 def printVersion():
-	'''Display version information.'''
+    '''Display version information.'''
 
-	print "ecromedos Document Processor, version %s    " % (VERSION,)
-	print "Copyright (C) 2005-2011, Tobias Koch <tobias.koch@gmail.com>"
+    print "ecromedos Document Processor, version %s    " % (VERSION,)
+    print "Copyright (C) 2005-2011, Tobias Koch <tobias.koch@gmail.com>"
 #end function
-
 
 def printUsage():
-	'''Display usage information.'''
+    '''Display usage information.'''
 
-	print "                                                                          "
-	print "Usage: ecromedos [OPTIONS] <sourcefile>                                   "
-	print "                                                                          "
-	print "Options:                                                                  "
-	print "                                                                          "
-	print " --draft            don't generate glossary or keyword indexes, which can "
-	print "                    save substantial amounts of time                      "
-	print " --finedtp          activate pedantic typesetting, this can result in     "
-	print "                    overful horizontal boxes                              "
-	print " --help, -h         display this information                              "
-	print " --nohyperref       disable active links in PDF output                    "
-	print " --novalid          skip validation of the document                       "
-	print " --texlive=<year>   if you are using texlive, you may specify the release "
-	print "                    year to activate workarounds for bugs in that version "
-	print "                                                                          "
-	print " -b <directory>     use an alternative base directory from where to look  "
-	print "                    up the transformation rules                           "
-	print " -c <file>          use an alternative configuration file                 "
-	print " -f <format>        generate specified output format                      "
-	print "                    (xhtml, latex, pdflatex or xelatex)                   "
-	print " -n <doctype>       start a new document of given doctype                 "
-	print "                    (article, book or report)                             "
-	print " -s <file>          use an alternative style definition file              " 
-	print " -v                 print version information and exit                    "
+    print "                                                                          "
+    print "Usage: ecromedos [OPTIONS] <sourcefile>                                   "
+    print "                                                                          "
+    print "Options:                                                                  "
+    print "                                                                          "
+    print " --draft            don't generate glossary or keyword indexes, which can "
+    print "                    save substantial amounts of time                      "
+    print " --finedtp          activate pedantic typesetting, this can result in     "
+    print "                    overful horizontal boxes                              "
+    print " --help, -h         display this information                              "
+    print " --nohyperref       disable active links in PDF output                    "
+    print " --novalid          skip validation of the document                       "
+    print " --texlive=<year>   if you are using texlive, you may specify the release "
+    print "                    year to activate workarounds for bugs in that version "
+    print "                                                                          "
+    print " -b <directory>     use an alternative base directory from where to look  "
+    print "                    up the transformation rules                           "
+    print " -c <file>          use an alternative configuration file                 "
+    print " -f <format>        generate specified output format                      "
+    print "                    (xhtml, latex, pdflatex or xelatex)                   "
+    print " -n <doctype>       start a new document of given doctype                 "
+    print "                    (article, book or report)                             "
+    print " -s <file>          use an alternative style definition file              " 
+    print " -v                 print version information and exit                    "
 #end function
-
 
 def parseCmdLine():
-	'''Parse and extract arguments of command line options.'''
+    '''Parse and extract arguments of command line options.'''
 
-	options = {}
+    options = {}
 
-	try:
-		opts, args = getopt.getopt(sys.argv[1:], "hvn:f:s:b:c:",
-			["draft", "finedtp", "help", "nohyperref", "novalid",
-			"texlive="])
-	except getopt.GetoptError, e:
-		msg  = "Error while parsing command line: %s\n" % e.msg
-		msg += "Type 'ecromedos --help' for more information."
-		raise ECMDSError(msg)
-	#end try
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "hvn:f:s:b:c:",
+            ["draft", "finedtp", "help", "nohyperref", "novalid",
+            "texlive="])
+    except getopt.GetoptError, e:
+        msg  = "Error while parsing command line: %s\n" % e.msg
+        msg += "Type 'ecromedos --help' for more information."
+        raise ECMDSError(msg)
+    #end try
 
-	params = options.setdefault("xsl_params", {})
+    params = options.setdefault("xsl_params", {})
 
-	for o, v in opts:
-		if o == "--draft":
-			params["global.draft"] = "'yes'"
-		elif o == "--finedtp":
-			params["global.lazydtp"] = "'no'"
-		elif o in [ "--help", "-h" ]:
-			printVersion()
-			printUsage()
-			sys.exit(0)
-		elif o == "--nohyperref":
-			params["global.hyperref"] = "'no'"
-		elif o == "--novalid":
-			options["do_validate"] = "no"
-		elif o == "--texlive":
-			params["global.texlive.version"] = v
-		elif o == "-b":
-			options["style_dir"] = v
-		elif o == "-c":
-			options["config_file"] = v
-		elif o == "-f":
-			options["target_format"] = v.lower()
-		elif o == "-n":
-			startDoc(v)
-			sys.exit(0)
-		elif o == "-s":
-			if not os.path.isfile(v):
-				msg = "Style definition file '%s' not found." % v
-				raise ECMDSError(msg)
-			else:
-				v = os.path.abspath(v)
-			#end if
-			params["global.stylesheet"] = "document('%s')" % v
-		elif o == "-v":
-			printVersion()
-			sys.exit(0)
-		else:
-			msg = "Unrecognized option '%s'.\n" % (o,)
-			msg = "Type 'ecromedos --help' for more information."
-			raise ECMDSError(msg)
-		#end ifs
-	#end while
-	
-	return options, args
+    for o, v in opts:
+        if o == "--draft":
+            params["global.draft"] = "'yes'"
+        elif o == "--finedtp":
+            params["global.lazydtp"] = "'no'"
+        elif o in [ "--help", "-h" ]:
+            printVersion()
+            printUsage()
+            sys.exit(0)
+        elif o == "--nohyperref":
+            params["global.hyperref"] = "'no'"
+        elif o == "--novalid":
+            options["do_validate"] = "no"
+        elif o == "--texlive":
+            params["global.texlive.version"] = v
+        elif o == "-b":
+            options["style_dir"] = v
+        elif o == "-c":
+            options["config_file"] = v
+        elif o == "-f":
+            options["target_format"] = v.lower()
+        elif o == "-n":
+            startDoc(v)
+            sys.exit(0)
+        elif o == "-s":
+            if not os.path.isfile(v):
+                msg = "Style definition file '%s' not found." % v
+                raise ECMDSError(msg)
+            else:
+                v = os.path.abspath(v)
+            #end if
+            params["global.stylesheet"] = "document('%s')" % v
+        elif o == "-v":
+            printVersion()
+            sys.exit(0)
+        else:
+            msg = "Unrecognized option '%s'.\n" % (o,)
+            msg = "Type 'ecromedos --help' for more information."
+            raise ECMDSError(msg)
+        #end ifs
+    #end while
+    
+    return options, args
 #end function
-
 
 def startDoc(doctype):
-	'''Outputs a template for a new document of "doctype" to stdout.'''
+    '''Outputs a template for a new document of "doctype" to stdout.'''
 
-	if not hasattr(document_templates, doctype):
-		msg = "No template available for doctype '" + doctype + "'."
-		raise ECMDSError(msg)
-	else:
-		template = document_templates.__dict__[doctype]
-	#end if
+    if not hasattr(document_templates, doctype):
+        msg = "No template available for doctype '" + doctype + "'."
+        raise ECMDSError(msg)
+    else:
+        template = document_templates.__dict__[doctype]
+    #end if
 
-	sys.stdout.write(template)
-	sys.stdout.flush()
+    sys.stdout.write(template)
+    sys.stdout.flush()
 #end function
-
 
 def setupTempDir():
-	'''Create a temporary directory.'''
-	return tempfile.mkdtemp(prefix="ecmds-")
+    '''Create a temporary directory.'''
+    return tempfile.mkdtemp(prefix="ecmds-")
 #end function
-
 
 def deleteDir(dirname):
-	'''Recursively delete a directory.'''
+    '''Recursively delete a directory.'''
 
-	# delete subdirs and files
-	for root, dirs, files in os.walk(dirname, topdown=False):
-		for name in files:
-			try:
-				os.remove(os.path.join(root, name))
-			except: pass
-		#end for
-		for name in dirs:
-			try:
-				os.rmdir(os.path.join(root, name))
-			except: pass
-		#end for
-	#end for
+    # delete subdirs and files
+    for root, dirs, files in os.walk(dirname, topdown=False):
+        for name in files:
+            try:
+                os.remove(os.path.join(root, name))
+            except: pass
+        #end for
+        for name in dirs:
+            try:
+                os.rmdir(os.path.join(root, name))
+            except: pass
+        #end for
+    #end for
 
-	# delete root
-	try:
-		os.rmdir(dirname)
-	except: pass
+    # delete root
+    try:
+        os.rmdir(dirname)
+    except: pass
 #end function
 
-
 if __name__ == "__main__":
+    try:
+        # INIT XML-CATALOG
+        libxml2.initializeCatalog()
 
-	try:
-		# INIT XML-CATALOG
-		libxml2.initializeCatalog()
+        # SETUP
+        try:
+            # parse command line
+            options, files = parseCmdLine()
+            if len(files) < 1:
+                msg = "ecromedos: no source file specified"
+                raise ECMDSError(msg)
+            if not os.path.isfile(files[0]):
+                msg = "ecromedos: '%s' doesn't exist or is not a file"\
+                    % files[0]
+                raise ECMDSError(msg)
+            #end ifs
+        except ECMDSError, e:
+            sys.stderr.write(e.msg() + "\n")
+            sys.exit(ECMDS_ERR_INVOCATION)
+        #end try
 
-		# SETUP
-		try:
-			# parse command line
-			options, files = parseCmdLine()
-			if len(files) < 1:
-				msg = "ecromedos: no source file specified"
-				raise ECMDSError(msg)
-			if not os.path.isfile(files[0]):
-				msg = "ecromedos: '%s' doesn't exist or is not a file"\
-					% files[0]
-				raise ECMDSError(msg)
-			#end ifs
-		except ECMDSError, e:
-			sys.stderr.write(e.msg() + "\n")
-			sys.exit(ECMDS_ERR_INVOCATION)
-		#end try
+        # CREATE TEMPORARY DIRECTORY
+        options['tmp_dir'] = setupTempDir()
 
-		# CREATE TEMPORARY DIRECTORY
-		options['tmp_dir'] = setupTempDir()
+        # SET INSTALLATION PATH
+        options.setdefault('install_dir', ECMDS_INSTALL_DIR)
 
-		# SET INSTALLATION PATH
-		options.setdefault('install_dir', ECMDS_INSTALL_DIR)
+        # RUN
+        try:
+            try:
+                proc = ECMDSProc()
+                proc.process(files[0], options)
+            finally:
+                # TRY TO REMOVE TEMPORARY DIRECTORY
+                deleteDir(options['tmp_dir'])
+            #end try
+        except ECMDSPluginError, e:
+            msg = "Plugin '%s' caused an error:\n %s" % (e.pluginName(), e.msg())
+            sys.stderr.write(msg + "\n")
+            sys.exit(ECMDS_ERR_PROCESSING)
+        except ECMDSError, e:
+            sys.stderr.write(e.msg() + "\n")
+            sys.exit(ECMDS_ERR_PROCESSING)
+        #end try
 
-		# RUN
-		try:
-			try:
-				proc = ECMDSProc()
-				proc.process(files[0], options)
-			finally:
-				# TRY TO REMOVE TEMPORARY DIRECTORY
-				deleteDir(options['tmp_dir'])
-			#end try
-		except ECMDSPluginError, e:
-			msg = "Plugin '%s' caused an error:\n %s" % (e.pluginName(), e.msg())
-			sys.stderr.write(msg + "\n")
-			sys.exit(ECMDS_ERR_PROCESSING)
-		except ECMDSError, e:
-			sys.stderr.write(e.msg() + "\n")
-			sys.exit(ECMDS_ERR_PROCESSING)
-		#end try
-
-	except KeyboardInterrupt:
-		sys.stdout.write("\n -> Caught SIGINT, terminating.\n")
-	#end try
-
+    except KeyboardInterrupt:
+        sys.stdout.write("\n -> Caught SIGINT, terminating.\n")
+    #end try
 #end __main__
 

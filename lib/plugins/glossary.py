@@ -13,248 +13,236 @@ import libxml2, sys, locale
 # ecmds includes
 from ecmds.error import ECMDSPluginError
 
-
 def getInstance(config):
-	'''Returns a plugin instance.'''
-	return Plugin(config)
+    '''Returns a plugin instance.'''
+    return Plugin(config)
 #end function
-
 
 class Plugin(object):
 
-	def __init__(self, config):
-		self.__glossary = [];
-		try:
-			self.__draft = config['xsl_params']['global.draft']
-		except KeyError:
-			self.__draft = "'no'"
-	#end function
+    def __init__(self, config):
+        self.__glossary = [];
+        try:
+            self.__draft = config['xsl_params']['global.draft']
+        except KeyError:
+            self.__draft = "'no'"
+    #end function
 
+    def __saveNode(self, node):
+        """Stores a reference to the given node."""
 
-	def __saveNode(self, node):
-		"""Stores a reference to the given node."""
+        term = node.prop("sortkey")
 
-		term = node.prop("sortkey")
+        child = node.children
+        while child:
+            if child.type == "element" and child.name == "dt":
+                if not term:
+                    term = child.getContent().strip()
+                break
+            #end if
+            child = child.next
+        #end for
 
-		child = node.children
-		while child:
-			if child.type == "element" and child.name == "dt":
-				if not term:
-					term = child.getContent().strip()
-				break
-			#end if
-			child = child.next
-		#end for
+        self.__glossary.append([term, node])
+        return node
+    #end function
 
-		self.__glossary.append([term, node])
-		return node
-	#end function
+    def process(self, node, format):
+        """Saves a glossary entry or sorts and builds the glossary,
+        depending on what type of node triggered the plugin."""
 
+        # skip if in draft mode
+        if self.__draft == "'yes'": return node
 
-	def process(self, node, format):
-		"""Saves a glossary entry or sorts and builds the glossary,
-		depending on what type of node triggered the plugin."""
+        if node.name == "defterm":
+            node = self.__saveNode(node)
+        elif node.name == "make-glossary":
+            node = self.__makeGlossary(node)
+        #end if
+        return node
+    #end function
 
-		# skip if in draft mode
-		if self.__draft == "'yes'": return node
+    def __configuration(self, node):
+        """Read node attributes and build a dictionary holding
+        configuration information for the collator"""
 
-		if node.name == "defterm":
-			node = self.__saveNode(node)
-		elif node.name == "make-glossary":
-			node = self.__makeGlossary(node)
-		#end if
-		return node
-	#end function
+        # presets
+        properties = {
+            "locale": "C",
+            "locale_encoding": None,
+            "locale_variant": None,
+            "alphabet": "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
+        }
 
+        # read element attributes
+        prop = node.properties
+        while prop:
+            properties[prop.name] = prop.content
+            prop = prop.next
+        #end while
 
-	def __configuration(self, node):
-		"""Read node attributes and build a dictionary holding
-		configuration information for the collator"""
+        # split locale into locale/encoding/variant
+        if '@' in properties['locale']:
+            properties['locale'], properties['locale_variant'] = \
+                properties['locale'].split('@', 1)
+        if '.' in properties['locale']:
+            properties['locale'], properties['locale_encoding'] = \
+                properties['locale'].split('.', 1)
+        #end ifs
 
-		# presets
-		properties = {
-			"locale": "C",
-			"locale_encoding": None,
-			"locale_variant": None,
-			"alphabet": "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
-		}
+        # build list of alphabet characters
+        alphabet = []
+        for ch in [x.strip() for x in properties['alphabet'].split()]:
+            if ch[0] == '[' and ch[-1] == ']':
+                properties['symbols'] = ch[1:-1].strip()
+            else:
+                alphabet.append(ch)
+            #end if
+        #end for
+        properties['alphabet'] = alphabet
 
-		# read element attributes
-		prop = node.properties
-		while prop:
-			properties[prop.name] = prop.content
-			prop = prop.next
-		#end while
+        return properties
+    #end function
 
-		# split locale into locale/encoding/variant
-		if '@' in properties['locale']:
-			properties['locale'], properties['locale_variant'] = \
-				properties['locale'].split('@', 1)
-		if '.' in properties['locale']:
-			properties['locale'], properties['locale_encoding'] = \
-				properties['locale'].split('.', 1)
-		#end ifs
+    def __setLocale(self, collate="C", encoding=None, variant=None):
+        """Sets the locale to the specified locale, encoding and locale
+        variant."""
 
-		# build list of alphabet characters
-		alphabet = []
-		for ch in [x.strip() for x in properties['alphabet'].split()]:
-			if ch[0] == '[' and ch[-1] == ']':
-				properties['symbols'] = ch[1:-1].strip()
-			else:
-				alphabet.append(ch)
-			#end if
-		#end for
-		properties['alphabet'] = alphabet
+        success = False
+        for e in [encoding, "UTF8"]:
+            if success: break
+            for v in [variant, ""]:
+                localestring = '.'.join([x for x in [collate, e] if x])
+                localestring = '@'.join([x for x in [localestring, v] if x])
+                try:
+                    locale.setlocale(locale.LC_COLLATE, localestring)
+                    success = True
+                    break
+                except locale.Error: pass
+            #end for
+        #end for
 
-		return properties
-	#end function
+        if not success:
+            msg = "Warning: cannot set locale '%s'." % collate
+            sys.stderr.write(msg)
+        #end if
+    #end function
 
+    def __resetLocale(self):
+        """Resets LC_COLLATE to its default."""
+        locale.resetlocale(locale.LC_COLLATE)
+    #end function
 
-	def __setLocale(self, collate="C", encoding=None, variant=None):
-		"""Sets the locale to the specified locale, encoding and locale
-		variant."""
+    def __adaptEncoding(self):
+        """Adapt all sortkeys' encoding to the locale's encoding."""
 
-		success = False
-		for e in [encoding, "UTF8"]:
-			if success: break
-			for v in [variant, ""]:
-				localestring = '.'.join([x for x in [collate, e] if x])
-				localestring = '@'.join([x for x in [localestring, v] if x])
-				try:
-					locale.setlocale(locale.LC_COLLATE, localestring)
-					success = True
-					break
-				except locale.Error: pass
-			#end for
-		#end for
+        localestring, encoding = locale.getlocale(locale.LC_COLLATE)
 
-		if not success:
-			msg = "Warning: cannot set locale '%s'." % collate
-			sys.stderr.write(msg)
-		#end if
-	#end function
+        if encoding and encoding.replace('-','') != "UTF8":
+            i = 0
+            while i < len(self.__glossary):
+                term, node = self.__glossary[i]
+                self.__glossary[i][0] = term.decode("UTF-8").encode(encoding)
+                i += 1
+            #end for
+        #end if
+    #end function
 
+    def __sortGlossary(self, config):
+        """Sort glossary terms."""
 
-	def __resetLocale(self):
-		"""Resets LC_COLLATE to its default."""
-		locale.resetlocale(locale.LC_COLLATE)
-	#end function
+        # create alphabet nodes
+        for ch in config['alphabet']:
+            newnode = libxml2.newNode("glsection")
+            newnode.setProp("name", ch)
+            self.__glossary.append([ch, newnode])
+        #end for
 
+        # adapt strings' encoding to locale
+        self.__adaptEncoding()
 
-	def __adaptEncoding(self):
-		"""Adapt all sortkeys' encoding to the locale's encoding."""
+        # comparison function
+        def compare(a,b):
+            result = locale.strcoll(a[0], b[0])
+            y1 = a[1].name
+            y2 = b[1].name
+            if result != 0:
+                return result
+            elif y1 == y2:
+                return 0
+            elif y1 == "glsection":
+                return -1
+            elif y2 == "glsection":
+                return +1
+            else:
+                return 0
+        #end inline
 
-		localestring, encoding = locale.getlocale(locale.LC_COLLATE)
+        # sort items
+        self.__glossary.sort(compare)
+    #end function
 
-		if encoding and encoding.replace('-','') != "UTF8":
-			i = 0
-			while i < len(self.__glossary):
-				term, node = self.__glossary[i]
-				self.__glossary[i][0] = term.decode("UTF-8").encode(encoding)
-				i += 1
-			#end for
-		#end if
-	#end function
+    def __buildGlossary(self, node, config):
+        """Build XML DOM structure. self.__glossary is a list of tuples
+        of the form (sortkey, node), where node can be a 'glsection' or
+        a 'defterm' element."""
 
+        section = libxml2.newNode("glsection")
+        try:
+            section.setProp("name", config['symbols'])
+        except KeyError: pass
+        section.addChild(libxml2.newNode("dl"))
 
-	def __sortGlossary(self, config):
-		"""Sort glossary terms."""
+        for item in self.__glossary:
+            if item[1].name == "glsection":
+                node.addChild(section)
+                section = item[1]
+                section.addChild(libxml2.newNode("dl"))
+            else:
+                child = item[1].children
+                while child:
+                    next = child.next
+                    if child.name == "dt" or child.name == "dd":
+                        child.unlinkNode()
+                        section.children.addChild(child)
+                    #end if
+                    child = next
+                #end while
+                item[1].unlinkNode()
+                item[1].freeNode()
+            #end if
+        #end for
+        node.addChild(section)
+        node.setName("glossary")
 
-		# create alphabet nodes
-		for ch in config['alphabet']:
-			newnode = libxml2.newNode("glsection")
-			newnode.setProp("name", ch)
-			self.__glossary.append([ch, newnode])
-		#end for
+        return node
+    #end function
 
-		# adapt strings' encoding to locale
-		self.__adaptEncoding()
+    def __makeGlossary(self, node):
+        """Read configuration. Sort items. Build glossary. Build XML."""
 
-		# comparison function
-		def compare(a,b):
-			result = locale.strcoll(a[0], b[0])
-			y1 = a[1].name
-			y2 = b[1].name
-			if result != 0:
-				return result
-			elif y1 == y2:
-				return 0
-			elif y1 == "glsection":
-				return -1
-			elif y2 == "glsection":
-				return +1
-			else:
-				return 0
-		#end inline
+        if not self.__glossary: return node
 
-		# sort items
-		self.__glossary.sort(compare)
-	#end function
+        # build configuration
+        config = self.__configuration(node)
 
+        # set locale
+        self.__setLocale(config['locale'],
+            config['locale_encoding'], config['locale_variant'])
 
-	def __buildGlossary(self, node, config):
-		"""Build XML DOM structure. self.__glossary is a list of tuples
-		of the form (sortkey, node), where node can be a 'glsection' or
-		a 'defterm' element."""
+        # sort glossary
+        self.__sortGlossary(config)
 
-		section = libxml2.newNode("glsection")
-		try:
-			section.setProp("name", config['symbols'])
-		except KeyError: pass
-		section.addChild(libxml2.newNode("dl"))
+        # reset locale
+        self.__resetLocale()
 
-		for item in self.__glossary:
-			if item[1].name == "glsection":
-				node.addChild(section)
-				section = item[1]
-				section.addChild(libxml2.newNode("dl"))
-			else:
-				child = item[1].children
-				while child:
-					next = child.next
-					if child.name == "dt" or child.name == "dd":
-						child.unlinkNode()
-						section.children.addChild(child)
-					#end if
-					child = next
-				#end while
-				item[1].unlinkNode()
-				item[1].freeNode()
-			#end if
-		#end for
-		node.addChild(section)
-		node.setName("glossary")
+        # build DOM structures
+        return self.__buildGlossary(node, config)
+    #end function
 
-		return node
-	#end function
-
-
-	def __makeGlossary(self, node):
-		"""Read configuration. Sort items. Build glossary. Build XML."""
-
-		if not self.__glossary: return node
-
-		# build configuration
-		config = self.__configuration(node)
-
-		# set locale
-		self.__setLocale(config['locale'],
-			config['locale_encoding'], config['locale_variant'])
-
-		# sort glossary
-		self.__sortGlossary(config)
-
-		# reset locale
-		self.__resetLocale()
-
-		# build DOM structures
-		return self.__buildGlossary(node, config)
-	#end function
-
-
-	def flush(self):
-		self.__glossary = []
-	#end function
+    def flush(self):
+        self.__glossary = []
+    #end function
 
 #end class
 

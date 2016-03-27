@@ -13,60 +13,58 @@ import os, libxml2, libxslt
 # ecmds includes
 from ecmds.error import ECMDSError
 
-
 class ECMDSXslProc(object):
 
-	def __init__(self):
-		pass
-	#end function
+    def __init__(self):
+        pass
+    #end function
 
+    def applyStylesheet(self, document, stylesheet):
+        '''Apply stylesheet to document.'''
 
-	def applyStylesheet(self, document, stylesheet):
-		'''Apply stylesheet to document.'''
+        params = None
+        try:
+            params = self.config['xsl_params']
+        except KeyError: pass
 
-		params = None
-		try:
-			params = self.config['xsl_params']
-		except KeyError: pass
+        try:
+            result = stylesheet.applyStylesheet(document, params)
+        except libxml2.libxmlError, e:
+            msg = "Error while transforming document:\n %s." % (str(e),)
+            raise ECMDSError(msg)
+        #end try
 
-		try:
-			result = stylesheet.applyStylesheet(document, params)
-		except libxml2.libxmlError, e:
-			msg = "Error while transforming document:\n %s." % (str(e),)
-			raise ECMDSError(msg)
-		#end try
+        return result
+    #end function
 
-		return result
-	#end function
+    def loadStylesheet(self):
+        '''Load matching stylesheet for desired output format.'''
 
+        target_format = self.config['target_format']
 
-	def loadStylesheet(self):
-		'''Load matching stylesheet for desired output format.'''
+        try:
+            style_dir = self.config['style_dir']
+        except KeyError:
+            msg = "Please specify the location of the stylesheets."
+            raise ECMDSError(msg)
+        #end try
+        
+        name = os.path.join(style_dir, target_format, "ecmds.xsl")
+        try:
+            styledoc = self.loadXMLDocument(name)
+        except ECMDSError, e:
+            msg = "Could not load stylesheet:\n %s" % (e.msg(),)
+            raise ECMDSError(msg)
+        #end try
 
-		target_format = self.config['target_format']
+        stylesheet = libxslt.parseStylesheetDoc(styledoc)
+        if not stylesheet:
+            msg = "Could not compile stylesheet."
+            raise ECMDSError(msg)
+        #end if
 
-		try:
-			style_dir = self.config['style_dir']
-		except KeyError:
-			msg = "Please specify the location of the stylesheets."
-			raise ECMDSError(msg)
-		#end try
-		
-		name = os.path.join(style_dir, target_format, "ecmds.xsl")
-		try:
-			styledoc = self.loadXMLDocument(name)
-		except ECMDSError, e:
-			msg = "Could not load stylesheet:\n %s" % (e.msg(),)
-			raise ECMDSError(msg)
-		#end try
-
-		stylesheet = libxslt.parseStylesheetDoc(styledoc)
-		if not stylesheet:
-			msg = "Could not compile stylesheet."
-			raise ECMDSError(msg)
-		#end if
-
-		return stylesheet
-	#end function
+        return stylesheet
+    #end function
 
 #end class
+

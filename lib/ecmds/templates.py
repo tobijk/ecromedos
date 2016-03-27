@@ -10,65 +10,65 @@
 book = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book SYSTEM "http://www.ecromedos.net/dtd/2.0/ecromedos.dtd">
 <book lang="en_US" fontsize="12pt" papersize="a4paper" div="14" bcor="0cm"
-	secnumdepth="3" secsplitdepth="1">
+    secnumdepth="3" secsplitdepth="1">
 
-	<head>
-		<subject>Subject</subject>
-		<title>Title</title>
-		<subtitle>Subtitle</subtitle>
-		<author>Author</author>
-		<date>Date</date>
-		<publisher>Publisher</publisher>
-	</head>
+    <head>
+        <subject>Subject</subject>
+        <title>Title</title>
+        <subtitle>Subtitle</subtitle>
+        <author>Author</author>
+        <date>Date</date>
+        <publisher>Publisher</publisher>
+    </head>
 
-	<legal>
-		<p>
-		Legal info.
-		</p>
-	</legal>
+    <legal>
+        <p>
+        Legal info.
+        </p>
+    </legal>
 
-	<make-toc depth="3" lof="no" lot="no" lol="no"/>
+    <make-toc depth="3" lof="no" lot="no" lol="no"/>
 
-	<preface>
-		<title>Preface</title>
-		<p>
-			First paragraph in first preface...
-		</p>
-	</preface>
+    <preface>
+        <title>Preface</title>
+        <p>
+            First paragraph in first preface...
+        </p>
+    </preface>
 
-	<!-- you may want to group your chapters into parts like this:
-	<part>
-		<title>Part Title</title>
-	-->
+    <!-- you may want to group your chapters into parts like this:
+    <part>
+        <title>Part Title</title>
+    -->
 
-	<chapter>
-		<title>Chapter Title</title>
-		<p>
-			First paragraph in first chapter...
-		</p>
-	</chapter>
+    <chapter>
+        <title>Chapter Title</title>
+        <p>
+            First paragraph in first chapter...
+        </p>
+    </chapter>
 
-	<!-- end part:
-	</part>
-	-->
-	
-	<appendix>
-		<title>First Appendix</title>
-		<p>
-			First paragraph in first appendix...
-		</p>
-	</appendix>
+    <!-- end part:
+    </part>
+    -->
+    
+    <appendix>
+        <title>First Appendix</title>
+        <p>
+            First paragraph in first appendix...
+        </p>
+    </appendix>
 
-	<make-glossary locale="en_US" alphabet="[Symbols] A B C D E F G H I J
-	  K L M N O P Q R S T U V W X Y Z" tocentry="yes"/>
+    <make-glossary locale="en_US" alphabet="[Symbols] A B C D E F G H I J
+      K L M N O P Q R S T U V W X Y Z" tocentry="yes"/>
 
-	<biblio number="yes">
-		<bibitem id="EXAMPLE" label="LABEL">Bibliography entry...</bibitem>
-	</biblio>
+    <biblio number="yes">
+        <bibitem id="EXAMPLE" label="LABEL">Bibliography entry...</bibitem>
+    </biblio>
 
-	<make-index group="default" locale="en_US" alphabet="[Symbols] A B C
-		D E F G H I J K L M N O P Q R S T U V W X Y Z" tocentry="yes"
-		columns="2"/>
+    <make-index group="default" locale="en_US" alphabet="[Symbols] A B C
+        D E F G H I J K L M N O P Q R S T U V W X Y Z" tocentry="yes"
+        columns="2"/>
 
 </book>
 """
@@ -76,56 +76,56 @@ book = """<?xml version="1.0" encoding="UTF-8"?>
 report = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book SYSTEM "http://www.ecromedos.net/dtd/2.0/ecromedos.dtd">
 <report lang="en_US" fontsize="12pt" papersize="a4paper" div="14" bcor="0cm"
-	secnumdepth="3" secsplitdepth="1">
+    secnumdepth="3" secsplitdepth="1">
 
-	<head>
-		<subject>Subject</subject>
-		<title>Title</title>
-		<subtitle>Subtitle</subtitle>
-		<author>Author</author>
-		<date>Date</date>
-		<publisher>Publisher</publisher>
-	</head>
+    <head>
+        <subject>Subject</subject>
+        <title>Title</title>
+        <subtitle>Subtitle</subtitle>
+        <author>Author</author>
+        <date>Date</date>
+        <publisher>Publisher</publisher>
+    </head>
 
-	<legal>
-		<p>
-		Legal info.
-		</p>
-	</legal>
+    <legal>
+        <p>
+        Legal info.
+        </p>
+    </legal>
 
-	<make-toc depth="3" lof="no" lot="no" lol="no"/>
+    <make-toc depth="3" lof="no" lot="no" lol="no"/>
 
-	<preface>
-		<title>Preface</title>
-		<p>
-			First paragraph in first preface...
-		</p>
-	</preface>
+    <preface>
+        <title>Preface</title>
+        <p>
+            First paragraph in first preface...
+        </p>
+    </preface>
 
-	<chapter>
-		<title>Chapter Title</title>
-		<p>
-			First paragraph in first chapter...
-		</p>
-	</chapter>
-	
-	<appendix>
-		<title>First Appendix</title>
-		<p>
-			First paragraph in first appendix...
-		</p>
-	</appendix>
+    <chapter>
+        <title>Chapter Title</title>
+        <p>
+            First paragraph in first chapter...
+        </p>
+    </chapter>
+    
+    <appendix>
+        <title>First Appendix</title>
+        <p>
+            First paragraph in first appendix...
+        </p>
+    </appendix>
 
-	<make-glossary locale="en_US" alphabet="[Symbols] A B C D E F G H I J
-	  K L M N O P Q R S T U V W X Y Z" tocentry="yes"/>
+    <make-glossary locale="en_US" alphabet="[Symbols] A B C D E F G H I J
+      K L M N O P Q R S T U V W X Y Z" tocentry="yes"/>
 
-	<biblio number="yes">
-		<bibitem id="EXAMPLE" label="LABEL">Bibliography entry...</bibitem>
-	</biblio>
+    <biblio number="yes">
+        <bibitem id="EXAMPLE" label="LABEL">Bibliography entry...</bibitem>
+    </biblio>
 
-	<make-index group="default" locale="en_US" alphabet="[Symbols] A B C
-		D E F G H I J K L M N O P Q R S T U V W X Y Z" tocentry="yes"
-		columns="2"/>
+    <make-index group="default" locale="en_US" alphabet="[Symbols] A B C
+        D E F G H I J K L M N O P Q R S T U V W X Y Z" tocentry="yes"
+        columns="2"/>
 
 </report>
 """
@@ -133,35 +133,36 @@ report = """<?xml version="1.0" encoding="UTF-8"?>
 article = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE article SYSTEM "http://www.ecromedos.net/dtd/2.0/ecromedos.dtd">
 <article lang="en_US" fontsize="12pt" papersize="a4paper" div="14" bcor="0cm"
-	secnumdepth="3" secsplitdepth="0">
+    secnumdepth="3" secsplitdepth="0">
 
-	<head>
-		<subject>Subject</subject>
-		<title>Title</title>
-		<subtitle>Subtitle</subtitle>
-		<author>Author</author>
-		<date>Date</date>
-		<publisher>Publisher</publisher>
-	</head>
+    <head>
+        <subject>Subject</subject>
+        <title>Title</title>
+        <subtitle>Subtitle</subtitle>
+        <author>Author</author>
+        <date>Date</date>
+        <publisher>Publisher</publisher>
+    </head>
 
-	<make-toc depth="3" lof="no" lot="no" lol="no"/>
+    <make-toc depth="3" lof="no" lot="no" lol="no"/>
 
-	<abstract>
-		<p>
-			Document summary...
-		</p>
-	</abstract>
-	
-	<section>
-		<title>Section Title</title>
-		<p>
-			First paragraph in first section...
-		</p>
-	</section>
+    <abstract>
+        <p>
+            Document summary...
+        </p>
+    </abstract>
+    
+    <section>
+        <title>Section Title</title>
+        <p>
+            First paragraph in first section...
+        </p>
+    </section>
 
-	<biblio number="yes">
-		<bibitem id="EXAMPLE" label="LABEL">Bibliography entry...</bibitem>
-	</biblio>
+    <biblio number="yes">
+        <bibitem id="EXAMPLE" label="LABEL">Bibliography entry...</bibitem>
+    </biblio>
 
 </article>
 """
+

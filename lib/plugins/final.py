@@ -10,30 +10,27 @@
 # std includes
 import libxml2
 
-
 def getInstance(config):
-	'''Returns a plugin instance.'''
-	return Plugin(config)
+    '''Returns a plugin instance.'''
+    return Plugin(config)
 #end function
-
 
 class Plugin(object):
 
-	def __init__(self, config):
-		pass
-	#end function
+    def __init__(self, config):
+        pass
+    #end function
 
+    def flush(self):
+        pass
+    #end function
 
-	def flush(self):
-		pass
-	#end function
+    def process(self, node, format):
+        '''Prepare @node for target @format.'''
 
-
-	def process(self, node, format):
-		'''Prepare @node for target @format.'''
-
-		node.setProp("final", "yes")
-		return node
-	#end function
+        node.setProp("final", "yes")
+        return node
+    #end function
 
 #end class
+
