@@ -1,15 +1,14 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 #
 # Desc:    This file is part of the ecromedos Document Preparation System
-# Author:  Tobias Koch (tkoch@ecromedos.net)
-# License: GNU General Public License, version 2
+# Author:  Tobias Koch <tkoch@ecromedos.net>
+# License: MIT
 # URL:     http://www.ecromedos.net
-# Date:    2009/11/15
 #
 
 # std includes
-import os, sys, libxml2, getopt, tempfile
+import os, sys, getopt, tempfile
 
 # make ecromedos relocatable
 ECMDS_INSTALL_DIR = os.path.normpath(
@@ -20,11 +19,9 @@ ECMDS_INSTALL_DIR = os.path.normpath(
 sys.path.insert(1, ECMDS_INSTALL_DIR + os.sep + 'lib')
 
 # ecromedos includes
-from ecmds.error import ECMDSError, ECMDSPluginError
-from ecmds.ecmdsproc import ECMDSProc
-
-# document templates
-import ecmds.templates as document_templates
+from net.ecromedos.error import ECMDSError, ECMDSPluginError
+from net.ecromedos.ecmlprocessor import ECMLProcessor
+import net.ecromedos.templates as document_templates
 
 # exit values
 ECMDS_ERR_INVOCATION = 1
@@ -32,54 +29,51 @@ ECMDS_ERR_PROCESSING = 2
 ECMDS_ERR_UNKNOWN    = 3
 
 # version number
-VERSION = "2.1.0"
+VERSION = "3.0.0"
 
 def printVersion():
-    '''Display version information.'''
+    """Display version information."""
 
-    print "ecromedos Document Processor, version %s    " % (VERSION,)
-    print "Copyright (C) 2005-2011, Tobias Koch <tobias.koch@gmail.com>"
+    print("ecromedos Document Processor, version %s" % (VERSION,))
+    print("Copyright (C) 2005-2016, Tobias Koch <tobias@tobijk.de>")
 #end function
 
 def printUsage():
-    '''Display usage information.'''
+    """Display usage information."""
 
-    print "                                                                          "
-    print "Usage: ecromedos [OPTIONS] <sourcefile>                                   "
-    print "                                                                          "
-    print "Options:                                                                  "
-    print "                                                                          "
-    print " --draft            don't generate glossary or keyword indexes, which can "
-    print "                    save substantial amounts of time                      "
-    print " --finedtp          activate pedantic typesetting, this can result in     "
-    print "                    overful horizontal boxes                              "
-    print " --help, -h         display this information                              "
-    print " --nohyperref       disable active links in PDF output                    "
-    print " --novalid          skip validation of the document                       "
-    print " --texlive=<year>   if you are using texlive, you may specify the release "
-    print "                    year to activate workarounds for bugs in that version "
-    print "                                                                          "
-    print " -b <directory>     use an alternative base directory from where to look  "
-    print "                    up the transformation rules                           "
-    print " -c <file>          use an alternative configuration file                 "
-    print " -f <format>        generate specified output format                      "
-    print "                    (xhtml, latex, pdflatex or xelatex)                   "
-    print " -n <doctype>       start a new document of given doctype                 "
-    print "                    (article, book or report)                             "
-    print " -s <file>          use an alternative style definition file              " 
-    print " -v                 print version information and exit                    "
+    print("                                                                          ")
+    print("Usage: ecromedos [OPTIONS] <sourcefile>                                   ")
+    print("                                                                          ")
+    print("Options:                                                                  ")
+    print("                                                                          ")
+    print(" --draft            don't generate glossary or keyword indexes, which can ")
+    print("                    save substantial amounts of time                      ")
+    print(" --finedtp          activate pedantic typesetting, this can result in     ")
+    print("                    overful horizontal boxes                              ")
+    print(" --help, -h         display this information                              ")
+    print(" --nohyperref       disable active links in PDF output                    ")
+    print(" --novalid          skip validation of the document                       ")
+    print("                                                                          ")
+    print(" -b <directory>     use an alternative base directory from where to look  ")
+    print("                    up the transformation rules                           ")
+    print(" -c <file>          use an alternative configuration file                 ")
+    print(" -f <format>        generate specified output format                      ")
+    print("                    (xhtml, latex, pdflatex or xelatex)                   ")
+    print(" -n <doctype>       start a new document of given doctype                 ")
+    print("                    (article, book or report)                             ")
+    print(" -s <file>          use an alternative style definition file              ") 
+    print(" -v                 print version information and exit                    ")
 #end function
 
 def parseCmdLine():
-    '''Parse and extract arguments of command line options.'''
+    """Parse and extract arguments of command line options."""
 
     options = {}
 
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hvn:f:s:b:c:",
-            ["draft", "finedtp", "help", "nohyperref", "novalid",
-            "texlive="])
-    except getopt.GetoptError, e:
+            ["draft", "finedtp", "help", "nohyperref", "novalid"])
+    except getopt.GetoptError as e:
         msg  = "Error while parsing command line: %s\n" % e.msg
         msg += "Type 'ecromedos --help' for more information."
         raise ECMDSError(msg)
@@ -99,9 +93,7 @@ def parseCmdLine():
         elif o == "--nohyperref":
             params["global.hyperref"] = "'no'"
         elif o == "--novalid":
-            options["do_validate"] = "no"
-        elif o == "--texlive":
-            params["global.texlive.version"] = v
+            options["do_validate"] = false
         elif o == "-b":
             options["style_dir"] = v
         elif o == "-c":
@@ -133,7 +125,7 @@ def parseCmdLine():
 #end function
 
 def startDoc(doctype):
-    '''Outputs a template for a new document of "doctype" to stdout.'''
+    """Outputs a template for a new document of "doctype" to stdout."""
 
     if not hasattr(document_templates, doctype):
         msg = "No template available for doctype '" + doctype + "'."
@@ -146,42 +138,10 @@ def startDoc(doctype):
     sys.stdout.flush()
 #end function
 
-def setupTempDir():
-    '''Create a temporary directory.'''
-    return tempfile.mkdtemp(prefix="ecmds-")
-#end function
-
-def deleteDir(dirname):
-    '''Recursively delete a directory.'''
-
-    # delete subdirs and files
-    for root, dirs, files in os.walk(dirname, topdown=False):
-        for name in files:
-            try:
-                os.remove(os.path.join(root, name))
-            except: pass
-        #end for
-        for name in dirs:
-            try:
-                os.rmdir(os.path.join(root, name))
-            except: pass
-        #end for
-    #end for
-
-    # delete root
-    try:
-        os.rmdir(dirname)
-    except: pass
-#end function
-
 if __name__ == "__main__":
     try:
-        # INIT XML-CATALOG
-        libxml2.initializeCatalog()
-
         # SETUP
         try:
-            # parse command line
             options, files = parseCmdLine()
             if len(files) < 1:
                 msg = "ecromedos: no source file specified"
@@ -191,37 +151,30 @@ if __name__ == "__main__":
                     % files[0]
                 raise ECMDSError(msg)
             #end ifs
-        except ECMDSError, e:
+        except ECMDSError as e:
             sys.stderr.write(e.msg() + "\n")
             sys.exit(ECMDS_ERR_INVOCATION)
         #end try
 
-        # CREATE TEMPORARY DIRECTORY
-        options['tmp_dir'] = setupTempDir()
-
-        # SET INSTALLATION PATH
-        options.setdefault('install_dir', ECMDS_INSTALL_DIR)
-
-        # RUN
+        # TRANSFORMATION
         try:
-            try:
-                proc = ECMDSProc()
-                proc.process(files[0], options)
-            finally:
-                # TRY TO REMOVE TEMPORARY DIRECTORY
-                deleteDir(options['tmp_dir'])
-            #end try
-        except ECMDSPluginError, e:
+            with tempfile.TemporaryDirectory(prefix="ecmds-") as tmp_dir:
+                # MAKE THE PROCESSOR USE THE TMPDIR CONTEXT
+                options["tmp_dir"] = tmp_dir
+
+                # SET INSTALLATION PATH
+                options.setdefault("install_dir", ECMDS_INSTALL_DIR)
+
+                # DO DOCUMENT TRANSFORMATION
+                ECMLProcessor(options).process(files[0])
+            #end with
+        except ECMDSPluginError as e:
             msg = "Plugin '%s' caused an error:\n %s" % (e.pluginName(), e.msg())
             sys.stderr.write(msg + "\n")
             sys.exit(ECMDS_ERR_PROCESSING)
-        except ECMDSError, e:
+        except ECMDSError as e:
             sys.stderr.write(e.msg() + "\n")
             sys.exit(ECMDS_ERR_PROCESSING)
-        #end try
-
     except KeyboardInterrupt:
         sys.stdout.write("\n -> Caught SIGINT, terminating.\n")
-    #end try
 #end __main__
-
