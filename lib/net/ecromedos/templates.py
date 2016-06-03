@@ -58,15 +58,15 @@ book = """<?xml version="1.0" encoding="UTF-8"?>
         </p>
     </appendix>
 
-    <make-glossary locale="en_US" alphabet="[Symbols] A B C D E F G H I J
-      K L M N O P Q R S T U V W X Y Z" tocentry="yes"/>
+    <make-glossary locale="en_US" alphabet="[Symbols],A,B,C,D,E,F,G,H,I,J,
+      K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" tocentry="yes"/>
 
     <biblio number="yes">
         <bibitem id="EXAMPLE" label="LABEL">Bibliography entry...</bibitem>
     </biblio>
 
-    <make-index group="default" locale="en_US" alphabet="[Symbols] A B C
-        D E F G H I J K L M N O P Q R S T U V W X Y Z" tocentry="yes"
+    <make-index group="default" locale="en_US" alphabet="[Symbols],A,B,C,
+        D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" tocentry="yes"
         columns="2"/>
 
 </book>
@@ -115,15 +115,15 @@ report = """<?xml version="1.0" encoding="UTF-8"?>
         </p>
     </appendix>
 
-    <make-glossary locale="en_US" alphabet="[Symbols] A B C D E F G H I J
-      K L M N O P Q R S T U V W X Y Z" tocentry="yes"/>
+    <make-glossary locale="en_US" alphabet="[Symbols],A,B,C,D,E,F,G,H,I,J,
+      K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" tocentry="yes"/>
 
     <biblio number="yes">
         <bibitem id="EXAMPLE" label="LABEL">Bibliography entry...</bibitem>
     </biblio>
 
-    <make-index group="default" locale="en_US" alphabet="[Symbols] A B C
-        D E F G H I J K L M N O P Q R S T U V W X Y Z" tocentry="yes"
+    <make-index group="default" locale="en_US" alphabet="[Symbols],A,B,C,
+        D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" tocentry="yes"
         columns="2"/>
 
 </report>
