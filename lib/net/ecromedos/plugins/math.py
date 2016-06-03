@@ -85,7 +85,7 @@ class Plugin():
             self.out.close()
             self.out = io.StringIO()
         #end if
-        
+
         #reset counter
         self.counter = 1
         self.nodelist = []
@@ -95,9 +95,13 @@ class Plugin():
         """Mark node, to be copied 1:1 to output document."""
 
         math_node = etree.Element("m")
+
         parent = node.getparent()
+        math_node.tail = node.tail
         parent.replace(node, math_node)
+
         node.tag = "copy"
+        node.tail = ""
         math_node.append(node)
 
         return math_node
@@ -124,10 +128,10 @@ class Plugin():
         #end if
 
         # save TeX markup
-        formula = etree.tostring(node, method="text")
+        #formula = etree.tostring(node, method="text", encoding="unicode")
 
         # give each formula one page
-        self.out.write("$%s$\n\\clearpage{}\n" % formula)
+        self.out.write("$%s$\n\\clearpage{}\n" % node.text)
 
         copy_node = etree.Element("copy")
         img_node  = etree.Element("img")
@@ -136,7 +140,9 @@ class Plugin():
         img_node.attrib["alt"]   = "formula"
         img_node.attrib["class"] = "math"
 
+        copy_node.tail = node.tail
         copy_node.append(img_node)
+        copy_node.tail = node.tail
         node.getparent().replace(node, copy_node)
 
         # keep track of images for flush
@@ -168,7 +174,8 @@ class Plugin():
 
             # run LaTeX twice
             for i in range(2):
-                proc = subprocess.Popen(cmd, stdout=devnull, stderr=devnull, cwd=self.tmp_dir)
+                proc = subprocess.Popen(cmd, stdout=devnull, stderr=devnull,
+                        cwd=self.tmp_dir)
                 rval = proc.wait()
 
                 # test exit code
