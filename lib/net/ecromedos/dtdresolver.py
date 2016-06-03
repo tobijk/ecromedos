@@ -33,3 +33,4 @@ class ECMDSDTDResolver(etree.Resolver):
     #end function
 
 #end class
+

@@ -159,3 +159,4 @@ class ECMLProcessor(ECMDSConfigReader, ECMDSDTDResolver, ECMDSPreprocessor):
     #end function
 
 #end class
+
