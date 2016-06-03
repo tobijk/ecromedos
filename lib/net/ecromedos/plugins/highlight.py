@@ -33,8 +33,8 @@ class Plugin():
             return node
 
         # fetch content and highlight
-        highlighted = self.__highlight(etree.tostring(node, method="text"),
-                    node.attrib)
+        highlighted = self.__highlight(etree.tostring(node, method="text",
+            encoding="unicode"), node.attrib)
 
         # parse result into element
         newnode = etree.fromstring(highlighted)
@@ -54,6 +54,7 @@ class Plugin():
         #end for
 
         # replace original node
+        newnode.tail = node.tail
         node.getparent().replace(node, newnode)
 
         return newnode
