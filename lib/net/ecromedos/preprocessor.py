@@ -18,8 +18,6 @@ class ECMDSPreprocessor():
     def loadPlugins(self):
         """Import everything from the plugin directory."""
 
-        if self.plugins: return
-
         try:
             plugin_dir = self.config['plugin_dir']
         except KeyError:
