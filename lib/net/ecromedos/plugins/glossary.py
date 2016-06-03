@@ -77,11 +77,13 @@ class Plugin():
         # sort glossary
         self.__sortGlossary(config)
 
+        # build DOM structures
+        glossary = self.__buildGlossary(node, config)
+
         # reset locale
         self.__resetLocale()
 
-        # build DOM structures
-        return self.__buildGlossary(node, config)
+        return glossary
     #end function
 
     def __configuration(self, node):
@@ -131,11 +133,9 @@ class Plugin():
         for e in [encoding, "UTF-8"]:
             if success:
                 break
-
             for v in [variant, ""]:
                 localestring = '.'.join([x for x in [collate,      e] if x])
                 localestring = '@'.join([x for x in [localestring, v] if x])
-
                 try:
                     locale.setlocale(locale.LC_COLLATE, localestring)
                     success = True
