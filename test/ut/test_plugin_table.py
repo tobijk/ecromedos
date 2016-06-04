@@ -40,7 +40,7 @@ class UTTestPluginTable(unittest.TestCase):
             plugin.flush()
 
             tree = etree.ElementTree(element=root)
-            result = etree.tostring(tree, encoding="utf-8").decode("utf-8")
+            result = etree.tostring(tree, encoding="unicode")
 
             for i in range(4):
                 frame = root.find("./colgroup")[i].attrib.get("frame", "")
@@ -75,7 +75,7 @@ class UTTestPluginTable(unittest.TestCase):
         plugin.flush()
 
         tree = etree.ElementTree(element=root)
-        result = etree.tostring(tree, encoding="utf-8").decode("utf-8")
+        result = etree.tostring(tree, encoding="unicode")
 
         for i in range(4):
             frame = root.find("./colgroup")[i].attrib.get("frame", "")
@@ -109,7 +109,7 @@ class UTTestPluginTable(unittest.TestCase):
         plugin.flush()
 
         tree = etree.ElementTree(element=root)
-        result = etree.tostring(tree, encoding="utf-8").decode("utf-8")
+        result = etree.tostring(tree, encoding="unicode")
 
         for i in range(4):
             frame = root.find("./colgroup")[i].attrib.get("frame", "")
@@ -143,7 +143,7 @@ class UTTestPluginTable(unittest.TestCase):
         plugin.flush()
 
         tree = etree.ElementTree(element=root)
-        result = etree.tostring(tree, encoding="utf-8").decode("utf-8")
+        result = etree.tostring(tree, encoding="unicode")
 
         for i in range(4):
             frame = root.find("./colgroup")[i].attrib.get("frame", "")
