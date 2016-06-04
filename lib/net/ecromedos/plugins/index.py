@@ -308,10 +308,9 @@ class Plugin():
         index = self.__sortIndex(index, level="item", config=config)
 
         # build base node
-        index_node = etree.Element("index")
         for prop_name in ["columns", "title", "tocentry"]:
             try:
-                index_node.attrib[prop_name] = config[prop_name]
+                node.attrib[prop_name] = config[prop_name]
             except KeyError: pass
         #end for        
 
@@ -325,7 +324,7 @@ class Plugin():
 
         for item in index:
             if isinstance(item[1], etree._Element):
-                index_node.append(section)
+                node.append(section)
                 section = item[1]
             else:
                 term = item[0]
@@ -366,10 +365,10 @@ class Plugin():
             #end if
         #end for
 
-        index_node.append(section)
-        index_node.tail = node.tail
-        node.getparent().replace(node, index_node)
-        return index_node
+        node.append(section)
+        node.tag = "index"
+
+        return node
     #end function
 
 #end class
