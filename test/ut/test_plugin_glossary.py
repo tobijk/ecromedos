@@ -61,11 +61,10 @@ class UTTestPluginGlossary(unittest.TestCase):
         glossary_node = etree.fromstring('''<make-glossary
                 alphabet="[S y m b o l e],A,B,C,G,Z"
                 locale="de_DE.UTF-8"/>''')
-        plugin.process(glossary_node, "html")
+        plugin.process(glossary_node, "xhtml")
 
         tree = etree.ElementTree(element=glossary_node)
-        result = etree.tostring(tree, pretty_print=True, encoding="utf-8")\
-                .decode("utf-8")
+        result = etree.tostring(tree, pretty_print=True, encoding="unicode")
 
         expected_result = """\
 <glossary alphabet="[S y m b o l e],A,B,C,G,Z" locale="de_DE.UTF-8">
