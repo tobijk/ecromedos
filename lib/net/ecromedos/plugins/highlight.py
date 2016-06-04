@@ -32,9 +32,14 @@ class Plugin():
         if not node.attrib.get('syntax'):
             return node
 
+        # fetch contents
+        contents = etree.tostring(node, method="text", encoding="unicode")
+
+        if node.attrib.get("strip", "no").lower() in ["yes", "true"]:
+            contents = contents.strip()
+
         # fetch content and highlight
-        highlighted = self.__highlight(etree.tostring(node, method="text",
-            encoding="unicode"), node.attrib)
+        highlighted = self.__highlight(contents, node.attrib)
 
         # parse result into element
         newnode = etree.fromstring(highlighted)
