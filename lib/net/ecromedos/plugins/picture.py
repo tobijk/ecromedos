@@ -191,11 +191,18 @@ class Plugin():
         # build command line
         if width:
             cmd = [self.convert_bin, "-antialias",
-                    "-density", self.convert_dpi, "-scale", width+"x", src, dst]
+                    "-density", self.convert_dpi, "-scale", width+"x"]
         else:
             cmd = [self.convert_bin, "-antialias",
-                    "-density", self.convert_dpi, src, dst]
+                    "-density", self.convert_dpi]
         #end if
+
+        # remove alpha channel if not supported
+        if not dst[-4:] in [".png", ".pdf", ".svg", ".eps"]:
+            cmd += ["-alpha", "remove"]
+
+        # add source and destination filenames
+        cmd += [src, dst]
 
         with open(os.devnull, "wb") as devnull:
             proc = subprocess.Popen(cmd, stdout=devnull, stderr=devnull)
