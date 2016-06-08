@@ -26,8 +26,6 @@
 
 <xsl:template name="latex.preamble.misc">
 
-    <xsl:text>\usepackage{fixltx2e}&#x0a;&#x0a;</xsl:text>
-
     <xsl:text>\DeclareRobustCommand\em&#x0a;</xsl:text>
     <xsl:text>  {\@nomath\em&#x0a;</xsl:text>
     <xsl:text>   \edef\@tempa{\f@shape}%&#x0a;</xsl:text>
