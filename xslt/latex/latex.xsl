@@ -10,7 +10,6 @@
 <!-- command line parameters -->
 <xsl:param name="global.hyperref" select="'yes'"/>
 <xsl:param name="global.lazydtp" select="'yes'"/>
-<xsl:param name="global.texlive.version"/>
 
 <!--
   - Column mode
@@ -160,10 +159,6 @@
     <xsl:text>% Redefine footnotes' appearance&#x0a;</xsl:text>
     <xsl:text>\renewcommand{\thefootnote}{(\arabic{footnote})}&#x0a;&#x0a;</xsl:text>
 
-    <xsl:text>% Floating environment&#x0a;</xsl:text>
-    <xsl:text>\usepackage{float}&#x0a;</xsl:text>
-    <xsl:text>\usepackage{flafter}&#x0a;&#x0a;</xsl:text>
-
     <xsl:text>% Table stuff&#x0a;</xsl:text>
     <xsl:text>\usepackage{longtable}&#x0a;</xsl:text>
     <xsl:text>\usepackage{hhline}&#x0a;</xsl:text>
@@ -231,12 +226,17 @@
 
     <xsl:text>% Enable custom page headers&#x0a;</xsl:text>
     <xsl:text>\usepackage{scrpage2}&#x0a;</xsl:text>
+    <xsl:text>\usepackage{scrhack}&#x0a;</xsl:text>
 
     <!-- explicitly set parskip/parindent -->
     <xsl:call-template name="util.setparskip"/>
 
     <xsl:text>% For per chapter overviews&#x0a;</xsl:text>
     <xsl:text>\usepackage[checkfiles,tight]{minitoc}&#x0a;&#x0a;</xsl:text>
+
+    <xsl:text>% Floating environment&#x0a;</xsl:text>
+    <xsl:text>\usepackage{float}&#x0a;</xsl:text>
+    <xsl:text>\usepackage{flafter}&#x0a;&#x0a;</xsl:text>
 
     <xsl:if test="$global.hyperref='yes'">
         <xsl:text>\definecolor{ecmdslinkcolor}{rgb}{0.11,0.11,0.44}&#x0a;&#x0a;</xsl:text>
