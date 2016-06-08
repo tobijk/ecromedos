@@ -8,49 +8,49 @@
 -->
 <language name="german" id="de">
 
-	<settings format="latex">
-		<babel territory="DE"><select>ngerman</select></babel>
-		<babel territory="AU"><select>naustrian</select></babel>
-		<babel territiry="CH"><select>ngerman</select></babel>
-	</settings>
+    <settings format="latex">
+        <babel territory="DE"><select>ngerman</select></babel>
+        <babel territory="AU"><select>naustrian</select></babel>
+        <babel territiry="CH"><select>ngerman</select></babel>
+    </settings>
 
-	<dictionary>
-		<translation key="figure">Abbildung</translation>
-		<translation key="table">Tabelle</translation>
-		<translation key="listing">Listing</translation>
+    <dictionary>
+        <translation key="figure">Abbildung</translation>
+        <translation key="table">Tabelle</translation>
+        <translation key="listing">Listing</translation>
 
-		<translation key="figure"  context="caption">Abbildung %n</translation>
-		<translation key="table"   context="caption">Tabelle %n</translation>
-		<translation key="listing" context="caption">Listing %n</translation>
+        <translation key="figure"  context="caption">Abbildung %n</translation>
+        <translation key="table"   context="caption">Tabelle %n</translation>
+        <translation key="listing" context="caption">Listing %n</translation>
 
-		<translation key="contents">Inhaltsverzeichnis</translation>
-		<translation key="lof">Abbildungsverzeichnis</translation>
-		<translation key="lot">Tabellenverzeichnis</translation>
-		<translation key="lol">Listingsverzeichnis</translation>
-		<translation key="minitoc">Inhalt</translation>
-		<translation key="parttoc">Inhaltsverzeichnis</translation>
+        <translation key="contents">Inhaltsverzeichnis</translation>
+        <translation key="lof">Abbildungsverzeichnis</translation>
+        <translation key="lot">Tabellenverzeichnis</translation>
+        <translation key="lol">Listingsverzeichnis</translation>
+        <translation key="minitoc">Inhalt</translation>
+        <translation key="parttoc">Inhaltsverzeichnis</translation>
 
-		<translation key="biblio">Literaturverzeichnis</translation>
-		<translation key="biblio" class="article">Literatur</translation>
+        <translation key="biblio">Literaturverzeichnis</translation>
+        <translation key="biblio" class="article">Literatur</translation>
 
-		<translation key="part">Teil %n.</translation>
-		<translation key="abstract">Zusammenfassung</translation>
-		<translation key="index">Stichwortverzeichnis</translation>
-		<translation key="glossary">Glossar</translation>
+        <translation key="part">Teil %n.</translation>
+        <translation key="abstract">Zusammenfassung</translation>
+        <translation key="index">Stichwortverzeichnis</translation>
+        <translation key="glossary">Glossar</translation>
 
-		<translation key="nav-prev">Zurück</translation>
-		<translation key="nav-next">Weiter</translation>
-		<translation key="nav-up">Nach oben</translation>
-	
-		<translation key="sectionnumber">%n.</translation>
-		<translation key="sectionnumber" class="article">%n</translation>
-	
-		<translation key="startquote">&#8222;</translation>
-		<translation key="endquote">&#8220;</translation>
-		<translation key="startnestedquote">&#8218;</translation>
-		<translation key="endnestedquote">&#8216;</translation>
-		<translation key="startsinglequote">&#8218;</translation>
-		<translation key="endsinglequote">&#8216;</translation>
-	</dictionary>
+        <translation key="nav-prev">Zurück</translation>
+        <translation key="nav-next">Weiter</translation>
+        <translation key="nav-up">Nach oben</translation>
+    
+        <translation key="sectionnumber">%n.</translation>
+        <translation key="sectionnumber" class="article">%n</translation>
+    
+        <translation key="startquote">&#8222;</translation>
+        <translation key="endquote">&#8220;</translation>
+        <translation key="startnestedquote">&#8218;</translation>
+        <translation key="endnestedquote">&#8216;</translation>
+        <translation key="startsinglequote">&#8218;</translation>
+        <translation key="endsinglequote">&#8216;</translation>
+    </dictionary>
 
 </language>

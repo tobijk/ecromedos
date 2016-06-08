@@ -8,16 +8,16 @@
 -->
 <entities>
 
-	<value key="tex">\TeX{}</value>
-	<value key="latex">\LaTeX{}</value>
-	<value key="xetex">\XeTeX{}</value>
-	<value key="xelatex">\XeLaTeX{}</value>
-	<value key="nbsp">&#x00a0;</value>
-	<value key="zwsp">\hspace{0pt}</value>
-	<value key="endash">&#x2013;</value>
-	<value key="emdash">&#x2014;</value>
-	<value key="dots">\dots{}</value>
-	<value key="check">\ding{52}</value>
-	<value key="cross">\ding{56}</value>
+    <value key="tex">\TeX{}</value>
+    <value key="latex">\LaTeX{}</value>
+    <value key="xetex">\XeTeX{}</value>
+    <value key="xelatex">\XeLaTeX{}</value>
+    <value key="nbsp">&#x00a0;</value>
+    <value key="zwsp">\hspace{0pt}</value>
+    <value key="endash">&#x2013;</value>
+    <value key="emdash">&#x2014;</value>
+    <value key="dots">\dots{}</value>
+    <value key="check">\ding{52}</value>
+    <value key="cross">\ding{56}</value>
 
 </entities>

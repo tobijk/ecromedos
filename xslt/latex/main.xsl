@@ -12,7 +12,7 @@
 <xsl:include href="../shared/wspace.xsl"/>
 
 <xsl:template match="copy">
-	<xsl:copy-of select="child::*|text()"/>
+    <xsl:copy-of select="child::*|text()"/>
 </xsl:template>
 
 <xsl:include href="../i18n/i18n.xsl"/>
@@ -35,38 +35,38 @@
 <xsl:include href="index.xsl"/>
 
 <xsl:template match="/">
-	<xsl:apply-templates/>
+    <xsl:apply-templates/>
 </xsl:template>
 
 <xsl:template match="book">
-	<xsl:call-template name="xdoc.process"/>
+    <xsl:call-template name="xdoc.process"/>
 </xsl:template>
 
 <xsl:template match="article">
-	<xsl:call-template name="xdoc.process"/>
+    <xsl:call-template name="xdoc.process"/>
 </xsl:template>
 
 <xsl:template match="report">
-	<xsl:call-template name="xdoc.process"/>
+    <xsl:call-template name="xdoc.process"/>
 </xsl:template>
 
 <xsl:template name="xdoc.process">
-	<!-- output to main tex-file -->
-	<xsl:document href="{name()}.tex" method="text" indent="yes" encoding="UTF-8">
-		<!-- document preamble -->
-		<xsl:call-template name="latex.prepare"/>
-		<!-- document start -->
-		<xsl:text>\begin{document}&#x0a;&#x0a;</xsl:text>
-			<!-- load stylesheet -->
-			<xsl:call-template name="style.document"/>
-			<!-- select babel language -->
-			<xsl:call-template name="latex.babel.select"/>
-			<!-- make the toc -->
-			<xsl:call-template name="toc.make"/>
-			<!-- process sections -->
-			<xsl:call-template name="section.make"/>
-		<xsl:text>\end{document}</xsl:text>
-	</xsl:document>
+    <!-- output to main tex-file -->
+    <xsl:document href="{name()}.tex" method="text" indent="yes" encoding="UTF-8">
+        <!-- document preamble -->
+        <xsl:call-template name="latex.prepare"/>
+        <!-- document start -->
+        <xsl:text>\begin{document}&#x0a;&#x0a;</xsl:text>
+            <!-- load stylesheet -->
+            <xsl:call-template name="style.document"/>
+            <!-- select babel language -->
+            <xsl:call-template name="latex.babel.select"/>
+            <!-- make the toc -->
+            <xsl:call-template name="toc.make"/>
+            <!-- process sections -->
+            <xsl:call-template name="section.make"/>
+        <xsl:text>\end{document}</xsl:text>
+    </xsl:document>
 </xsl:template>
 
 </xsl:stylesheet>

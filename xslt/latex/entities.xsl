@@ -14,21 +14,21 @@
   - Set an entity reference node
 -->
 <xsl:template match="entity">
-	<xsl:variable name="key" select="@name"/>
-	<xsl:variable name="value" select="$global.entities/entities/value[@key=$key]"/>
-	<xsl:choose>
-		<xsl:when test="$value">
-			<xsl:apply-templates select="$value" mode="copy"/>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:message>Warning: unknown entity '<xsl:value-of select="$key"/>'.</xsl:message>
-			<xsl:value-of select="$key"/>
-		</xsl:otherwise>
-	</xsl:choose>
+    <xsl:variable name="key" select="@name"/>
+    <xsl:variable name="value" select="$global.entities/entities/value[@key=$key]"/>
+    <xsl:choose>
+        <xsl:when test="$value">
+            <xsl:apply-templates select="$value" mode="copy"/>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:message>Warning: unknown entity '<xsl:value-of select="$key"/>'.</xsl:message>
+            <xsl:value-of select="$key"/>
+        </xsl:otherwise>
+    </xsl:choose>
 </xsl:template>
 
 <xsl:template match="value" mode="copy">
-	<xsl:copy-of select="child::*|text()"/>
+    <xsl:copy-of select="child::*|text()"/>
 </xsl:template>
 
 </xsl:stylesheet>

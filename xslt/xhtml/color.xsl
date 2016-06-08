@@ -12,14 +12,14 @@
   - Color your life
 -->
 <xsl:template match="color">
-	<xsl:choose>
-		<xsl:when test="@rgb">
-			<span style="color:{normalize-space(@rgb)}"><xsl:apply-templates/></span>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:apply-templates/>
-		</xsl:otherwise>
-	</xsl:choose>
+    <xsl:choose>
+        <xsl:when test="@rgb">
+            <span style="color:{normalize-space(@rgb)}"><xsl:apply-templates/></span>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:apply-templates/>
+        </xsl:otherwise>
+    </xsl:choose>
 </xsl:template>
 
 </xsl:stylesheet>
