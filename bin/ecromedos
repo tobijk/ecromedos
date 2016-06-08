@@ -93,7 +93,7 @@ def parseCmdLine():
         elif o == "--nohyperref":
             params["global.hyperref"] = "'no'"
         elif o == "--novalid":
-            options["do_validate"] = false
+            options["do_validate"] = False
         elif o == "-b":
             options["style_dir"] = v
         elif o == "-c":
