@@ -68,34 +68,42 @@ class UTTestPluginGlossary(unittest.TestCase):
 
         expected_result = """\
 <glossary alphabet="[S y m b o l e],A,B,C,G,Z" locale="de_DE.UTF-8">
-  <glsection name="S y m b o l e"><dl/><dt>@__</dt>
+  <glsection name="S y m b o l e">
+    <dl><dt>@__</dt>
     <dd>
     Here comes @__ definition.
     </dd>
-</glsection>
-  <glsection name="A"><dl/><dt>Abcde</dt>
+</dl>
+  </glsection>
+  <glsection name="A">
+    <dl><dt>Abcde</dt>
     <dd>
     Here comes Aabcde's definition.
     </dd>
-</glsection>
-  <glsection name="B"><dl/><dt>Babcde</dt>
+</dl>
+  </glsection>
+  <glsection name="B">
+    <dl><dt>Babcde</dt>
     <dd>
     Here comes Babcde's definition.
     </dd>
-</glsection>
+</dl>
+  </glsection>
   <glsection name="C">
     <dl/>
   </glsection>
-  <glsection name="G"><dl/><dt>Gabcde</dt>
+  <glsection name="G">
+    <dl><dt>Gabcde</dt>
     <dd>
     Here comes Gabcde's definition.
     </dd>
-</glsection>
+</dl>
+  </glsection>
   <glsection name="Z">
     <dl/>
   </glsection>
 </glossary>
-        """
+       """
 
         self.assertEqual(result.strip(), expected_result.strip())
     #end function

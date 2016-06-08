@@ -198,18 +198,20 @@ class Plugin():
         except KeyError:
             pass
 
-        section.append(etree.Element("dl"))
+        dl_node = etree.Element("dl")
+        section.append(dl_node)
 
         for item in self.glossary:
             if item[1].tag == "glsection":
                 node.append(section)
                 section = item[1]
-                section.append(etree.Element("dl"))
+                dl_node = etree.Element("dl")
+                section.append(dl_node)
             else: # defterm
                 dt_node = item[1].find("./dt")
                 dd_node = item[1].find("./dd")
-                section.append(dt_node)
-                section.append(dd_node)
+                dl_node.append(dt_node)
+                dl_node.append(dd_node)
             #end if
         #end for
 
