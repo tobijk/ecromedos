@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 #
 # Desc:    This file is part of the ecromedos Document Preparation System
-# Author:  Tobias Koch <tkoch@ecromedos.net>
+# Author:  Tobias Koch <tobias@tobijk.de>
 # License: MIT
 # URL:     http://www.ecromedos.net
 #
@@ -41,28 +41,28 @@ def printVersion():
 def printUsage():
     """Display usage information."""
 
-    print("                                                                          ")
-    print("Usage: ecromedos [OPTIONS] <sourcefile>                                   ")
-    print("                                                                          ")
-    print("Options:                                                                  ")
-    print("                                                                          ")
-    print(" --draft            don't generate glossary or keyword indexes, which can ")
-    print("                    save substantial amounts of time                      ")
-    print(" --finedtp          activate pedantic typesetting, this can result in     ")
-    print("                    overful horizontal boxes                              ")
-    print(" --help, -h         display this information                              ")
-    print(" --nohyperref       disable active links in PDF output                    ")
-    print(" --novalid          skip validation of the document                       ")
-    print("                                                                          ")
-    print(" -b <directory>     use an alternative base directory from where to look  ")
-    print("                    up the transformation rules                           ")
-    print(" -c <file>          use an alternative configuration file                 ")
-    print(" -f <format>        generate specified output format                      ")
-    print("                    (xhtml, latex, pdflatex or xelatex)                   ")
-    print(" -n <doctype>       start a new document of given doctype                 ")
-    print("                    (article, book or report)                             ")
-    print(" -s <file>          use an alternative style definition file              ") 
-    print(" -v                 print version information and exit                    ")
+    print("                                                                             ")
+    print("Usage: ecromedos [OPTIONS] <sourcefile>                                      ")
+    print("                                                                             ")
+    print("Options:                                                                     ")
+    print("                                                                             ")
+    print(" --help, -h            Display this help text and exit.                      ")
+    print(" --basedir, -b <dir>   Use an alternative base directory from where to look  ")
+    print("                       up the transformation rules.                          ")
+    print(" --config, -c <file>   Use an alternative configuration file.                ")
+    print(" --format, -f <format> Generate the specified output format                  ")
+    print("                       (xhtml, latex, pdflatex or xelatex).                  ")
+    print(" --new, -n <doctype>   Start a new document of given doctype                 ")
+    print("                       (article, book or report).                            ")
+    print(" --style, -s <file>    Use an alternative style definition file.             ") 
+    print(" --version, -v         Print version information and exit.                   ")
+    print("                                                                             ")
+    print(" --draft               Don't generate glossary or keyword indexes, which can ")
+    print("                       save substantial amounts of time.                     ")
+    print(" --finedtp             Activate pedantic typesetting, this can result in     ")
+    print("                       overful horizontal boxes.                             ")
+    print(" --nohyperref          Disable active links in PDF output.                   ")
+    print(" --novalid             Skip validation of the document.                      ")
 #end function
 
 def parseCmdLine():
@@ -72,7 +72,8 @@ def parseCmdLine():
 
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hvn:f:s:b:c:",
-            ["draft", "finedtp", "help", "nohyperref", "novalid"])
+            ["help", "basedir=", "config=", "format=", "new=", "style=",
+                "draft", "finedtp", "nohyperref", "novalid", "version"])
     except getopt.GetoptError as e:
         msg  = "Error while parsing command line: %s\n" % e.msg
         msg += "Type 'ecromedos --help' for more information."
@@ -94,16 +95,16 @@ def parseCmdLine():
             params["global.hyperref"] = "'no'"
         elif o == "--novalid":
             options["do_validate"] = False
-        elif o == "-b":
+        elif o in ["--basedir", "-b"]:
             options["style_dir"] = v
-        elif o == "-c":
+        elif o in ["--config", "-c"]:
             options["config_file"] = v
-        elif o == "-f":
+        elif o in ["--format", "-f"]:
             options["target_format"] = v.lower()
-        elif o == "-n":
+        elif o in ["--new", "-n"]:
             startDoc(v)
             sys.exit(0)
-        elif o == "-s":
+        elif o in ["--style", "-s"]:
             if not os.path.isfile(v):
                 msg = "Style definition file '%s' not found." % v
                 raise ECMDSError(msg)
@@ -111,12 +112,12 @@ def parseCmdLine():
                 v = os.path.abspath(v)
             #end if
             params["global.stylesheet"] = "document('%s')" % v
-        elif o == "-v":
+        elif o in ["--version", "-v"]:
             printVersion()
             sys.exit(0)
         else:
             msg = "Unrecognized option '%s'.\n" % (o,)
-            msg = "Type 'ecromedos --help' for more information."
+            msg += "Type 'ecromedos --help' for more information."
             raise ECMDSError(msg)
         #end ifs
     #end while
