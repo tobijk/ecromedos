@@ -22,7 +22,8 @@ def getInstance(config):
 class Plugin():
 
     def __init__(self, config):
-        pass
+        self.__colorscheme = \
+            config.get("pygments_default_colorscheme", "default")
     #end function
 
     def process(self, node, format):
@@ -38,8 +39,11 @@ class Plugin():
         if node.attrib.get("strip", "no").lower() in ["yes", "true"]:
             contents = contents.strip()
 
+        options = dict(node.attrib)
+        options["output_format"] = format
+
         # fetch content and highlight
-        highlighted = self.__highlight(contents, node.attrib)
+        highlighted = self.__highlight(contents, options)
 
         # parse result into element
         newnode = etree.fromstring(highlighted)
@@ -98,7 +102,8 @@ class Plugin():
 
         # style to use
         try:
-            self.__style = get_style_by_name(options['colorscheme'])
+            self.__style = get_style_by_name(
+                options.get('colorscheme', self.__colorscheme))
         except PygmentsClassNotFound:
             msg = "No style by name '%s'" % options["colorscheme"]
             raise ECMDSPluginError(msg, "highlight")
@@ -119,7 +124,8 @@ class Plugin():
             emit_line_numbers=self.__haveLineNumbers,
             startline=self.__startline,
             line_step=self.__lineStepping,
-            style=self.__style
+            style=self.__style,
+            output_format=options["output_format"]
         )
 
         return highlight(string, lexer, formatter)
