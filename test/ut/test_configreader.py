@@ -36,14 +36,15 @@ class UTTestConfigReader(unittest.TestCase):
             'data_dir': ECMDS_INSTALL_DIR + '/data',
             'do_validate': True,
             'dvipng_bin': '/usr/bin/dvipng',
-            'dvipng_dpi': '110',
+            'dvipng_dpi': '90',
             'identify_bin': '/usr/bin/identify',
             'install_dir': ECMDS_INSTALL_DIR + '',
             'latex_bin': '/usr/bin/latex',
             'lib_dir': ECMDS_INSTALL_DIR + '/lib',
             'plugin_dir': ECMDS_INSTALL_DIR + '/lib/net/ecromedos/plugins',
             'style_dir': ECMDS_INSTALL_DIR + '/xslt',
-            'target_format': 'xhtml'
+            'target_format': 'xhtml',
+            'pygments_default_colorscheme': 'monokai'
         }
 
         expected_pmap = {  
