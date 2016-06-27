@@ -1,0 +1,125 @@
+/******************************************************************************
+ *
+ * LAYOUT
+ *
+ * This section contains layouts for page formatting and block elements.
+ *
+ *****************************************************************************/ 
+
+@import 'variables';
+
+/*
+ * Document titles and front matter
+ */
+div.frontmatter {
+    color: #000000;
+    border-bottom: 1px dotted #888888;
+
+    .head-table {
+        display: table;
+        height: 400px;
+
+        .head-table-cell {
+            display: table-cell;
+            padding: 1em 0;
+            vertical-align: middle;
+        }
+    }
+
+    .head-title     {
+        .head-subject   {
+            font-size: 70%;
+        }
+
+        font-size: 300%;
+        font-weight: bold;
+        margin: 0;
+
+        .head-subtitle {
+            font-size: 70%;
+        }
+    }
+
+    .head-author    {
+        margin: 0.5em 0 0 0;
+    }
+    .head-date      {
+        margin: 0.5em 0 0 0;
+    }
+    .head-publisher {
+        margin: 0.5em 0 0 0;
+    }
+    .head-legal {
+        margin: 2em 0 0 0;
+    }
+
+    a, a:link, a:hover, a:active, a:visited {
+        text-decoration: none;
+    }
+}
+
+/*
+ * Navigation
+ */
+div.nav-top {
+    border-bottom: 1px dotted #aaaaaa;
+
+    .row {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .nav-top-title {
+        color: #666666;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 40px;
+    }
+
+    .nav-top-buttons {
+        a {
+            img {
+                margin: 12px 0 0 5px;
+            }
+        }
+    }
+}
+
+div.nav-bottom {
+    border-top: 1px dotted #aaaaaa;
+
+    .row {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .nav-link-dir {
+        color: #000000;
+        font-weight: bold;
+    }
+}
+
+/*
+ * Content
+ */
+div.content {
+    ul.toc {
+        list-style-type: none;
+        padding-left: 0.25em;
+
+        ul {
+            list-style-type: none;
+            margin: 0.25em 0;
+            padding-left: 2em;
+        }
+
+        li {
+            margin: 0.25em 0 0.25em 0;
+        }
+    }
+
+    .textbody {
+        padding-bottom: 1.5em;
+    }
+}
+

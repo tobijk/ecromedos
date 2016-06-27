@@ -1,0 +1,214 @@
+/******************************************************************************
+ *
+ * TYPO AND STYLING
+ *
+ * This section contains settings for typography and basic styling of elements.
+ *
+ *****************************************************************************/ 
+
+@import 'variables';
+
+/*
+ * Global settings
+ */
+body {
+    font-family: $document-font-stack;
+    color: $document-text-color;
+    background-color: $document-bg-color;
+    font-size: $document-font-size;
+    line-height: $document-line-height;
+}
+
+/*
+ * Text
+ */
+span.tt {
+    font-family: monospace;
+}
+
+/*
+ * Hyperlinks
+ */
+a, a:link, a:hover, a:active, a:visited {
+    color: $document-link-color;
+}
+
+/*
+ * Headings
+ */
+h1, h2, h3, h4, h5 {
+    clear: both;
+    margin: 1em 0em 0.5em 0em;
+    color: $document-heading-color;
+}
+
+h1 { font-size: 180%; }
+h2 { font-size: 160%; }
+h3 { font-size: 140%; }
+h4 { font-size: 120%; }
+h5 { font-size: 100%; }
+
+/*
+ * General block elements
+ */
+.block-element {
+    margin: 1.5em 0em;
+}
+
+.caption {
+    font-weight: normal;
+}
+
+.caption-counter {
+    color: #000000;
+    font-weight: bold;
+}
+
+/*
+ * Lists
+ */
+dl, ol, ul {
+    margin-top: 0.75em;
+    margin-bottom: 0.75em;
+}
+
+dt {
+    color: #000000;
+}
+
+dd {
+    margin: 0 0 0.5em 1.5em;
+}
+
+/*
+ * Paragraph
+ */
+p {
+    margin: 0.75em 0em;
+
+    .title {
+        font-weight: bold;
+        padding-right: 1.5ex;
+    }
+}
+
+/*
+ * Footnotes
+ */
+a.sup,
+a.sup:link,
+a.sup:hover,
+a.sup:active,
+a.sup:visited {
+    line-height: 0em;
+    text-decoration: none;
+}
+
+sup.footnote {
+    font-weight: normal;
+    text-decoration: none;
+    line-height: 0em;
+}
+
+div.footnote {
+    font-size: 80%;
+}
+
+hr.above-footnote,
+hr.below-footnote {
+    margin-left: 0px;
+    width: 40%;
+    height: 1px;
+    border: 0px;
+    text-align: left;
+    color: black;
+    background-color: #aaaaaa;
+}
+
+hr.above-footnote {
+    margin-top: 0.75em;
+}
+
+/*
+ * Verbatim & Listing
+ */
+pre.verbatim {
+    padding: 0.5em 0.5em;
+    margin: 1.25em 0em;
+    font-family: monospace;
+}
+
+div.listing {
+    padding: 0px;
+    margin: 1.25em 0em;
+}
+
+div.listing-caption {
+    margin-bottom: 0.15em;
+}
+
+pre.listing {
+    padding: 0.5em 0.5em;
+    font-family: monospace;
+}
+
+/*
+ * Bibliography
+ */
+table.biblio {
+    td.biblio-label-manual {
+        text-align: left;
+        padding: 5px 10px 5px 0;
+        vertical-align: top;
+    }
+
+    td.biblio-label-auto {
+        text-align: right;
+        padding: 5px 10px 5px 0;
+        vertical-align: top;
+    }
+
+    td.biblio-text {
+        padding: 5px 0 5px 10px;
+    }
+}
+
+/*
+ * Index
+ */
+.idxlink {
+    margin-right: 0.5em;
+}
+
+span.idxlink {
+    color: #999999;
+}
+
+.idxitem {
+    font-weight: bold;
+}
+.idxsubitem {
+    margin-left: 2.5em;
+}
+.idxsubsubitem {
+    margin-left: 5em;
+}
+
+/*
+ * Math
+ */
+
+td.eq-counter {
+    width: 8em;
+    padding-left: 2em;
+}
+
+td.eq-content {
+    font-weight: normal;
+}
+
+img.math {
+    margin-left: 0.2ex;
+    margin-right: 0.2ex;
+}
+
