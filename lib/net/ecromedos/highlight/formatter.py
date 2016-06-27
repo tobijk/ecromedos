@@ -24,6 +24,7 @@ class ECMLPygmentsFormatter(Formatter):
         self.__emit_line_numbers = options['emit_line_numbers']
         self.__line_no = options['startline']
         self.__line_step = options['line_step']
+        self.__output_format = options["output_format"]
         self.__new_line = True
     #end function
 
@@ -47,11 +48,12 @@ class ECMLPygmentsFormatter(Formatter):
     #end function
 
     def writeToken(self, ttype, tvalue, outfile):
-        if self.__emit_line_numbers:
+        if self.__emit_line_numbers or self.__output_format.endswith("latex"):
             lines = tvalue.splitlines(True)
 
             for line in lines:
-                self.writeLineNo(self.__line_no, outfile)
+                if self.__emit_line_numbers:
+                    self.writeLineNo(self.__line_no, outfile)
                 self.writeOpeningTags(ttype, outfile)
                 outfile.write(xmlescape(line))
                 self.writeClosingTags(ttype, outfile)
