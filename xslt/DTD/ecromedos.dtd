@@ -43,7 +43,7 @@
     "span | i | b | u | tt | xx-small | x-small | small 
     | medium | large | x-large | xx-large | sup | sub | nobr | br | y" >
 
-<!ENTITY % annotating-text "footnote | marginal | link | defterm">
+<!ENTITY % annotating-text "footnote | link | defterm">
 
 <!ENTITY % math-text "m">
 
@@ -145,7 +145,6 @@
 <!-- START: annotations                                                 -->
 <!-- ================================================================== -->
 <!ELEMENT footnote (#PCDATA | %inline-elements;)*>
-<!ELEMENT marginal (#PCDATA | %inline-elements;)*>
 <!ELEMENT link     (#PCDATA | %inline-elements;)*>
 <!ATTLIST link
     url   CDATA #IMPLIED
