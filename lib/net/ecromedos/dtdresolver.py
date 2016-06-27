@@ -21,12 +21,14 @@ class ECMDSDTDResolver(etree.Resolver):
         #end try
 
         for name in ["book", "article", "report", "ecromedos"]:
-            catalog_url = "http://www.ecromedos.net/dtd/2.0/" + name + ".dtd"
+            for version in ["2.0", "3.0"]:
+                catalog_url = "http://www.ecromedos.net/dtd/" + version + "/" + name + ".dtd"
 
-            if catalog_url == url:
-                filename = os.path.join(style_dir, "DTD", "ecromedos.dtd")
-                return self.resolve_filename(filename, context)
-            #end if
+                if catalog_url == url:
+                    filename = os.path.join(style_dir, "DTD", "ecromedos.dtd")
+                    return self.resolve_filename(filename, context)
+                #end if
+            #end for
         #end for
 
         return None
