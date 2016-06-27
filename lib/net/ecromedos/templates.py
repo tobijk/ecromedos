@@ -7,7 +7,7 @@
 #
 
 book = """<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE book SYSTEM "http://www.ecromedos.net/dtd/2.0/ecromedos.dtd">
+<!DOCTYPE book SYSTEM "http://www.ecromedos.net/dtd/3.0/ecromedos.dtd">
 <book lang="en_US" fontsize="12pt" papersize="a4paper" div="14" bcor="0cm"
     secnumdepth="3" secsplitdepth="1">
 
@@ -73,7 +73,7 @@ book = """<?xml version="1.0" encoding="UTF-8"?>
 """
 
 report = """<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE book SYSTEM "http://www.ecromedos.net/dtd/2.0/ecromedos.dtd">
+<!DOCTYPE book SYSTEM "http://www.ecromedos.net/dtd/3.0/ecromedos.dtd">
 <report lang="en_US" fontsize="12pt" papersize="a4paper" div="14" bcor="0cm"
     secnumdepth="3" secsplitdepth="1">
 
@@ -130,7 +130,7 @@ report = """<?xml version="1.0" encoding="UTF-8"?>
 """
 
 article = """<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE article SYSTEM "http://www.ecromedos.net/dtd/2.0/ecromedos.dtd">
+<!DOCTYPE article SYSTEM "http://www.ecromedos.net/dtd/3.0/ecromedos.dtd">
 <article lang="en_US" fontsize="12pt" papersize="a4paper" div="14" bcor="0cm"
     secnumdepth="3" secsplitdepth="0">
 
