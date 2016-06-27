@@ -26,15 +26,13 @@
             <xsl:for-each select="idxsection[@name]">
                 <xsl:choose>
                     <xsl:when test="item">
-                        <span class="idxlink">
-                            <a href="#{generate-id()}" class="idxlink">
-                                <xsl:value-of select="normalize-space(@name)"/>
-                            </a>
-                        </span>
+                        <a href="#{generate-id()}" class="idxlink">
+                            <xsl:value-of select="normalize-space(@name)"/>
+                        </a>
                         <xsl:text> </xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
-                        <span class="idxnolink">
+                        <span class="idxlink">
                             <xsl:value-of select="normalize-space(@name)"/>
                         </span>
                         <xsl:text> </xsl:text>
@@ -42,14 +40,10 @@
                 </xsl:choose>
             </xsl:for-each>
         </div>
-        <hr class="idxseparator"/>
     </xsl:if>
     <!-- render sections -->
     <xsl:for-each select="idxsection[child::item]">
         <xsl:apply-templates select="."/>
-        <xsl:if test="position() != last()">
-            <hr class="idxseparator"/>
-        </xsl:if>
     </xsl:for-each>
 </xsl:template>
 
@@ -57,46 +51,34 @@
  - Renders an index section. This is awfully slow.
 -->
 <xsl:template match="idxsection">
-    <!-- section name, usually a
-    letter from the alphabet -->
+    <!-- section name, usually a letter from the alphabet -->
     <xsl:if test="@name">
-        <h1 class="idxsection">
+        <h2 class="idxsection">
             <a id="{generate-id()}" name="{generate-id()}"></a><xsl:value-of select="normalize-space(@name)"/>
-        </h1>
+        </h2>
     </xsl:if>
-    
+
     <!-- count items -->
     <xsl:variable name="numitem" select="count(child::*)"/>
     <xsl:variable name="rest" select="$numitem mod 2"/>
     <xsl:variable name="offset" select="floor($numitem div 2) + $rest"/>
-    
+
     <!-- section content -->
-    <table border="0" cellspacing="0" cellpadding="0" class="idxlisting">
-        <tr>
+    <div class="row">
+        <!-- left column -->
+        <div class="l-span06 m-span06 s-span12">
             <xsl:for-each select="child::*[position() &lt;= $offset]">
-                <!-- insert this item -->
-                <td class="idxitem"><span class="idx{name()}"><xsl:apply-templates/></span></td>
-                <!-- insert neighbor -->
-                <xsl:for-each select="following-sibling::*[$offset]">
-                    <td class="idxitem"><span class="idx{name()}"><xsl:apply-templates/></span></td>
-                </xsl:for-each>
-                <xsl:choose>
-                    <xsl:when test="position() = last()">
-                        <!-- insert extra cell, if count was odd -->
-                        <xsl:if test="$rest = 1">
-                            <td class="idxitem">
-                                <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                            </td>
-                        </xsl:if>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <!-- this is a bit dirty -->
-                        <xsl:text disable-output-escaping="yes">&lt;/tr&gt;&lt;tr&gt;</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <div class="idx{name()}"><xsl:apply-templates/></div>
             </xsl:for-each>
-        </tr>
-    </table>
+        </div>
+
+        <!-- right column -->
+        <div class="l-span06 m-span06 s-span12">
+            <xsl:for-each select="child::*[position() &gt; $offset]">
+                <div class="idx{name()}"><xsl:apply-templates/></div>
+            </xsl:for-each>
+        </div>
+    </div>
 </xsl:template>
 
 <!--
@@ -110,11 +92,11 @@
         <xsl:variable name="filename">
             <xsl:call-template name="ref.filename"/>
         </xsl:variable>
-        <xsl:text>[</xsl:text>
+        <xsl:text>(</xsl:text>
         <a href="{$filename}#{generate-id()}" class="idxref">
             <xsl:value-of select="$number"/>
         </a>
-        <xsl:text>]</xsl:text>
+        <xsl:text>)</xsl:text>
     </xsl:for-each>
 </xsl:template>
 

@@ -43,7 +43,7 @@
   - Process the bibliography.
 -->
 <xsl:template match="biblio">
-    <table border="0" cellspacing="0" cellpadding="5">
+    <table class="biblio block-element">
         <xsl:choose>
             <xsl:when test="@number='no'">
                 <xsl:apply-templates select="bibitem" mode="manual"/>
@@ -60,16 +60,13 @@
 -->
 <xsl:template match="bibitem" mode="auto">
     <tr>
-        <td valign="top" align="right">
+        <td class="biblio-label-auto">
             <a name="{generate-id()}" id="{generate-id()}"></a>
             <xsl:text>[</xsl:text>
             <xsl:value-of select="position()"/>
             <xsl:text>]</xsl:text>
         </td>
-        <td>
-            <xsl:text>&#xa0;</xsl:text>
-        </td>
-        <td>
+        <td class="biblio-text">
             <xsl:apply-templates/>
         </td>
     </tr>
@@ -80,16 +77,13 @@
 -->
 <xsl:template match="bibitem" mode="manual">
     <tr>
-        <td valign="top">
+        <td class="biblio-label-manual">
             <a name="{generate-id()}" id="{generate-id()}"></a>
             <xsl:text>[</xsl:text>
             <xsl:value-of select="@label"/>
             <xsl:text>]</xsl:text>
         </td>
-        <td>
-            <xsl:text>&#xa0;</xsl:text>
-        </td>
-        <td>
+        <td class="biblio-text">
             <xsl:apply-templates/>
         </td>
     </tr>

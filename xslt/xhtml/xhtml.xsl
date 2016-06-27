@@ -125,11 +125,9 @@
     </xsl:variable>
 
     <!-- load button -->
-    <span class="nav-button">
-        <a href="{$filename}{$nodeid}" class="nav-button">
-            <img src="{$direction}.gif" alt="{direction}" class="nav-button"/>
-        </a>
-    </span>
+    <a href="{$filename}{$nodeid}" class="nav-button">
+        <img src="{$direction}.gif" alt="{$direction}" class="nav-button"/>
+    </a>
 </xsl:template>
 
 <!--
@@ -438,16 +436,15 @@
     <xsl:param name="secnumdepth"/>
     <xsl:param name="curdepth"/>
 
-    <div id="nav-top">
-        <table border="0" cellspacing="0" cellpadding="0" class="nav-top">
-            <tr>
+    <div class="nav-top">
+        <div class="container">
+            <div class="row">
                 <!-- print title -->
-                <td class="nav-top-title">
+                <div class="s-span12 m-span09 l-span09 s-center m-left-align l-left-align nav-top-title">
                     <xsl:call-template name="util.print.title"/>
-                </td>
+                </div>
                 <!-- show buttons -->
-                <td class="nav-top-buttons">
-                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+                <div class="s-span12 m-span03 l-span03 s-center m-right-align l-right-align nav-top-buttons">
                     <xsl:call-template name="xhtml.prevpage">
                         <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                         <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
@@ -466,9 +463,9 @@
                         <xsl:with-param name="curdepth" select="$curdepth"/>
                         <xsl:with-param name="mode" select="'button'"/>
                     </xsl:call-template>
-                </td>
-            </tr>
-        </table>
+                </div>
+            </div>
+        </div>
     </div>
 </xsl:template>
 
@@ -481,35 +478,35 @@
     <xsl:param name="secnumdepth"/>
     <xsl:param name="curdepth"/>
 
-    <div id="nav-bottom">
-        <table border="0" cellspacing="0" cellpadding="0" class="nav-bottom">
-            <tr>
-                <td class="nav-bottom-left">
+    <div class="nav-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="s-span12 m-span04 l-span04 s-center m-left-align l-left-align">
                     <xsl:call-template name="xhtml.prevpage">
                         <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                         <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                         <xsl:with-param name="curdepth" select="$curdepth"/>
                         <xsl:with-param name="mode" select="'link'"/>
                     </xsl:call-template>
-                </td>
-                <td class="nav-bottom-center">
+                </div>
+                <div class="s-span12 m-span04 l-span04 s-center m-center l-center">
                     <xsl:call-template name="xhtml.pageup">
                         <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                         <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                         <xsl:with-param name="curdepth" select="$curdepth"/>
                         <xsl:with-param name="mode" select="'link'"/>
                     </xsl:call-template>
-                </td>
-                <td class="nav-bottom-right">
+                </div>
+                <div class="s-span12 m-span04 l-span04 s-center m-right-align l-right-align">
                     <xsl:call-template name="xhtml.nextpage">
                         <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                         <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                         <xsl:with-param name="curdepth" select="$curdepth"/>
                         <xsl:with-param name="mode" select="'link'"/>
                     </xsl:call-template>
-                </td>
-            </tr>
-        </table>
+                </div>
+            </div>
+        </div>
     </div>
 </xsl:template>
 

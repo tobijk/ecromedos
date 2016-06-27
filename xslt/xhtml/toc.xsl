@@ -8,95 +8,83 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <!--
-  - Prints document head and table of contents
+  - Prints document head
 -->
 <xsl:template name="frontpage.make">
-
         <!-- header -->
         <xsl:call-template name="head.make"/>
+</xsl:template>
 
-        <!-- table of contents -->
-        <xsl:if test="make-toc and not(make-toc/@depth) or (make-toc/@depth &gt; 0)">
-            <xsl:apply-templates select="make-toc"/>
-        </xsl:if>
-
+<!--
+  - Prints the table of contents
+-->
+<xsl:template name="frontpage.toc">
+    <!-- table of contents -->
+    <xsl:if test="make-toc and not(make-toc/@depth) or (make-toc/@depth &gt; 0)">
+        <xsl:apply-templates select="make-toc"/>
+    </xsl:if>
 </xsl:template>
 
 <!--
   - Prints author, title, publisher, ...
 -->
 <xsl:template name="head.make">
+    <div class="frontmatter">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
 
-    <div id="head">
-        <table border="0" cellspacing="0" cellpadding="0" class="head">
-            <!-- add an empty row -->
-            <tr>
-                <td>
-                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                </td>
-            </tr>
-            <!-- print subject -->
-            <xsl:if test="head/subject">
-                <tr>
-                    <td class="head-subject">
-                        <xsl:apply-templates select="head/subject"/>
-                    </td>            
-                </tr>
-            </xsl:if>
-            <!-- print title -->
-            <tr>
-                <td class="head-title">
-                    <xsl:apply-templates select="head/title"/>
-                    <xsl:if test="head/subtitle">
-                        <div class="subtitle">
-                            <xsl:apply-templates select="head/subtitle"/>
+                    <div class="head-table">
+                        <div class="head-table-cell">
+
+                            <!-- title -->
+                            <div class="head-title">
+                                <!-- subject -->
+                                <xsl:if test="head/subject">
+                                    <div class="head-subject">
+                                        <xsl:apply-templates select="head/subject"/>
+                                    </div>
+                                </xsl:if>
+                                
+                                <div><xsl:apply-templates select="head/title"/></div>
+
+                                <!-- subtitle -->
+                                <xsl:if test="head/subtitle">
+                                    <div class="head-subtitle">
+                                        <xsl:apply-templates select="head/subtitle"/>
+                                    </div>
+                                </xsl:if>
+                            </div>
+                            <!-- authors -->
+                            <xsl:for-each select="head/author">
+                                <div class="head-author">
+                                    <xsl:apply-templates select="."/>
+                                </div>
+                            </xsl:for-each>
+                            <!-- date -->
+                            <xsl:if test="head/date">
+                                <div class="head-date">
+                                    <xsl:apply-templates select="head/date"/>
+                                </div>
+                            </xsl:if>
+                            <xsl:if test="head/publisher">
+                                <div class="head-publisher">
+                                    <xsl:apply-templates select="head/publisher"/>
+                                </div>
+                            </xsl:if>
+                            <!-- legal info -->
+                            <xsl:for-each select="legal">
+                                <div class="head-legal">
+                                    <xsl:apply-templates/>
+                                </div>
+                            </xsl:for-each>
+
                         </div>
-                    </xsl:if>
-                </td>
-            </tr>
-            <!-- print authors -->
-            <xsl:if test="head/author">
-                <xsl:for-each select="head/author">
-                    <tr>
-                        <td class="head-author">
-                            <xsl:apply-templates select="."/>
-                        </td>
-                    </tr>
-                </xsl:for-each>
-            </xsl:if>
-            <!-- print date -->
-            <xsl:if test="head/date">
-                <tr>
-                    <td class="head-date">
-                        <xsl:apply-templates select="head/date"/>
-                    </td>
-                </tr>
-            </xsl:if>
-            <!-- print publisher -->
-            <xsl:if test="head/publisher">
-                <tr>
-                    <td class="head-publisher">
-                        <xsl:apply-templates select="head/publisher"/>
-                    </td>
-                </tr>
-            </xsl:if>
+                    </div>
 
-            <!-- hack in legal info -->
-            <xsl:for-each select="legal">
-                <tr>
-                    <td class="legal">
-                        <xsl:apply-templates/>
-                    </td>
-                </tr>
-            </xsl:for-each>
-
-            <!-- add an empty row -->
-            <tr>
-                <td>
-                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                </td>
-            </tr>
-        </table>
+                </div>
+            </div>
+        </div>
     </div>
 </xsl:template>
 
@@ -119,38 +107,36 @@
         <xsl:call-template name="util.curdepth"/>
     </xsl:variable>
 
-    <!-- listing -->
-    <div id="toc">
-        <!-- "table of contents" -->
-        <div class="toc-heading">
-            <xsl:call-template name="i18n.print">
-                <xsl:with-param name="key" select="'contents'"/>
-            </xsl:call-template>
-        </div>
-        <xsl:for-each select="following-sibling::*[not(substring(name(),1,4) = 'make')]">
-            <xsl:call-template name="toc.section.print">
-                <xsl:with-param name="curdepth" select="$curdepth + 1"/>
-                <xsl:with-param name="tocdepth" select="$tocdepth"/>
-                <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
-                <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
-            </xsl:call-template>
-        </xsl:for-each>
-        <xsl:if test="@lof = 'yes'">
-            <xsl:call-template name="toc.make.listof">
-                <xsl:with-param name="element" select="'figure'"/>
-            </xsl:call-template>
-        </xsl:if>
-        <xsl:if test="@lot = 'yes'">
-            <xsl:call-template name="toc.make.listof">
-                <xsl:with-param name="element" select="'table'"/>
-            </xsl:call-template>
-        </xsl:if>
-        <xsl:if test="@lol = 'yes'">
-            <xsl:call-template name="toc.make.listof">
-                <xsl:with-param name="element" select="'listing'"/>
-            </xsl:call-template>
-        </xsl:if>
-    </div>
+    <!-- "table of contents" -->
+    <h1>
+        <xsl:call-template name="i18n.print">
+            <xsl:with-param name="key" select="'contents'"/>
+        </xsl:call-template>
+    </h1>
+    <xsl:for-each select="following-sibling::*[not(substring(name(),1,4) = 'make')]">
+        <xsl:call-template name="toc.section.print">
+            <xsl:with-param name="curdepth" select="$curdepth + 1"/>
+            <xsl:with-param name="tocdepth" select="$tocdepth"/>
+            <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
+            <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
+        </xsl:call-template>
+    </xsl:for-each>
+    <xsl:if test="@lof = 'yes'">
+        <xsl:call-template name="toc.make.listof">
+            <xsl:with-param name="element" select="'figure'"/>
+        </xsl:call-template>
+    </xsl:if>
+    <xsl:if test="@lot = 'yes'">
+        <xsl:call-template name="toc.make.listof">
+            <xsl:with-param name="element" select="'table'"/>
+        </xsl:call-template>
+    </xsl:if>
+    <xsl:if test="@lol = 'yes'">
+        <xsl:call-template name="toc.make.listof">
+            <xsl:with-param name="element" select="'listing'"/>
+        </xsl:call-template>
+    </xsl:if>
+
 </xsl:template>
 
 <!--
@@ -482,6 +468,7 @@
 <xsl:template name="toc.section.title">
 
     <xsl:param name="curdepth"/>
+    <xsl:param name="tocdepth"/>
     <xsl:param name="secnumdepth"/>
     <xsl:param name="secsplitdepth"/>
     <xsl:param name="iteration"/>
@@ -498,43 +485,10 @@
         </xsl:choose>
     </xsl:variable>
 
-    <!-- build indentation style -->
-    <xsl:variable name="indentation">
-        <!-- indent entry -->
-        <xsl:text>padding-left:</xsl:text>
-        <xsl:value-of select="number($iteration - 1) * 3"/>
-        <xsl:text>em;</xsl:text>
-    </xsl:variable>
-
     <!-- print item -->
-    <div class="{$entry-style}" style="{$indentation}">
+    <li class="{$entry-style}">
         <xsl:call-template name="toc.section.link">
             <xsl:with-param name="curdepth" select="$curdepth"/>
-            <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
-            <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
-            <xsl:with-param name="iteration" select="$iteration"/>
-        </xsl:call-template>
-    </div>
-</xsl:template>
-
-<!--
-  - Recursive template to print hierachy of sections. You can start
-  - and stop at arbitrary depths. Template makes no assumptions about
-  - the cascading order, so this can be used for any type of document.
--->
-<xsl:template name="toc.section.print">
-
-    <xsl:param name="tocdepth"/>
-    <xsl:param name="curdepth"/>
-    <xsl:param name="secnumdepth"/>
-    <xsl:param name="secsplitdepth"/>
-    <xsl:param name="iteration" select="1"/>
-
-    <xsl:if test="$tocdepth >= $curdepth and not(ancestor-or-self::*[@tocentry='no'])">
-        <!-- print table item -->
-        <xsl:call-template name="toc.section.title">
-            <xsl:with-param name="curdepth" select="$curdepth"/>
-            <xsl:with-param name="tocdepth" select="$tocdepth"/>
             <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
             <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
             <xsl:with-param name="iteration" select="$iteration"/>
@@ -555,9 +509,42 @@
                 <xsl:with-param name="iteration" select="$iteration + 1"/>
             </xsl:call-template>
         </xsl:for-each>
-        <!-- insert little vspace -->
-        <xsl:if test="$curdepth = 1 and following-sibling::*[not(substring(name(),1,4) = 'make')]">
-            <div class="toc-spacer"><!-- empty --></div>
+    </li>
+</xsl:template>
+
+<!--
+  - Recursive template to print hierachy of sections. You can start
+  - and stop at arbitrary depths. Template makes no assumptions about
+  - the cascading order, so this can be used for any type of document.
+-->
+<xsl:template name="toc.section.print">
+
+    <xsl:param name="tocdepth"/>
+    <xsl:param name="curdepth"/>
+    <xsl:param name="secnumdepth"/>
+    <xsl:param name="secsplitdepth"/>
+    <xsl:param name="iteration" select="1"/>
+
+    <xsl:if test="$tocdepth >= $curdepth and not(ancestor-or-self::*[@tocentry='no'])">
+        <xsl:if test="position() = 1">
+            <xsl:text disable-output-escaping="yes">&lt;ul</xsl:text>
+            <xsl:if test="$curdepth = 1">
+                <xsl:text> class="toc"</xsl:text>
+            </xsl:if>
+            <xsl:text disable-output-escaping="yes">&gt;</xsl:text>
+        </xsl:if>
+
+        <!-- print table item -->
+        <xsl:call-template name="toc.section.title">
+            <xsl:with-param name="curdepth" select="$curdepth"/>
+            <xsl:with-param name="tocdepth" select="$tocdepth"/>
+            <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
+            <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
+            <xsl:with-param name="iteration" select="$iteration"/>
+        </xsl:call-template>
+
+        <xsl:if test="position() = last()">
+            <xsl:text disable-output-escaping="yes">&lt;/ul&gt;</xsl:text>
         </xsl:if>
     </xsl:if>
 </xsl:template>

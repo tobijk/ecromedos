@@ -6,469 +6,1056 @@
  - URL:     http://www.ecromedos.net
 -->
 <style>
-    <css>
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  -    Overall settings
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <css><![CDATA[
+/*! normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css */
+/**
+ * 1. Change the default font family in all browsers (opinionated).
+ * 2. Prevent adjustments of font size after orientation changes in IE and iOS.
+ */
+html {
+  font-family: sans-serif;
+  /* 1 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+}
+
+/**
+ * Remove the margin in all browsers (opinionated).
+ */
 body {
-    margin: 1.5ex 1em 1.5ex 1em;
-    padding: 0px;
-    color: black;
-    font-family: sans-serif;
-    font-size: 100%;
+  margin: 0;
 }
 
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Document head
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-#head {
-    margin: 0ex 0em 1.5ex 0em;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    padding-left: 5px;
+/* HTML5 display definitions
+   ========================================================================== */
+/**
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in Edge, IE, and Firefox.
+ * 2. Add the correct display in IE.
+ */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section,
+summary {
+  /* 1 */
+  display: block;
 }
 
-table.head {
+/**
+ * Add the correct display in IE 9-.
+ */
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+}
+
+/**
+ * Add the correct display in iOS 4-7.
+ */
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  vertical-align: baseline;
+}
+
+/**
+ * Add the correct display in IE 10-.
+ * 1. Add the correct display in IE.
+ */
+template,
+[hidden] {
+  display: none;
+}
+
+/* Links
+   ========================================================================== */
+/**
+ * 1. Remove the gray background on active links in IE 10.
+ * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
+ */
+a {
+  background-color: transparent;
+  /* 1 */
+  -webkit-text-decoration-skip: objects;
+  /* 2 */
+}
+
+/**
+ * Remove the outline on focused links when they are also active or hovered
+ * in all browsers (opinionated).
+ */
+a:active,
+a:hover {
+  outline-width: 0;
+}
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * 1. Remove the bottom border in Firefox 39-.
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+  border-bottom: none;
+  /* 1 */
+  text-decoration: underline;
+  /* 2 */
+  text-decoration: underline dotted;
+  /* 2 */
+}
+
+/**
+ * Prevent the duplicate application of `bolder` by the next rule in Safari 6.
+ */
+b,
+strong {
+  font-weight: inherit;
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder;
+}
+
+/**
+ * Add the correct font style in Android 4.3-.
+ */
+dfn {
+  font-style: italic;
+}
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/**
+ * Add the correct background and color in IE 9-.
+ */
+mark {
+  background-color: #ff0;
+  color: #000;
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove the border on images inside links in IE 10-.
+ */
+img {
+  border-style: none;
+}
+
+/**
+ * Hide the overflow in IE.
+ */
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+
+/**
+ * Add the correct margin in IE 8.
+ */
+figure {
+  margin: 1em 40px;
+}
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */
+}
+
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change font properties to `inherit` in all browsers (opinionated).
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+}
+
+/**
+ * Restore the font weight unset by the previous rule.
+ */
+optgroup {
+  font-weight: bold;
+}
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input {
+  /* 1 */
+  overflow: visible;
+}
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select {
+  /* 1 */
+  text-transform: none;
+}
+
+/**
+ * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
+ *    controls in Android 4.
+ * 2. Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+/**
+ * Change the border, margin, and padding in all browsers (opinionated).
+ */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */
+}
+
+/**
+ * Remove the default vertical scrollbar in IE.
+ */
+textarea {
+  overflow: auto;
+}
+
+/**
+ * 1. Add the correct box sizing in IE 10-.
+ * 2. Remove the padding in IE 10-.
+ */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */
+}
+
+/**
+ * Remove the inner padding and cancel buttons in Chrome and Safari on OS X.
+ */
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * Correct the text style of placeholders in Chrome, Edge, and Safari.
+ */
+::-webkit-input-placeholder {
+  color: inherit;
+  opacity: 0.54;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+}
+/******************************************************************************
+ *
+ * GRID
+ *
+ * This section contains the dynamic grid.
+ *
+ *****************************************************************************/
+.container {
+  box-sizing: border-box;
+  margin: 0px auto;
+  padding: 0px 15px;
+  width: 1020px;
+  overflow: auto;
+}
+.container:before, .container:after {
+  content: " ";
+  display: table;
+}
+.container:after {
+  clear: both;
+}
+
+.row {
+  margin: 0px -15px;
+}
+.row:before, .row:after {
+  content: " ";
+  display: table;
+}
+.row:after {
+  clear: both;
+}
+
+.span01, .span02, .span03, .span04, .span05, .span06,
+.span07, .span08, .span09, .span10, .span11, .span12,
+.s-span01, .s-span02, .s-span03, .s-span04, .s-span05, .s-span06,
+.s-span07, .s-span08, .s-span09, .s-span10, .s-span11, .s-span12,
+.m-span01, .m-span02, .m-span03, .m-span04, .m-span05, .m-span06,
+.m-span07, .m-span08, .m-span09, .m-span10, .m-span11, .m-span12,
+.l-span01, .l-span02, .l-span03, .l-span04, .l-span05, .l-span06,
+.l-span07, .l-span08, .l-span09, .l-span10, .l-span11, .l-span12 {
+  box-sizing: border-box;
+  float: left;
+  padding: 0px 15px;
+}
+
+.span01 {
+  width: 8.33333333%;
+}
+
+.span02 {
+  width: 16.66666667%;
+}
+
+.span03 {
+  width: 25%;
+}
+
+.span04 {
+  width: 33.33333333%;
+}
+
+.span05 {
+  width: 41.66666667%;
+}
+
+.span06 {
+  width: 50%;
+}
+
+.span07 {
+  width: 58.33333333%;
+}
+
+.span08 {
+  width: 66.66666667%;
+}
+
+.span09 {
+  width: 75%;
+}
+
+.span10 {
+  width: 83.33333333%;
+}
+
+.span11 {
+  width: 91.66666667%;
+}
+
+.span12 {
+  width: 100%;
+}
+
+@media (min-width: 816px) {
+  .container {
+    max-width: 100%;
+  }
+
+  .l-span01 {
+    width: 8.33333333%;
+  }
+
+  .l-span02 {
+    width: 16.66666667%;
+  }
+
+  .l-span03 {
+    width: 25%;
+  }
+
+  .l-span04 {
+    width: 33.33333333%;
+  }
+
+  .l-span05 {
+    width: 41.66666667%;
+  }
+
+  .l-span06 {
+    width: 50%;
+  }
+
+  .l-span07 {
+    width: 58.33333333%;
+  }
+
+  .l-span08 {
+    width: 66.66666667%;
+  }
+
+  .l-span09 {
+    width: 75%;
+  }
+
+  .l-span10 {
+    width: 83.33333333%;
+  }
+
+  .l-span11 {
+    width: 91.66666667%;
+  }
+
+  .l-span12 {
     width: 100%;
-}
+  }
 
-td.head-subject   { font-size: 120%; padding: 0ex 10px 0ex 10px; font-weight: bold; }
-td.head-title     { font-size: 200%; padding: 0ex 10px 0.5ex 10px; font-weight: bold; }
-div.subtitle      { font-size: 70%; }
-td.head-author    { font-size: 100%; padding: 0.5ex 10px 0.5ex 10px; }
-td.head-date      { font-size: 100%; padding: 1.5ex 10px 0.5ex 10px; }
-td.head-publisher { font-size: 100%; padding: 0.5ex 10px 0.5ex 10px; }
+  .l-justify {
+    text-align: justify;
+  }
 
-
-td.legal {
-    padding: 1.5ex 10px 0ex 10px;
-}
-
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Table of contents
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-#toc {
-    margin: 0ex 0em 1.5ex 0em;
-    padding: 0ex 1.5em 3ex 1em;
-    border-bottom: 1px solid black;
-}
-
-div.toc-heading {
-    padding: 1.5ex 0em 1.5ex 0em;
-    font-size: 140%;
-    font-weight: bold;
-}
-
-div.toc-mainitem {
-    font-weight: normal;
-}
-
-div.toc-subitem {
-    font-weight: normal;
-}
-
-div.toc-spacer {
-    height: 1ex;
-}
-
-div.listof-heading {
-    padding: 2.5ex 0em 1.5ex 0em;
-    font-size: 140%;
-    font-weight: bold;    
-}
-
-div.listof-item {
-    font-weight: normal;
-}
-
-div.minitoc {
-    font-family: sans-serif;
-    margin: 2.5ex 0em 2.5ex 0em;
-    border-left: 2px solid black;
-    padding: 0ex 1em 0ex 1em;
-}
-
-div.minitoc-heading {
-    font-weight: bold;
-    margin-bottom: 1ex;
-}
-
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Document body
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-#content {
-    margin: 0ex 0em 0ex 0em;
-    font-family: sans-serif;
-}
-
-table.content {
-    width: 100%;
-    height: 350px;
-    border-collapse: collapse;
-}
-
-td.textbody {
-    padding: 0ex 1.5em 2.5ex 1.5em;
-    vertical-align: top;
-}
-
-td.margin {
-    width: 10em;
-    padding: 0ex 1em 0ex 1em;
-    vertical-align: top;
-    border-left: 1px dotted black;
-}
-
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Top navigation bar
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-#nav-top {
-    margin: 0ex 0em 0ex 0em;
-}
-
-table.nav-top {
-    width: 100%;
-    border-bottom: 1px solid black;
-}
-
-td.nav-top-title {
-    padding: 2px;
-    font-weight: bold;
-    font-size: 18px;
-    color: #888888;
-}
-
-td.nav-top-buttons {
-    text-align: right;
-    padding: 2px;
-    vertical-align: bottom;
-    white-space: nowrap;
-}
-
-span.nav-button {
-    margin-left: 0.5em;
-}
-
-a.nav-button {
-    font-weight: normal;
-}
-
-img.nav-button {
-    border: 0px;
-}
-
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Bottom navigation bar
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-#nav-bottom {
-    margin: 0ex 0em 0ex 0em;
-}
-
-table.nav-bottom {
-    width: 100%;
-}
-
-td.nav-bottom-left {
-    border-top: 1px solid black;
+  .l-left-align {
     text-align: left;
-    padding: 2px 1em 2px 2px;
-    width: 33%;
-    vertical-align: top;
-}
+  }
 
-td.nav-bottom-center {
-    border-top: 1px solid black;
-    text-align: center;
-    padding: 2px 1em 2px 1em;
-    width: 34%;
-    vertical-align: top;
-}
-
-td.nav-bottom-right {
-    border-top: 1px solid black;
+  .l-right-align {
     text-align: right;
-    padding: 2px 2px 2px 1em;
-    width: 33%;
-    vertical-align: top;
+  }
+
+  .l-center {
+    text-align: center;
+  }
+
+  .l-visible {
+    /* display: initial; */
+  }
+
+  .l-invisible {
+    display: none;
+  }
+}
+@media (min-width: 612px) and (max-width: 815px) {
+  .container {
+    width: 100%;
+  }
+
+  .m-span01 {
+    width: 8.33333333%;
+  }
+
+  .m-span02 {
+    width: 16.66666667%;
+  }
+
+  .m-span03 {
+    width: 25%;
+  }
+
+  .m-span04 {
+    width: 33.33333333%;
+  }
+
+  .m-span05 {
+    width: 41.66666667%;
+  }
+
+  .m-span06 {
+    width: 50%;
+  }
+
+  .m-span07 {
+    width: 58.33333333%;
+  }
+
+  .m-span08 {
+    width: 66.66666667%;
+  }
+
+  .m-span09 {
+    width: 75%;
+  }
+
+  .m-span10 {
+    width: 83.33333333%;
+  }
+
+  .m-span11 {
+    width: 91.66666667%;
+  }
+
+  .m-span12 {
+    width: 100%;
+  }
+
+  .m-justify {
+    text-align: justify;
+  }
+
+  .m-left-align {
+    text-align: left;
+  }
+
+  .m-right-align {
+    text-align: right;
+  }
+
+  .m-center {
+    text-align: center;
+  }
+
+  .m-visible {
+    /* display: initial; */
+  }
+
+  .m-invisible {
+    display: none;
+  }
+}
+@media (max-width: 611px) {
+  .container {
+    width: 100%;
+  }
+
+  .s-span01 {
+    width: 8.33333333%;
+  }
+
+  .s-span02 {
+    width: 16.66666667%;
+  }
+
+  .s-span03 {
+    width: 25%;
+  }
+
+  .s-span04 {
+    width: 33.33333333%;
+  }
+
+  .s-span05 {
+    width: 41.66666667%;
+  }
+
+  .s-span06 {
+    width: 50%;
+  }
+
+  .s-span07 {
+    width: 58.33333333%;
+  }
+
+  .s-span08 {
+    width: 66.66666667%;
+  }
+
+  .s-span09 {
+    width: 75%;
+  }
+
+  .s-span10 {
+    width: 83.33333333%;
+  }
+
+  .s-span11 {
+    width: 91.66666667%;
+  }
+
+  .s-span12 {
+    width: 100%;
+  }
+
+  .s-justify {
+    text-align: justify;
+  }
+
+  .s-left-align {
+    text-align: left;
+  }
+
+  .s-right-align {
+    text-align: right;
+  }
+
+  .s-center {
+    text-align: center;
+  }
+
+  .s-visible {
+    /* display: initial; */
+  }
+
+  .s-invisible {
+    display: none;
+  }
+}
+/******************************************************************************
+ *
+ * LAYOUT
+ *
+ * This section contains layouts for page formatting and block elements.
+ *
+ *****************************************************************************/
+/*
+ * Document titles and front matter
+ */
+div.frontmatter {
+  color: #000000;
+  border-bottom: 1px dotted #888888;
+}
+div.frontmatter .head-table {
+  display: table;
+  height: 400px;
+}
+div.frontmatter .head-table .head-table-cell {
+  display: table-cell;
+  padding: 1em 0;
+  vertical-align: middle;
+}
+div.frontmatter .head-title {
+  font-size: 300%;
+  font-weight: bold;
+  margin: 0;
+}
+div.frontmatter .head-title .head-subject {
+  font-size: 70%;
+}
+div.frontmatter .head-title .head-subtitle {
+  font-size: 70%;
+}
+div.frontmatter .head-author {
+  margin: 0.5em 0 0 0;
+}
+div.frontmatter .head-date {
+  margin: 0.5em 0 0 0;
+}
+div.frontmatter .head-publisher {
+  margin: 0.5em 0 0 0;
+}
+div.frontmatter .head-legal {
+  margin: 2em 0 0 0;
+}
+div.frontmatter a, div.frontmatter a:link, div.frontmatter a:hover, div.frontmatter a:active, div.frontmatter a:visited {
+  text-decoration: none;
 }
 
-span.nav-link-dir {
-    font-weight: bold;
+/*
+ * Navigation
+ */
+div.nav-top {
+  border-bottom: 1px dotted #aaaaaa;
+}
+div.nav-top .row {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+div.nav-top .nav-top-title {
+  color: #666666;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 40px;
+}
+div.nav-top .nav-top-buttons a img {
+  margin: 12px 0 0 5px;
 }
 
-a.nav-link {
-    font-weight: normal;
+div.nav-bottom {
+  border-top: 1px dotted #aaaaaa;
+}
+div.nav-bottom .row {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+div.nav-bottom .nav-link-dir {
+  color: #000000;
+  font-weight: bold;
 }
 
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Anchor and container for marginal notes
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-a.marginal {
-    vertical-align: top;
+/*
+ * Content
+ */
+div.content ul.toc {
+  list-style-type: none;
+  padding-left: 0.25em;
+}
+div.content ul.toc ul {
+  list-style-type: none;
+  margin: 0.25em 0;
+  padding-left: 2em;
+}
+div.content ul.toc li {
+  margin: 0.25em 0 0.25em 0;
+}
+div.content .textbody {
+  padding-bottom: 1.5em;
+}
+/******************************************************************************
+ *
+ * TYPO AND STYLING
+ *
+ * This section contains settings for typography and basic styling of elements.
+ *
+ *****************************************************************************/
+/*
+ * Global settings
+ */
+body {
+  font-family: sans-serif;
+  color: #444444;
+  background-color: #ffffff;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
-div.marginal {
-    position: relative;
-    width: 8em;
+/*
+ * Text
+ */
+span.tt {
+  font-family: monospace;
 }
 
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Hyperlinks
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-a:link,
-a:hover,
-a:visited {
-    color: blue;
+/*
+ * Hyperlinks
+ */
+a, a:link, a:hover, a:active, a:visited {
+  color: #222299;
 }
 
-a.bib:link,
-a.bib:hover,
-a.bib:visited {
-    text-decoration: none;
-}
-
-a.toc-mainitem:link,
-a.toc-mainitem:hover,
-a.toc-mainitem:visited {
-    font-weight: normal;
-}
-
-a.toc-subitem:link,
-a.toc-subitem:hover,
-a.toc-subitem:visited {
-    font-weight: normal;
-}
-
-a.listof:link,
-a.listof:hover,
-a.listof:visited {
-    font-weight: normal;
-}
-
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Headings
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+/*
+ * Headings
+ */
 h1, h2, h3, h4, h5 {
-    clear: both;
-    color: #000000;
-    font-family: sans-serif;
-    margin: 2.5ex 0em 1ex 0em;
+  clear: both;
+  margin: 1em 0em 0.5em 0em;
+  color: #000000;
 }
 
-h1 { font-size: 180%; }
-h2 { font-size: 150%; }
-h3 { font-size: 130%; }
-h4 { font-size: 115%; }
-h5 { font-size: 100%; }
-
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Paragraph
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-p {
-    margin: 1ex 0em 1ex 0em;
-    line-height: 130%;
+h1 {
+  font-size: 180%;
 }
 
-span.title {
-    font-weight: bold;
-    padding-right: 1.5ex;
+h2 {
+  font-size: 160%;
 }
 
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Lists
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+h3 {
+  font-size: 140%;
+}
+
+h4 {
+  font-size: 120%;
+}
+
+h5 {
+  font-size: 100%;
+}
+
+/*
+ * General block elements
+ */
+.block-element {
+  margin: 1.5em 0em;
+}
+
+.caption {
+  font-weight: normal;
+}
+
+.caption-counter {
+  color: #000000;
+  font-weight: bold;
+}
+
+/*
+ * Lists
+ */
 dl, ol, ul {
-    margin-top: 1.5ex;
-    margin-bottom: 1.5ex;
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
 }
 
-li {
-    margin: 1ex 0em 1ex 0em;
+dt {
+  color: #000000;
 }
 
 dd {
-    margin: 0.5ex 0em 1ex 1.5em;
+  margin: 0 0 0.5em 1.5em;
 }
 
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Footnotes
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+/*
+ * Paragraph
+ */
+p {
+  margin: 0.75em 0em;
+}
+p .title {
+  font-weight: bold;
+  padding-right: 1.5ex;
+}
+
+/*
+ * Footnotes
+ */
+a.sup,
 a.sup:link,
 a.sup:hover,
+a.sup:active,
 a.sup:visited {
-    line-height: 0ex;
-    text-decoration: none;
+  line-height: 0em;
+  text-decoration: none;
 }
 
 sup.footnote {
-    font-weight: normal;
-    text-decoration: none;
-    line-height: 0ex;
+  font-weight: normal;
+  text-decoration: none;
+  line-height: 0em;
 }
 
 div.footnote {
-    font-size: 80%;
+  font-size: 80%;
 }
 
 hr.above-footnote,
 hr.below-footnote {
-    margin-left: 0px;
-    width: 40%;
-    height: 1px;
-    border: 0px;
-    text-align: left;
-    color: black;
-    background-color: black;
+  margin-left: 0px;
+  width: 40%;
+  height: 1px;
+  border: 0px;
+  text-align: left;
+  color: black;
+  background-color: #aaaaaa;
 }
 
 hr.above-footnote {
-    margin-top: 1.5ex;
+  margin-top: 0.75em;
 }
 
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Listing environment
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+/*
+ * Verbatim & Listing
+ */
+pre.verbatim {
+  padding: 0.5em 0.5em;
+  margin: 1.25em 0em;
+  font-family: monospace;
+}
+
 div.listing {
-    padding: 0px;
-    margin: 1.5ex 0em 1.5ex 0em;
+  padding: 0px;
+  margin: 1.25em 0em;
 }
 
 div.listing-caption {
-    margin-bottom: 0.2ex;
+  margin-bottom: 0.15em;
 }
 
 pre.listing {
-    margin: 0px;
-    padding: 0.5ex 0.5em 0.5ex 0.5em;
-    font-family: "Courier New", monospace;
+  padding: 0.5em 0.5em;
+  font-family: monospace;
 }
 
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Verbatim environment
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-pre.verbatim {
-    padding: 0.5ex 0.5em 0.5ex 0.5em;
-    margin: 1.5ex 0em 1.5ex 0em;
-    font-family: "Courier New", monospace;
+/*
+ * Bibliography
+ */
+table.biblio td.biblio-label-manual {
+  text-align: left;
+  padding: 5px 10px 5px 0;
+  vertical-align: top;
+}
+table.biblio td.biblio-label-auto {
+  text-align: right;
+  padding: 5px 10px 5px 0;
+  vertical-align: top;
+}
+table.biblio td.biblio-text {
+  padding: 5px 0 5px 10px;
 }
 
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Spacing before and after block elements
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-.block-element {
-    margin: 1.5ex 0em 1.5ex 0em;
+/*
+ * Index
+ */
+.idxlink {
+  margin-right: 0.5em;
 }
 
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Caption text
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-.caption {
-    font-weight: normal;
-}
-.caption-counter {
-    font-weight: bold;
+span.idxlink {
+  color: #999999;
 }
 
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Equation
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+.idxitem {
+  font-weight: bold;
+}
+
+.idxsubitem {
+  margin-left: 2.5em;
+}
+
+.idxsubsubitem {
+  margin-left: 5em;
+}
+
+/*
+ * Math
+ */
 td.eq-counter {
-    width: 8em;
-    padding-left: 2em;
+  width: 8em;
+  padding-left: 2em;
 }
 
 td.eq-content {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 img.math {
-    margin-left: 0.2ex;
-    margin-right: 0.2ex;
+  margin-left: 0.2ex;
+  margin-right: 0.2ex;
 }
-
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Glossary
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-div.gllinks {
-    font-size: 110%;
-    font-family: sans-serif;
-}
-hr.glseparator {
-    margin: 2ex 0em 2ex 0em;
-    width: 100%;
-    height: 1px;
-    border: 0px;
-    background-color: #aaaaaa;
-    color: #aaaaaa;
-}
-h1.glsection {
-    padding: 0px;
-    margin: 1ex 0em 1ex 0em;
-    font-size: 150%;
-}
-span.gllink {
-    margin-right: 0.5em;
-}
-span.glnolink {
-    margin-right: 0.5em;
-    color: #999999;
-}
-a.gllink {
-    font-weight: normal;
-}
-
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  - Index
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-div.idxlinks {
-    font-size: 110%;
-    font-family: sans-serif;
-}
-hr.idxseparator {
-    margin: 2ex 0em 2ex 0em;
-    width: 100%;
-    height: 1px;
-    border: 0px;
-    background-color: #aaaaaa;
-    color: #aaaaaa;
-}
-h1.idxsection {
-    padding: 0px;
-    margin: 1ex 0em 1ex 0em;
-    font-size: 150%;
-}
-span.idxlink {
-    margin-right: 0.5em;
-}
-a.idxlink {
-    font-weight: normal;
-}
-span.idxnolink {
-    margin-right: 0.5em;
-    color: #999999;
-}
-table.idxlisting {
-    width: 95%;
-    margin-left: 0.5em;
-}
-td.idxitem {
-    border-left: 2px solid #aaaaaa;
-    white-space: nowrap;
-    padding-right: 20px;
-    padding-left: 5px;
-    width: 50%;
-}
-a.idxref {
-    text-decoration: none;
-}
-span.idxitem {
-    font-weight: bold;
-}
-span.idxsubitem {
-    margin-left: 2.5em;
-}
-span.idxsubsubitem {
-    margin-left: 5em;
-}
-    </css>
+    ]]></css>
 </style>

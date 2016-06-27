@@ -78,8 +78,9 @@
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
                 <meta name="generator" content="{$global.version}"/>
+                <title><xsl:call-template name="util.print.title"/></title>
 
-                <!-- insert CSS -->
+                <!-- decide if CSS is inline or separate -->
                 <xsl:choose>
                     <xsl:when test="$secsplitdepth > 0">
                         <xsl:call-template name="css.stylesheet"/>
@@ -89,60 +90,23 @@
                         <xsl:call-template name="css.inline"/>
                     </xsl:otherwise>
                 </xsl:choose>
-
-                <!-- title -->
-                <title><xsl:call-template name="util.print.title"/></title>
-
-                <!-- javascript -->
-                <xsl:if test="$secsplitdepth = 0 and //marginal">
-                    <!-- alignment of marginals -->
-                    <xsl:call-template name="marginal.script">
-                        <xsl:with-param name="curdepth" select="1"/>
-                        <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
-                    </xsl:call-template>
-                </xsl:if>
             </head>
             <body>
                 <!-- make the coverpage -->
                 <xsl:call-template name="frontpage.make"/>
 
-                <xsl:choose>
-                    <!-- content goes into index.html -->
-                    <xsl:when test="$secsplitdepth &lt;= 0">
-                        <div id="content">
-                            <table border="0" cellspacing="0" cellpadding="0" class="content">
-                                <tr>
-                                    <!-- body -->
-                                    <td class="textbody">
-
-                                        <!-- process sections -->
-                                        <xsl:call-template name="section.make"/>
-
-                                    </td>
-                                    <!-- margin -->
-                                    <xsl:if test="//marginal">
-                                        <td class="margin">
-
-                                            <!-- make marginal notes -->
-                                            <xsl:call-template name="marginal.text">
-                                                <xsl:with-param name="curdepth" select="1"/>
-                                                <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
-                                            </xsl:call-template>
-
-                                        </td>
-                                    </xsl:if>
-                                </tr>
-                            </table>
+                <div class="content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="span12 textbody">
+                                <!-- make table of contents -->
+                                <xsl:call-template name="frontpage.toc"/>
+                                <!-- process sections -->
+                                <xsl:call-template name="section.make"/>
+                            </div>
                         </div>
-                    </xsl:when>
-                    <!-- content goes into external files -->
-                    <xsl:otherwise>
-
-                        <!-- process sections -->
-                        <xsl:call-template name="section.make"/>
-                
-                    </xsl:otherwise>
-                </xsl:choose>
+                    </div>
+                </div>
             </body>
         </html>
     </xsl:document>

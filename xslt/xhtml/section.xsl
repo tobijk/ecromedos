@@ -267,11 +267,11 @@
   - multiple output files and printing section contents.
 -->
 <xsl:template name="section.print">
-    
+
     <xsl:param name="secsplitdepth"/>
     <xsl:param name="curdepth"/>
     <xsl:param name="secnumdepth"/>
-    
+ 
     <xsl:choose>
         <!-- put section in separate file -->
         <xsl:when test="$secsplitdepth >= $curdepth">
@@ -283,25 +283,13 @@
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
             doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
             omit-xml-declaration="yes">
+                <!-- page start -->
                 <html>
                     <head>
                         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
                         <meta name="generator" content="{$global.version}"/>
-                        
-                        <!-- insert CSS -->
-                        <link rel="stylesheet" type="text/css" href="style.css"/>
-
-                        <!-- title -->
                         <title><xsl:call-template name="util.print.title"/></title>
-
-                        <!-- javascript -->
-                        <xsl:if test="//marginal">
-                            <!-- alignment of marginals -->
-                            <xsl:call-template name="marginal.script">
-                                <xsl:with-param name="curdepth" select="$curdepth"/>
-                                <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
-                            </xsl:call-template>
-                        </xsl:if>
+                        <link rel="stylesheet" type="text/css" href="style.css"/>
                     </head>
                     <body>
 
@@ -313,37 +301,18 @@
                         </xsl:call-template>
 
                         <!-- set content -->
-                        <div id="content">
-                            <table border="0" cellspacing="0" cellpadding="0" class="content">
-                                <tr>
-                                    <!-- body -->
-                                    <td class="textbody">
-
-                                        <!-- set content -->
+                        <div class="content">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="span12 textbody">
                                         <xsl:call-template name="section.content">
                                             <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                                             <xsl:with-param name="curdepth" select="$curdepth"/>
                                             <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                                         </xsl:call-template>
-
-                                    </td>
-                                    <!-- margin -->
-                                    <xsl:if test="//marginal">
-                                        <td class="margin">
-
-                                            <!-- make marginal notes -->
-                                            <xsl:call-template name="marginal.text">
-                                                <xsl:with-param name="curdepth" select="1"/>
-                                                <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
-                                            </xsl:call-template>
-
-                                            <!-- IE won't show border if margin is empty -->
-                                            <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-
-                                        </td>
-                                    </xsl:if>
-                                </tr>
-                            </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- bottom navigation bar -->
