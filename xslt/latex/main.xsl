@@ -51,7 +51,7 @@
 
 <xsl:template name="xdoc.process">
     <!-- output to main tex-file -->
-    <xsl:document href="{name()}.tex" method="text" indent="yes" encoding="UTF-8">
+    <xsl:document href="main.tex" method="text" indent="yes" encoding="UTF-8">
         <!-- document preamble -->
         <xsl:call-template name="latex.prepare"/>
         <!-- document start -->
