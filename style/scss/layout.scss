@@ -17,11 +17,11 @@ div.frontmatter {
 
     .head-table {
         display: table;
-        height: 400px;
+        min-height: 300px;
 
         .head-table-cell {
             display: table-cell;
-            padding: 1em 0;
+            padding: 2em 0;
             vertical-align: middle;
         }
     }
