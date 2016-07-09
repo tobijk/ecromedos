@@ -753,11 +753,11 @@ div.frontmatter {
 }
 div.frontmatter .head-table {
   display: table;
-  height: 400px;
+  min-height: 300px;
 }
 div.frontmatter .head-table .head-table-cell {
   display: table-cell;
-  padding: 1em 0;
+  padding: 2em 0;
   vertical-align: middle;
 }
 div.frontmatter .head-title {
@@ -1056,6 +1056,6 @@ td.eq-content {
 img.math {
   margin-left: 0.2ex;
   margin-right: 0.2ex;
-}
-    ]]></css>
+}    
+  ]]></css>
 </style>
