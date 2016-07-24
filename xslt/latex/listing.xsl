@@ -104,11 +104,11 @@
     <xsl:text>}</xsl:text>
 
     <xsl:text>{\setlength{\partopsep}{0ex}\setlength{\topsep}{0ex}\setlength{\parskip}{0ex}\setlength{\parindent}{0em}\noindent{}</xsl:text>
-    <xsl:text>\begin{shaded}</xsl:text>
+    <xsl:text>\begin{shaded*}</xsl:text>
     <xsl:text>\small\begin{alltt}</xsl:text>
         <xsl:apply-templates/>
     <xsl:text>\end{alltt}</xsl:text>
-    <xsl:text>\end{shaded}}</xsl:text>
+    <xsl:text>\end{shaded*}}</xsl:text>
 </xsl:template>
 
 </xsl:stylesheet>
