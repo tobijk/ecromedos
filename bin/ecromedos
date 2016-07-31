@@ -19,6 +19,7 @@ ECMDS_INSTALL_DIR = os.path.normpath(
 sys.path.insert(1, ECMDS_INSTALL_DIR + os.sep + 'lib')
 
 # ecromedos includes
+from net.ecromedos.version import VERSION
 from net.ecromedos.error import ECMDSError, ECMDSPluginError
 from net.ecromedos.ecmlprocessor import ECMLProcessor
 import net.ecromedos.templates as document_templates
@@ -27,9 +28,6 @@ import net.ecromedos.templates as document_templates
 ECMDS_ERR_INVOCATION = 1
 ECMDS_ERR_PROCESSING = 2
 ECMDS_ERR_UNKNOWN    = 3
-
-# version number
-VERSION = "3.0.0"
 
 def printVersion():
     """Display version information."""
