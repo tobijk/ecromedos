@@ -18,13 +18,14 @@ class ECMLRenderer(mistune.Renderer):
     def __init__(self):
         mistune.Renderer.__init__(self)
         self.section_level = 0
+        self.footnotes_map = {}
     #end if
 
     # BLOCK ELEMENTS
 
     def block_code(self, code, language=None):
         if language == None:
-            language = "none"
+            language = "text"
 
         return """<listing><code syntax="%(lang)s" strip="yes"
                 tabspaces="4">%(code)s</code></listing>""" % {
@@ -88,7 +89,7 @@ class ECMLRenderer(mistune.Renderer):
 
     def table(self, header, body):
         return """\
-        <table print-width="100%%" screen-width="800px">
+        <table print-width="100%%" screen-width="800px" align="center" frame="top,left,right,bottom">
             <thead>
                 %s
             </thead>
@@ -137,15 +138,15 @@ class ECMLRenderer(mistune.Renderer):
         if title:
             title = escape(title, quote=True)
             ecml = """\
-                <figure>
+                <figure align="center">
                     <caption>%s</caption>
-                    <img src="%s" print-width="100%" screen-width="600px"/>
+                    <img src="%s" print-width="100%" screen-width="800px"/>
                 </figure>
             """ % (title, src)
         else:
             ecml = """\
-                <figure>
-                    <img src="%s" print-width="100%" screen-width="600px"/>
+                <figure align="center">
+                    <img src="%s" print-width="100%" screen-width="800px"/>
                 </figure>
             """ % (src,)
         #end if
@@ -158,6 +159,19 @@ class ECMLRenderer(mistune.Renderer):
     #end function
 
     def newline(self):
+        return ""
+    #end function
+
+    def footnote_ref(self, key, index):
+        return '<footnote-ref idref="%s"/>' % mistune.escape(key)
+    #end function
+
+    def footnote_item(self, key, text):
+        self.footnotes_map[key] = text
+        return ""
+    #end function
+
+    def footnotes(self, text):
         return ""
     #end function
 
@@ -219,24 +233,32 @@ class MarkdownConverter():
     #end function
 
     def convert(self, string):
-        renderer = ECMLRenderer()
-        markdown = mistune.Markdown(renderer=renderer)
+        # initial conversion happening here
+        renderer  = ECMLRenderer()
+        markdown  = mistune.Markdown(renderer=renderer)
+        contents  = markdown(self.parse_preamble(string))
+        header    = self.generate_header(self.config)
+        footnotes = renderer.footnotes_map
 
-        contents = self.parse_preamble(string)
-        header   = self.generate_header(self.config)
-        contents = markdown(contents)
-
+        # close all open sections
         for i in range(renderer.section_level):
             contents += "</section>"
 
-        self.config["header"]   = header
+        self.config["header"] = header
         self.config["contents"] = contents
+        self.config["footnotes"] = footnotes
+
         contents = MarkdownConverter.DOCUMENT_TEMPLATE % self.config
 
+        # parse XML to do post-processing
         parser = etree.XMLParser(remove_blank_text=True)
-        tree = etree.fromstring(contents, parser=parser)
+        tree   = etree.fromstring(contents, parser=parser)
 
-        print(etree.tostring(tree, pretty_print=True, encoding="unicode"))
+        # fix footnotes, tables, section names...
+        tree = self.post_process(tree)
+
+        # return pretty-printed result
+        return etree.tostring(tree, pretty_print=True, encoding="unicode")
     #end function
 
     def parse_preamble(self, string):
@@ -305,6 +327,127 @@ class MarkdownConverter():
 
     def validate_config(self, config):
         pass
+    #end function
+
+    def post_process(self, root_node):
+
+        node = root_node
+
+        while node is not None:
+            if node.tag == "footnote-ref":
+                node = self.__fix_footnote(node)
+            elif node.tag == "section":
+                node = self.__fix_section(node)
+            elif node.tag == "table":
+                node = self.__fix_table(node)
+            elif node.tag == "thead":
+                node = self.__fix_thead(node)
+            elif node.tag == "tbody":
+                node = self.__fix_tbody(node)
+            #end if
+
+            if len(node) != 0:
+                node = node[0]
+                continue
+
+            while node is not None:
+                following_sibling = node.getnext()
+
+                if following_sibling is not None:
+                    node = following_sibling
+                    break
+
+                node = node.getparent()
+            #end while
+        #end while
+
+        return root_node
+    #end function
+
+    # PRIVATE
+
+    def __fix_footnote(self, ref_node):
+        footnotes    = self.config["footnotes"]
+        footnote_ref = ref_node.get("idref", None)
+        footnote_def = footnotes.get(footnote_ref, None)
+
+        if footnote_def == None:
+            raise MarkdownConverterError(
+                "Unresolved footnote reference '%s'" % footnote_ref)
+        #end if
+
+        try:
+            footnote = etree.fromstring(footnote_def)
+        except etree.XMLSyntaxError as e:
+            raise MarkdownConverterError(
+                "Footnote '%s' is not a valid XML fragment." % footnote_ref)
+        #end try
+
+        if footnote.tag != "p":
+            raise MarkdownConverterError(
+                "Footnote '%s' is an invalid block element." % footnote_ref)
+        #end if
+
+        footnote.tag  = "footnote"
+        footnote.tail = ref_node.tail
+        ref_node.getparent().replace(ref_node, footnote)
+
+        return footnote
+    #end function
+
+    def __fix_section(self, section_node):
+        document_type = self.config["document_type"]
+
+        if document_type == "article":
+            section_names = ["section", "subsection", "subsubsection", "minisection"]
+        else:
+            section_names = ["chapter", "section", "subsection", "subsubsection", "minisection"]
+        #end if
+
+        level = int(section_node.attrib["level"]) - 1
+        section_node.tag = section_names[level]
+        del section_node.attrib["level"]
+
+        return section_node
+    #end function
+
+    def __fix_table(self, table_node):
+        if table_node.xpath("colgroup"):
+            return table_node
+
+        header_cells = table_node.xpath("thead/tr/td")
+
+        width = 100 / len(header_cells)
+        colgroup_node = etree.Element("colgroup")
+
+        for cell in header_cells:
+            col_node = etree.Element("col")
+            col_node.attrib["width"] = str(width) + "%"
+            colgroup_node.append(col_node)
+        #end for
+
+        table_node.insert(0, colgroup_node)
+
+        return table_node
+    #end function
+
+    def __fix_thead(self, thead_node):
+        header_row = thead_node.xpath("tr")[0]
+        header_row.tag = "th"
+        thead_node.getparent().replace(thead_node, header_row)
+        return header_row
+    #end function
+
+    def __fix_tbody(self, tbody_node):
+        table_node = tbody_node.getparent()
+        body_rows  = tbody_node.xpath("tr")
+
+        for row in body_rows:
+            table_node.append(row)
+
+        table_node.remove(tbody_node)
+
+        return body_rows[0]
     #end function
 
 #end class

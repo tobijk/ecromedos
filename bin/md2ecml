@@ -185,7 +185,7 @@ if __name__ == "__main__":
 
         # TRANSFORMATION
         try:
-            MarkdownConverter(options).convert(buf)
+            print(MarkdownConverter(options).convert(buf))
         except MarkdownConverterError as e:
             sys.stderr.write(str(e) + "\n")
             sys.exit(MD2ECML_ERR_PROCESSING)
