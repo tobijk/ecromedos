@@ -153,13 +153,16 @@
     </xsl:variable>
     
     <!-- "list of something" -->
-    <div class="listof-heading">
+    <h1>
         <xsl:call-template name="i18n.print">
             <xsl:with-param name="key" select="concat('lo', substring($element, 1, 1))"/>
         </xsl:call-template>
-    </div>
+    </h1>
     <!-- listof listing -->
     <xsl:for-each select="//*[name() = $element and child::caption]">
+        <xsl:if test="position() = 1">
+            <xsl:text disable-output-escaping="yes">&lt;ul class="toc"&gt;</xsl:text>
+        </xsl:if>
         <xsl:variable name="filename">
             <xsl:call-template name="ref.filename"/>
         </xsl:variable>
@@ -172,8 +175,8 @@
             <xsl:value-of select="generate-id()"/>
         </xsl:variable>
         <!-- entry -->
-        <div class="listof-item">
-            <a href="{$filename}#{$idnum}" class="listof">
+        <li class="toc-mainitem">
+            <a href="{$filename}#{$idnum}" class="toc-mainitem">
                 <xsl:call-template name="i18n.print">
                     <xsl:with-param name="key" select="'sectionnumber'"/>
                     <xsl:with-param name="number" select="$prefix"/>
@@ -181,7 +184,10 @@
                 <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
                 <xsl:apply-templates select="descendant::caption"/>
             </a>
-        </div>
+        </li>
+        <xsl:if test="position() = last()">
+            <xsl:text disable-output-escaping="yes">&lt;/ul&gt;</xsl:text>
+        </xsl:if>
     </xsl:for-each>
 </xsl:template>
 
