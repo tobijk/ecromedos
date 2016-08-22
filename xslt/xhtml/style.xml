@@ -423,7 +423,7 @@ textarea {
   box-sizing: border-box;
   margin: 0px auto;
   padding: 0px 15px;
-  width: 1020px;
+  width: 960px;
   overflow: auto;
 }
 .container:before, .container:after {
@@ -506,7 +506,7 @@ textarea {
   width: 100%;
 }
 
-@media (min-width: 816px) {
+@media (min-width: 768px) {
   .container {
     max-width: 100%;
   }
@@ -583,7 +583,7 @@ textarea {
     display: none;
   }
 }
-@media (min-width: 612px) and (max-width: 815px) {
+@media (min-width: 576px) and (max-width: 767px) {
   .container {
     width: 100%;
   }
@@ -660,7 +660,7 @@ textarea {
     display: none;
   }
 }
-@media (max-width: 611px) {
+@media (max-width: 575px) {
   .container {
     width: 100%;
   }
@@ -852,7 +852,7 @@ body {
   color: #444444;
   background-color: #ffffff;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.44;
 }
 
 /*
@@ -1056,6 +1056,6 @@ td.eq-content {
 img.math {
   margin-left: 0.2ex;
   margin-right: 0.2ex;
-}    
+}  
   ]]></css>
 </style>
