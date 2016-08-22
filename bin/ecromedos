@@ -7,7 +7,6 @@
 # URL:     http://www.ecromedos.net
 #
 
-# std includes
 import os, sys, getopt, tempfile
 
 # make ecromedos relocatable
@@ -18,7 +17,6 @@ ECMDS_INSTALL_DIR = os.path.normpath(
 
 sys.path.insert(1, ECMDS_INSTALL_DIR + os.sep + 'lib')
 
-# ecromedos includes
 from net.ecromedos.version import VERSION
 from net.ecromedos.error import ECMDSError, ECMDSPluginError
 from net.ecromedos.ecmlprocessor import ECMLProcessor
@@ -32,8 +30,8 @@ ECMDS_ERR_UNKNOWN    = 3
 def printVersion():
     """Display version information."""
 
-    print("ecromedos Document Processor, version %s" % (VERSION,))
-    print("Copyright (C) 2005-2016, Tobias Koch <tobias@tobijk.de>")
+    print("ecromedos Document Processor, version %s" % VERSION                           )
+    print("Copyright (C) 2005-2016, Tobias Koch <tobias@tobijk.de>                      ")
 #end function
 
 def printUsage():
