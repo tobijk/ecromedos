@@ -9,6 +9,8 @@
 import re
 from lxml import etree
 import com.lepture.mistune as mistune
+from net.ecromedos.configreader import ECMDSConfigReader
+from net.ecromedos.dtdresolver  import ECMDSDTDResolver
 
 class ECMLRendererError(Exception):
     pass
@@ -132,21 +134,21 @@ class ECMLRenderer(mistune.Renderer):
     #end function
 
     def image(self, src, title, text):
-        src  = escape_link(src, quote=True)
-        text = escape(text, quote=True)
+        src  = mistune.escape_link(src)
+        text = mistune.escape(text, quote=True)
 
         if title:
-            title = escape(title, quote=True)
+            title = mistune.escape(title, quote=True)
             ecml = """\
                 <figure align="center">
                     <caption>%s</caption>
-                    <img src="%s" print-width="100%" screen-width="800px"/>
+                    <img src="%s" print-width="100%%" screen-width="800px"/>
                 </figure>
             """ % (title, src)
         else:
             ecml = """\
                 <figure align="center">
-                    <img src="%s" print-width="100%" screen-width="800px"/>
+                    <img src="%s" print-width="100%%" screen-width="800px"/>
                 </figure>
             """ % (src,)
         #end if
@@ -176,7 +178,7 @@ class ECMLRenderer(mistune.Renderer):
     #end function
 
     def link(self, link, title, text):
-        link = escape_link(link, quote=True)
+        link = mistune.escape_link(link)
         return '<link url="%s">%s</a>' % (link, text)
     #end function
 
@@ -197,7 +199,7 @@ class ECMLRenderer(mistune.Renderer):
 class MarkdownConverterError(Exception):
     pass
 
-class MarkdownConverter():
+class MarkdownConverter(ECMDSDTDResolver):
 
     DOCUMENT_TEMPLATE = """\
 <!DOCTYPE report SYSTEM "http://www.ecromedos.net/dtd/3.0/ecromedos.dtd">
@@ -213,6 +215,9 @@ class MarkdownConverter():
     """
 
     def __init__(self, options):
+        ECMDSConfigReader.__init__(self)
+        ECMDSDTDResolver. __init__(self)
+
         self.config = {
             "document_type": "report",
             "bcor": "0cm",
@@ -229,6 +234,7 @@ class MarkdownConverter():
             "have_lol": "no",
             "contents": ""
         }
+
         self.config.update(options)
     #end function
 
@@ -344,6 +350,8 @@ class MarkdownConverter():
                 node = self.__fix_thead(node)
             elif node.tag == "tbody":
                 node = self.__fix_tbody(node)
+            elif node.tag == "figure":
+                node = self.__fix_figure(node)
             #end if
 
             if len(node) != 0:
@@ -448,6 +456,37 @@ class MarkdownConverter():
         table_node.remove(tbody_node)
 
         return body_rows[0]
+    #end function
+
+    def __fix_figure(self, figure_node):
+        section_elements = {
+            "chapter": 1,
+            "section": 1,
+            "subsection": 1,
+            "subsubsection": 1,
+            "minisection": 1,
+            "preface": 1,
+            "abstract": 1,
+            "appendix": 1
+        }
+
+        parent      = figure_node.getparent()
+        grandparent = parent.getparent()
+
+        if not section_elements.get(grandparent.tag, None):
+            raise MarkdownConverterError("The parent or grandparent of image "\
+                "'%s' is not a sectioning element." % figure_node.get("alt"))
+
+        if etree.tostring(parent, method="text", encoding="unicode").strip() == "":
+            grandparent.replace(parent, figure_node)
+        else:
+            figure_node.attrib["align"] = "left"
+            img_node = figure_node.xpath("img")[0]
+            img_node.attrib["print-width"] = "50%"
+            img_node.attrib["screen-width"] = "400px"
+        #end if
+
+        return figure_node
     #end function
 
 #end class

@@ -161,12 +161,12 @@ if __name__ == "__main__":
         # SETUP
         try:
             options, files = parseCmdLine()
-
             if len(files) < 1:
                 msg = "md2ecml: no source file specified"
                 raise MarkdownConverterError(msg)
             if not os.path.isfile(files[0]):
-                msg = "md2ecml: '%s' does not exist or is not a file " % files[0]
+                msg = "md2ecml: '%s' does not exist or is not a file "\
+                    % files[0]
                 raise MarkdownConverterError(msg)
             #end ifs
         except MarkdownConverterError as e:
@@ -185,6 +185,10 @@ if __name__ == "__main__":
 
         # TRANSFORMATION
         try:
+            # SET INSTALLATION PATH
+            options.setdefault("install_dir", MD2ECML_INSTALL_DIR)
+
+            # DO DOCUMENT TRANSFORMATION
             print(MarkdownConverter(options).convert(buf))
         except MarkdownConverterError as e:
             sys.stderr.write(str(e) + "\n")
