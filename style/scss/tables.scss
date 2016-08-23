@@ -1,0 +1,16 @@
+/******************************************************************************
+ *
+ * TABLES
+ *
+ * This section contains basic styling for tables.
+ *
+ *****************************************************************************/ 
+
+@import 'variables';
+
+table.table {
+    td {
+        padding-top: 0.25ex;
+        padding-bottom: 0.25ex;
+    }
+}

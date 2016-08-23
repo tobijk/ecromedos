@@ -28,7 +28,7 @@ do_build()
     rm -f css/variables.css
     rm -f style.css
 
-    for css_file in normalize grid layout style
+    for css_file in normalize grid layout tables style
     do
         cat "css/${css_file}.css" >> style.css
     done
