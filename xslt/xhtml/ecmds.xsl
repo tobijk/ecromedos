@@ -78,7 +78,7 @@
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
                 <meta name="generator" content="{$global.version}"/>
-                <title><xsl:call-template name="util.print.title"/></title>
+                <title><xsl:value-of select="//head/title"/></title>
 
                 <!-- decide if CSS is inline or separate -->
                 <xsl:choose>
