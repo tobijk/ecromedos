@@ -1,3 +1,7 @@
+TODO.TXT
+**.pyc
 style/css/**
 style/style.css
-**.pyc
+doc/pdf/**
+doc/html/**
+doc/spool/**
