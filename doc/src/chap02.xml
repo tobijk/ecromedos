@@ -3,9 +3,34 @@
         <title><label id="sect:installation"/>Installation</title>
         <p>
             This chapter explains how to install and configure ecromedos on your system.
-        The latest version of ecromedos can always be obtained from the project website
-        at <link url="http://ecromedos.net"><tt>http://&zwsp;www.&zwsp;ecromedos.&zwsp;net</tt></link>.
         </p>
+        <section>
+            <title>Obtaining the Latest Version</title>
+            <p>
+                You can clone the complete Git repository from GitHub:
+            </p>
+            <listing>
+                <code syntax="bash" strip="yes">
+git clone https://github.com/tobijk/ecromedos.git
+                </code>
+            </listing>
+            <p>
+                Alternatively, download the sources as a tarball:
+            </p>
+            <dl>
+                <dt>trunk (3.0~beta, recommended)</dt>
+                <dd>
+                    <link url="https://github.com/tobijk/ecromedos/archive/master.tar.gz"><tt>https://github.com/tobijk/ecromedos/archive/master.tar.gz</tt></link>
+                </dd>
+                <dt>2.1.0 (very old)</dt>
+                <dd>
+                    <link url="https://github.com/tobijk/ecromedos/archive/2.1.0-2.tar.gz"><tt>https://github.com/tobijk/ecromedos/archive/2.1.0-2.tar.gz</tt></link>
+                </dd>
+            </dl>
+            <p>
+                Please note that trunk is currently being prepared for the stable 3.0 release.
+            </p>
+        </section>
         <section>
             <title>Dependencies<label id="sect:dependencies"/></title>
             <p>
@@ -65,7 +90,7 @@
             </dl>
         </section>
         <section>
-            <title>Installation from Source</title>
+            <title>Step-by-step Installation</title>
             <p>
                 First of all, double-check that you have installed the dependencies listed in section
             <ref idref="sect:dependencies"/>.
