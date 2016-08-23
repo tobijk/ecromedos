@@ -1,0 +1,169 @@
+
+    <chapter>
+        <title>Introduction</title>
+        <p>
+            If you are the type of person whom the typical word processor drives out
+        of their mind. If your blood pressure goes up when a program tries
+        to be smart about every single key press you make, even interpreting the
+        backspace key in a myriad of ways that you never expected. Or if you find
+        yourself spending more time on reformatting your documents than doing actual
+        writing, then ecromedos might be just for you.
+        </p>
+        <p>
+            This is about a piece of software that can change your life as
+        a technical writer and restore your belief in the power of the backspace key
+        for good. Making use of modern technologies, but building on proven concepts
+        that stem from the early days of computing, ecromedos is a text processing system
+        of a different kind. If you are ready to break with old habits and willing to
+        learn something new, then hopefully you will find that ecromedos can render you
+        more productive by letting you focus on writing, and nothing else.
+        </p>
+        <section>
+            <title>What is it?<label id="lbl:whatisit"/></title>
+            <p>
+                ecromedos is an integrated solution for XML-based publishing in print and
+            on the Web. It is primarily targeted at, but not limited to, the creation of
+            technical documentation in the field of Computer Science. Documents are written
+            in a semantic markup language and converted to representational formats with a
+            dedicated processing toolchain. ecromedos supports the target formats
+            XHTML and &latex;, where the latter can be compiled into high-quality PostScript
+            and PDF via the &tex;<footnote>More information on &tex; and &latex; can be
+            found on the <i>Comprehensive &tex; Archive Network</i> at
+            <link url="http://www.ctan.org"><tt>http://&zwsp;www.&zwsp;ctan.&zwsp;org</tt></link>.</footnote>
+            typesetting system.
+            </p>
+            <p>
+                The <i>ecromedos Markup Language</i> (ECML) is modelled closely after HTML
+            with some ideas and additional elements borrowed from &latex;. It allows you to
+            compose comprehensive, well-structured documents from a comparably small set of
+            language elements. Users who are already familiar with HTML or document markup
+            languages like DocBook will find learning ECML particularly easy.
+            </p>
+            <p>
+                The <i>ecromedos Document Processor</i> (EDP) uses XSL Transformations
+            (XSLT) to convert source documents from ECML to the supported output formats.
+            In addition, the EDP contains a special pre-processor, which operates
+            directly on the XML-DOM tree of a document and carries out additional
+            preparational tasks that cannot be implemented with bare XSLT, such as the
+            conversion of images to processable formats or on-the-fly syntax-highlighting of
+            source code listings.
+            </p>
+            <p>
+                ecromedos is well-suited for environments where many writers collaborate on
+            many documents. Since documents are written in a semantic markup language,
+            writers do not have to worry much about following a style guide. There is very
+            little coordination required in achieving a consistent layout and look
+            over an entire range of documents, because the layouting and formatting is done
+            automatically by the EDP and assorted tools during the conversion to
+            representational formats.
+            </p>
+        </section>
+            <section>
+                <title>Changes in Version 2</title>
+                <p>
+                    Version 2 saw significant cleanups in the DTD, the XSL stylesheets and
+                improved styling of HTML output via CSS. The table model was enhanced
+                to support block elements in table cells and to allow splitting table cells
+                into subtables. This version also introduced support for automatic
+                generation of glossary and keyword indexes.
+                </p>
+            </section>
+            <section>
+                <title>Changes in Version 2.1</title>
+                <p>
+                    Since version 2.1, Pygments<footnote>The Pygments homepage is located at <link
+                url="http://pygments.org"><tt>http://pygments.org</tt></link>.</footnote>
+                has replaced the old, built-in syntax highlighter. Pygments supports lexing a
+                vast amount of programming languages and scripts and is a very mature and
+                robust product.
+                </p>
+            </section>
+            <section>
+                <title>Changes in Version 3</title>
+                <p>
+                    After years of collecting dust, ecromedos has been ported to Python 3 and
+                modernized for the era of wide-screen displays and handheld devices. In this version,
+                support for annotations in the margin had to be dropped for practical reasons. This is
+                the only backward-incompatible change. Apart from that, documents written for version
+                2 should translate without problems.
+                </p>
+            </section>
+        <section>
+            <title>Licensing</title>
+            <p>
+                ecromedos is both Free and Open Source Software, published under
+            the permissive MIT license <cite idref="bib:MIT88"/>. This means that you can
+            modify it, re-distribute it and use it in your own software projects without
+            restrictions.
+            </p>
+        </section>
+        <section>
+            <title>About this Document</title>
+            <p>
+                This document describes the installation and usage of ecromedos and the
+            scope of the ecromedos Markup Language. After reading this manual, you will be
+            able to write feature-rich documents and translate them to representational
+            on-screen or printable formats with the ecromedos Document Processor.
+            </p>
+            <ul>
+                <li>
+                <p>
+                    In chapter <ref idref="sect:installation"/>, you will find instructions for
+                downloading and installing ecromedos to your system.
+                </p>
+                </li>
+                <li>
+                <p>
+                    Chapter <ref idref="sect:generalusage"/> teaches you the basics of
+                starting a new document and transforming documents to representational formats.
+                </p>
+                </li>
+                <li>
+                <p>
+                    After reading chapter <ref idref="sect:writingdocuments"/>, you will know
+                how to write simple documents, do basic text-formatting and work with
+                cross-references and counters.
+                </p>
+                </li>
+                <li>
+                <p>
+                    Chapter <ref idref="sect:liststablesfigures"/> introduces more
+                advanced language constructs for settings lists, figures, tables and
+                mathematical formulas.
+                </p>
+                </li>
+                <li>
+                <p>
+                    Chapter <ref idref="sect:backmatter"/> covers everything related to
+                the backmatter of a document, including how to keep a bibliography, how to cite
+                from it, and how to generate glossary and keywords indexes.
+                </p>
+                </li>
+                <li>
+                <p>
+                    Chapter <ref idref="sect:styling"/> explains how to create your own
+                style definitions to change the appearance of rendered ouput.
+                </p>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <title>Acknowledgements</title>
+            <p>
+                Many thanks to <nobr>Prof. Dr. Heinz-Erich Erbs</nobr> from the <link
+            url="http://www.h-da.de">University of Applied Sciences in Darmstadt, Germany</link>
+            for his support and advice when work on the first version of ecromedos started
+            more than 10 years ago.
+            </p>
+            <p>
+                A big <qq>thank you</qq> goes out to the makers of libxml, libxslt and the lxml
+            module for writing a phantastic set of libraries for processing XML, to Guido van
+            Rossum and the Python Software Foundation for a beautiful scripting language and to
+            Donald Knuth for giving us superb typesetting.
+            </p>
+            <p>
+                Thanks to everybody working on Free Software. Your stuff is a lot of fun!
+            </p>
+        </section>
+    </chapter>
+

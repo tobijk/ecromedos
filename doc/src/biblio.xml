@@ -1,0 +1,45 @@
+
+    <biblio number="no">
+        <bibitem label="W3CXML" id="bib:W3CXML">
+            World Wide Web Consortium. <i>Extensible Markup Language (XML) 1.0 (Third Edition)</i>.
+            W3C Recommendation. February 4, 2004.<br/>
+            URL:&nbsp;<tt><link url="http://www.w3.org/TR/2004/REC-xml-20040204/">http://&zwsp;www.&zwsp;w3.&zwsp;org/&zwsp;TR/&zwsp;2004/&zwsp;REC-xml-20040204/</link></tt>.
+        </bibitem>
+        <bibitem label="W3CXSL" id="W3CXSL">
+            World Wide Web Consortium. <i>Extensible Stylesheet Language (XSL) Version 1.0</i>.
+            W3C Recommendation. October 15, 2001.<br/>
+            URL:&nbsp;<tt><link url="http://www.w3c.org/TR/xsl/">http://&zwsp;www.&zwsp;w3c.&zwsp;org/&zwsp;TR/&zwsp;xsl/</link></tt>.
+        </bibitem>
+        <bibitem label="W3CXSLT" id="W3CXSLT">
+            World Wide Web Consortium. <i>XSL Transformations (XSLT) Version 1.0</i>.
+            W3C Recommendation. November 16, 1999.<br/>
+            URL:&nbsp;<tt><link url="http://www.w3c.org/TR/xslt">http://&zwsp;www.&zwsp;w3c.&zwsp;org/&zwsp;TR/&zwsp;xslt</link></tt>.
+        </bibitem>
+        <bibitem label="DBGUIDE" id="bib:DBGUIDE">
+            Norman Walsh. <i>DocBook 5.0: The Definitive Guide</i>.
+            Draft Version 0.0.25, Mar 2008.<br/>
+            URL:&nbsp;<tt><link url="http://www.docbook.org/tdg5/en/html/docbook.html">http://&zwsp;www.&zwsp;docbook.&zwsp;org/&zwsp;tdg5/&zwsp;en/&zwsp;html/&zwsp;docbook.html</link></tt>
+        </bibitem>
+        <bibitem label="LSHORT" id="bib:LSHORT">
+            Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabeth Schlegl. <i>The Not so Short Introduction to &latex; 2<sub><m>\varepsilon</m></sub></i>.
+            Version 5.05, July 2015.<br/>
+            URL:&nbsp;<tt><link url="http://tug.ctan.org/info/lshort/english/lshort.pdf">http://&zwsp;tug.&zwsp;ctan.&zwsp;org/&zwsp;info/&zwsp;lshort/&zwsp;english/&zwsp;lshort.pdf</link></tt>
+        </bibitem>
+        <bibitem label="LATEX" id="bib:LATEX">
+            Wikipedia The Free Encyclopedia. <i>&latex;</i>.<br/>
+            URL:&nbsp;<tt><link url="http://en.wikipedia.org/wiki/LaTeX">http://&zwsp;en.&zwsp;wikipedia.&zwsp;org/&zwsp;wiki/&zwsp;LaTeX</link></tt>.
+        </bibitem>
+        <bibitem label="MIT88" id="bib:MIT88">
+            Massachusetts Institute of Technology. <i>The MIT License</i>. June 1988.<br/>
+            URL:&nbsp;<tt><link url="https://opensource.org/licenses/MIT">https://&zwsp;opensource.&zwsp;org/&zwsp;licenses/&zwsp;MIT</link></tt>.
+        </bibitem>
+        <bibitem label="KOMASCR" id="bib:KOMASCR">
+            Markus Kohm. <i>KOMA-Script, The Guide</i>. June 2016.<br/>
+            URL:&nbsp;<tt><link url="http://mirrors.ctan.org/macros/latex/contrib/koma-script/doc/scrguien.pdf">http://&zwsp;mirrors.&zwsp;ctan.&zwsp;org/&zwsp;macros/&zwsp;latex/&zwsp;contrib/&zwsp;koma-script/&zwsp;doc/&zwsp;scrguien.pdf</link></tt>.
+        </bibitem>
+        <bibitem label="CAPTION" id="bib:CAPTION">
+            Axel Sommerfeldt. <i>Customizing captions of floating environments using the caption package</i>. March 2008.<br/>
+            URL:&nbsp;<tt><link url="http://tug.ctan.org/tex-archive/macros/latex/contrib/caption/caption-eng.pdf">http://&zwsp;tug.&zwsp;ctan.&zwsp;org/&zwsp;tex-archive/&zwsp;macros/&zwsp;latex/&zwsp;contrib/&zwsp;caption/&zwsp;caption-eng.pdf</link></tt>
+        </bibitem>
+    </biblio>
+

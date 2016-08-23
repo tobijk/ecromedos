@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE report SYSTEM "http://www.ecromedos.net/dtd/3.0/ecromedos.dtd"[
+    <!ENTITY chap01 SYSTEM "chap01.xml">
+    <!ENTITY chap02 SYSTEM "chap02.xml">
+    <!ENTITY chap03 SYSTEM "chap03.xml">
+    <!ENTITY chap04 SYSTEM "chap04.xml">
+    <!ENTITY chap05 SYSTEM "chap05.xml">
+    <!ENTITY chap06 SYSTEM "chap06.xml">
+    <!ENTITY chap07 SYSTEM "chap07.xml">
+    <!ENTITY apdx01 SYSTEM "apdx01.xml">
+    <!ENTITY apdx02 SYSTEM "apdx02.xml">
+    <!ENTITY biblio SYSTEM "biblio.xml">
+]>
+<report lang="en_US" fontsize="11pt" papersize="a4paper" div="14" bcor="0cm"
+    secnumdepth="3" secsplitdepth="1" parskip="half">
+
+    <head>
+        <title>ecromedos 3.0<sup><color rgb="#999999">[beta]</color></sup></title>
+        <subtitle>The easy cross-media document preparation system</subtitle>
+        <author>Tobias Koch <link url="mailto:tobias@tobijk.de">&lt;tobias@tobijk.de&gt;</link></author>
+        <date>11 June 2016</date>
+        <publisher>
+            <link url="http://ecromedos.net">ecromedos.net</link>
+        </publisher>
+    </head>
+
+    <legal>
+        <p>
+            Fork this project on GitHub:<br/>
+            <link url="https://github.com/tobijk/ecromedos"><tt>https://github.com/tobijk/ecromedos</tt></link>
+        </p>
+        <p>
+            This manual in PDF format:<br/>
+            <link url="http://ecromedos.net/user-manual.pdf"><tt>http://ecromedos.net/user-manual.pdf</tt></link>
+        </p>
+        <p>
+            This manual in HTML format:<br/>
+            <link url="http://ecromedos.net"><tt>http://ecromedos.net</tt></link>
+        </p>
+        <p>
+            Copyright &#169; 2005&endash;2016 Tobias Koch
+        </p>
+        <p>
+            Permission is granted to copy, distribute and/or modify this document
+        under the terms of the GNU Free Documentation License, Version 1.3 or any
+        later version published by the Free Software Foundation; with no Invariant
+        Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of the
+        license is included in the section entitled <qq>GNU Free Documentation License</qq>.
+        </p>
+        <p>
+        ecromedos incorporates or makes use of certain third-party Free and Open Source
+        Software.
+        All third-party product names, logos, and brands mentioned in this document
+        are the property of their respective owners.
+        Additional licensing information is available in the section entitled
+        <qq>Third-Party Licenses and Trademarks</qq>. ecromedos itself is licensed under
+        the <link url="https://github.com/tobijk/ecromedos/blob/master/LICENSE">MIT
+        license</link>.
+        </p>
+    </legal>
+
+    <make-toc depth="3" lof="no" lot="no" lol="no"/>    
+
+    &chap01;
+    &chap02;
+    &chap03;
+    &chap04;
+    &chap05;
+    &chap06;
+    &chap07;
+
+    &apdx01;
+    &apdx02;
+
+    &biblio;
+
+    <make-index group="ecml" title="Language Elements" locale="en_US"/>
+
+</report>

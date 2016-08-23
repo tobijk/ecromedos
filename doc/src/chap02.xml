@@ -1,0 +1,181 @@
+
+    <chapter>
+        <title><label id="sect:installation"/>Installation</title>
+        <p>
+            This chapter explains how to install and configure ecromedos on your system.
+        The latest version of ecromedos can always be obtained from the project website
+        at <link url="http://ecromedos.net"><tt>http://&zwsp;www.&zwsp;ecromedos.&zwsp;net</tt></link>.
+        </p>
+        <section>
+            <title>Dependencies<label id="sect:dependencies"/></title>
+            <p>
+                ecromedos is developed on Debian/GNU Linux, but should run on any system which offers
+            the following dependencies:
+            </p>
+            <dl>
+                <dt>Python 3</dt>
+                <dd>
+                        A powerful scripting language. Python is available for all popular operating
+                    systems and can be obtained from the website of the Python Software Foundation
+                    at <link url="http://python.org"><tt>http://&zwsp;www.&zwsp;python.&zwsp;org</tt></link>.
+                    ecromedos requires a recent version of Python 3 to run. Using ecromedos with Python 2 is
+                    not officially supported anymore, your mileage may vary.
+                </dd>
+                <dt>libxml and libxslt</dt>
+                <dd>
+                        Two super fast and stable libraries for processing XML, developed by Daniel
+                    Veillard for the GNOME project. The project homepage is located at
+                    <link url="http://www.xmlsoft.org"><tt>http://&zwsp;www.&zwsp;xmlsoft.&zwsp;org</tt></link>.
+                </dd>
+                <dt>lxml</dt>
+                <dd>
+                    A pythonic binding to libxml and libxslt implementing the Element Tree API with
+                    extensions. The project homepage is located at <link url="http://lxml.de"><tt>http://lxml.de</tt></link>.
+                </dd>
+                <dt>Imagemagick</dt>
+                <dd>
+                        A set of tools for image manipulation. ecromedos uses Imagemagick for
+                    resizing bitmap images and for format conversions. You can download the 
+                    software from
+                    <link url="http://imagemagick.org"><tt>http://&zwsp;www.&zwsp;imagemagick.&zwsp;org</tt></link>.
+                </dd>
+                <dt>&tex;</dt>
+                <dd>
+                        If you want to produce PostScript or PDF, you need an installation of the
+                    &tex; typesetting system. It is recommended that you use a recent version of &tex; Live,
+                    available from
+                    <link url="http://www.tug.org/texlive/"><tt>http://&zwsp;www.&zwsp;tug.&zwsp;org/&zwsp;texlive/</tt></link>.
+                    Make sure to install language packs for the languages that you are going to
+                    write in.
+                </dd>
+                <dt>dvipng</dt>
+                <dd>
+                        A utility to convert DVI files to PNG or GIF bitmaps. ecromedos uses dvipng
+                    to convert mathematical formulas to bitmap graphics when generating XHTML output.
+                    dvipng is available from <link url="http://www.nongnu.org/dvipng/"><tt>http://&zwsp;www.&zwsp;nongnu.&zwsp;org/&zwsp;dvipng/</tt></link>,
+                    it may also be included in your &tex; distribution.
+                </dd>
+                <dt>Pygments</dt>
+                <dd>
+                        Pygments is a powerful syntax highlighter that can lex a vast amount of
+                    programming languages and scripts. ecromedos uses Pygments for automatic syntax
+                    highlighting of code samples. Find out more about Pygments at
+                    <link url="http://pygments.org"><tt>http://&zwsp;pygments.&zwsp;org</tt></link>.
+                </dd>
+            </dl>
+        </section>
+        <section>
+            <title>Installation from Source</title>
+            <p>
+                First of all, double-check that you have installed the dependencies listed in section
+            <ref idref="sect:dependencies"/>.
+            </p>
+            <minisection>
+                <title>Step <counter group="inst_step" simple="yes"/>: Unpacking the Tarball</title>
+                <p>
+                     ecromedos can be installed anywhere in the file system. It is recommended,
+                however, that you place it in <tt>/opt</tt>. In order to do so, open a shell
+                and become superuser root by typing
+                </p>
+                <listing>
+                    <code syntax="bash" strip="yes">
+su -
+                    </code>
+                </listing>
+                <p>            
+                    Then change your working directory to <tt>/opt</tt>
+                </p>
+                <listing>
+                    <code syntax="bash" strip="yes">
+cd /opt
+                    </code>
+                </listing>
+                <p>
+                    and unpack the tarball. The following example assumes that the tarball
+                resides in the home directory of system user tobias:
+                </p>
+                <listing>
+                    <code syntax="bash" strip="yes">
+tar -xvzf ~tobias/ecromedos-x.y.z.tar.gz
+                    </code>
+                </listing>
+            </minisection>
+            <minisection>
+                <title>Step <counter group="inst_step" simple="yes"/>: Adding the Executable to the System Path</title>
+                <p>
+                    Now change to <tt>/usr/local/bin</tt> and create a symbolic link to the
+                main executable:
+                </p>
+                <listing>
+                    <code syntax="bash" strip="yes">
+cd /usr/local/bin
+ln -s /opt/ecromedos-x.y.z/bin/ecromedos
+                    </code>
+                </listing>
+                <p>
+                    By placing this link in the system path, you will be able to call
+                ecromedos by name without having to enter the canonical path to the
+                executable.
+                </p>
+            </minisection>
+            <minisection>
+                <title>Step <counter group="inst_step" simple="yes"/>: Pre-compiling the Source Files</title>
+                <p>
+                    Since you would typically install ecromedos in a location to which
+                unprivileged users don't have write access, you should pre-compile the
+                Python source files to bytecode, so that users can benefit from faster
+                start-up times. In order to do so, go into the installation directory
+                and issue the following command:
+                </p>
+                <listing>
+                    <code syntax="bash" strip="yes">
+find . -name "*.py" -exec \
+    python -c "import py_compile; py_compile.compile('{}')" \;
+                    </code>
+                </listing>
+            </minisection>
+            <minisection>
+                <title>Step <counter group="inst_step" simple="yes"/>: Adapting the Configuration</title>
+                <p>
+                    Having completed the installation procedure described above, you may now want to
+                edit the configuration file <tt>ecmds.conf</tt>, which is located in the <tt>etc</tt>
+                subdirectory below the installation folder. ecromedos is designed to be relocatable,
+                so in many cases it should just work out of the box. However, ecromedos interfaces
+                with a number of third-party programs whose installation paths may differ between platforms.
+                Pay particular attention to all configuration parameter names ending in <tt>_bin</tt> or
+                <tt>_dir</tt>.
+                </p>
+                <p>
+                    Parameter values can be reused in arguments to other settings by prefixing the
+                name of the parameter to be referenced with a dollar sign. For instance, if
+                <tt>base_dir</tt> is set to
+                </p>
+                <listing>
+                    <code syntax="text" strip="yes">
+/opt/ecromedos-x.y.z/
+                    </code>
+                </listing>
+                <p>
+                    then you can set <tt>lib_dir</tt> to
+                </p>
+                <listing>
+                    <code syntax="text" strip="yes">
+/opt/ecromedos-x.y.z/lib
+                    </code>
+                </listing>
+                <p>
+                    by simply writing
+                </p>
+                <listing>
+                    <code syntax="text" strip="yes">
+lib_dir = $base_dir/lib
+                    </code>
+                </listing>
+                <p>
+                    ecromedos version 2 introduced the automatic variable <tt>$install_dir</tt>,
+                which is always available and contains the path to the installation directory.
+                </p>
+            </minisection>
+        </section>
+    </chapter>
+

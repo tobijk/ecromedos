@@ -1,0 +1,423 @@
+
+    <chapter>
+        <title><label id="sect:backmatter"/>The Backmatter</title>
+        <p>
+            This chapter deals with creating the backmatter of a document. The backmatter
+        comprises the appendices, glossary and bibliography, as well as the keyword indexes.
+        </p>
+        <section>
+            <title><label id="sect:appendices"/>The Appendices</title>
+            <p>
+                <idxterm group="ecml"><item>appendix</item></idxterm>
+                <idxterm group="ecml"><item>appendix</item><subitem>tocentry</subitem></idxterm>
+
+                An <tt><b>appendix</b></tt> is technically identical to a <tt><b>chapter</b></tt>,
+            which also implies that you cannot have an appendix in an <tt><b>article</b></tt>.
+            The only difference is that appendices are enumerated with latin letters. The
+            appendices follow directly after the last chapter in a document. You can suppress
+            an entry in the table of contents by setting the <tt><b>tocentry</b></tt> attribute
+            to <tt>no</tt>.
+            </p>
+        </section>
+        <section>
+            <title><label id="sect:glossaries"/>Creating a Glossary</title>
+            <p>
+                Creating a glossary can be as easy as pulling out your magic wand and saying
+            <tt><b>make-glossary</b></tt>. If you are afraid, that spell might fire backwards,
+            you can also create your glossary manually instead.
+            </p>
+            <subsection>
+                <title><label id="sect:defterm"/>Making Definitions on the Spot</title>
+                <p>
+                    <idxterm group="ecml"><item>defterm</item></idxterm>
+
+                    Whenever you come across a term or expression in your manuscript that you
+                want to add to the glossary, use the <tt><b>defterm</b></tt> element to make
+                the    definition right there on the spot. The <tt><b>defterm</b></tt> element is a
+                definition list (see also section <ref idref="sect:definitionlists"/>) with only
+                a single entry and it is used inline in the running paragraph as shown in this
+                example:
+                </p>
+                <listing>
+                    <code syntax="xml" strip="yes"><![CDATA[
+<p>
+Users who are already familiar with HTML or document markup
+languages like DocBook 
+
+<defterm>
+    <dt>DocBook</dt>
+    <dd>
+    DocBook is a semantic markup language, originally developed by HAL Computer
+    Systems and O'Reilly &amp; Associates to enable document interchange between
+    document publications systems of different vendors. DocBook has since grown
+    into a comprehensive document authoring system. Modern versions of DocBook
+    use XML for the markup and come with templates based on the Extensible
+    Stylesheet Language for the transformation of documents to representational
+    formats.
+    </dd>
+</defterm>
+
+will find learning ECML particularly easy.
+</p>
+                    ]]></code>
+                </listing>
+                <p>
+                    <idxterm group="ecml"><item>defterm</item><subitem>sortkey</subitem></idxterm>
+
+                    There may be special cases, in which the collation rules of your locale
+                have to be modified. This can be done indirectly by providing explicit
+                sortkeys for glossary entries, using the <tt><b>defterm</b></tt> element's
+                <tt><b>sortkey</b></tt> attribute. For example, in order to make <qq>crocodile</qq>
+                sort as <qq>krokodil</qq>, you would write:
+                </p>
+                <listing>
+                    <code syntax="xml" strip="yes"><![CDATA[
+<defterm sortkey="krokodil">
+    <dt>crocodile</dt>
+    <dd>
+    ...
+                    ]]></code>
+                </listing>
+            </subsection>
+            <subsection>
+                <title>Automatic Generation of the Glossary</title>
+                <p>
+                    <idxterm group="ecml"><item>make-glossary</item></idxterm>
+
+                    Putting instances of <tt><b>defterm</b></tt> in your document will
+                not automatically trigger the generation of a glossary section. For this to
+                happen, you have to insert a <tt><b>make-glossary</b></tt> element right
+                after the appendices, or after the final chapter if the document does not have
+                an appendix. A typical occurrence of this element in a document written in
+                American English might look like this:
+                </p>
+                <listing>
+                    <code syntax="xml" strip="yes"><![CDATA[
+...
+</appendix>
+
+<make-glossary locale="en_US" tocentry="yes"
+    alphabet="[Symbols],A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"/>
+
+<biblio number="no">
+...
+                    ]]></code>
+                </listing>
+                <p>
+                    <idxterm group="ecml"><item>make-glossary</item><subitem>alphabet</subitem></idxterm>
+
+                    The <tt><b>alphabet</b></tt> attribute holds a list of letters according
+                to which your glossary will be <i>sectioned</i>. This has nothing to do with how
+                the    glossary will be <i>sorted</i>. In order to determine the collation, use the
+                <tt><b>locale</b></tt> attribute instead. The <tt><b>alphabet</b></tt> attribute
+                should contain a comma-separated list of characters. It may also contain
+                a denominator of the form <tt>[<i>name</i>]</tt> &endash; where <i>name</i> would typically
+                be the word <qq>symbols</qq> &endash; for entries that consist of only symbolic characters.
+                The default alphabet is the basic latin alphabet.
+                </p>
+                <p>
+                    <idxterm group="ecml"><item>make-glossary</item><subitem>locale</subitem></idxterm>
+
+                    The    <tt><b>locale</b></tt> attribute indicates the language whose collation rules
+                will be used to <i>sort</i> the glossary. Use one of the locale identifiers listed
+                in section <ref idref="sect:doclang"/>. Even though this attribute is optional, it
+                is highly recommended that you always set it, or your glossary will be sorted
+                according to the default locale of the system or account in which ecromedos is
+                being run. If you select a locale, which is not supported on your system, ecromedos
+                will fall back to standard C sorting.
+                </p>
+                <p>
+                    <idxterm group="ecml"><item>make-glossary</item><subitem>toceentry</subitem></idxterm>
+
+                    The <tt><b>tocentry</b></tt> attribute, which can occur on any sectioning element,
+                may    be set to <tt>no</tt> to prevent the glossary from showing up in the table of
+                contents (TOC), when generating printable output. In XHTML output, the glossary will
+                <i>always</i> be listed in the TOC.
+                </p>
+            </subsection>
+            <subsection>
+                <title><label id="sect:glossariesmanually"/>Creating the Glossary Manually</title>
+                <p>
+                    If you don't like the idea of having <tt><b>defterm</b></tt> elements all
+                over your document, or for some other reason would prefer to set the glossary
+                yourself, then here is how to do it:
+                </p>
+                <listing>
+                    <code syntax="xml" strip="yes"><![CDATA[
+<glossary>
+    ...
+    <glsection name="D">
+        <dl>
+            <dt>DocBook</dt>
+            <dd>
+            DocBook is a semantic markup language, originally developed by ...
+            </dd>
+
+            <dt>Doxygen</dt>
+            <dd>
+            A tool for documenting C++ code.
+            </dd>
+        </dl>
+    </glsection>
+
+    <glsection name="E">
+    ...
+    </glsection>
+    ...
+</glossary>
+                    ]]></code>
+                </listing>
+                <p>
+                    <idxterm group="ecml"><item>glossary</item></idxterm>
+                    <idxterm group="ecml"><item>glsection</item></idxterm>
+                    <idxterm group="ecml"><item>glsection</item><subitem>name</subitem></idxterm>
+                    
+                    As you can see, the <tt><b>glossary</b></tt> is split into <tt><b>glsections</b></tt>.
+                Typically, there will be a separate section for each letter of your alphabet, and the
+                <tt><b>name</b></tt> of a section would be the letter that it represents. Each section
+                contains a single definition list with all the entries for the respective letter. Simply
+                put your glossary in place of the <tt><b>make-glossary</b></tt> element.
+                </p>
+            </subsection>
+        </section>
+
+        <section>
+            <title>Keeping a Bibliography</title>
+            <p>
+                <idxterm group="ecml"><item>biblio</item></idxterm>
+
+                Bibliographies are entered with the <tt><b>biblio</b></tt> tag and individual entries
+            with <tt><b>bibitem</b></tt>. The bibliography comes after the last section in your
+            document or after the glossary, if one exists. ecromedos does not support bibliographies
+            for individual sections. A typical bibliography might look like this:
+            </p>
+            <listing>
+                <code syntax="xml" strip="yes"><![CDATA[
+<biblio number="yes">
+    <bibitem label="KOCH09" id="bib:KOCH09">
+        Tobias Koch. <i>ecromedos 2.0 - Users' Manual</i>.
+        <tt>ecromedos.net</tt>, 2009.
+    </bibitem>
+    <bibitem label="WALSH03" id="bib:WALSH03">
+        Norman Walsh, Leonard Muellner.
+        <i>DocBook: The Definitive Guide</i>.
+        O‘Reilly, 2003.
+    </bibitem>
+</biblio>
+                ]]></code>
+            </listing>
+            <p>
+                <idxterm group="ecml"><item>biblio</item><subitem>number</subitem></idxterm>
+                <idxterm group="ecml"><item>bibitem</item></idxterm>
+                <idxterm group="ecml"><item>bibitem</item><subitem>label</subitem></idxterm>
+                <idxterm group="ecml"><item>bibitem</item><subitem>id</subitem></idxterm>
+
+                The <tt><b>biblio</b></tt> element encloses a series of <tt><b>bibitem</b></tt> elements,
+            which represent the individual entries in the bibliography. Each <tt><b>bibitem</b></tt> carries
+            a <tt><b>label</b></tt> and an <tt><b>id</b></tt> attribute. If the <tt><b>number</b></tt>
+            attribute on the <tt><b>biblio</b></tt> element is set to <tt>no</tt>, then the user-supplied
+            label will be shown next to the entry and in citations. If numbering is set to <tt>yes</tt>,
+            which is the default, then the ordinal number of an item will be used as its label and the
+            user-supplied identifier will be discarded.
+            </p>
+            <minisection>
+                <title>Citing from the Bibliography</title>
+                <p>
+                    <idxterm group="ecml"><item>cite</item></idxterm>
+                    <idxterm group="ecml"><item>cite</item><subitem>idref</subitem></idxterm>
+
+                    Use the <tt><b>cite</b></tt> element, when citing from a source listed in the bibliography,
+                to point the reader to the corresponding entry like this:
+                </p>
+                <listing>
+                    <code syntax="xml" strip="yes"><![CDATA[
+...
+<p>
+For more information on DocBook, please refer to <cite idref="bib:WALSH03"/>.
+</p>
+...
+                    ]]></code>
+                </listing>            
+                <p>
+                    The document pre-processor will replace each occurence of the <tt><b>cite</b></tt> element
+                with the label of the corresponding entry set in square brackets. For example, to refer to the
+                first entry in the listing above, you would write <tt><![CDATA[<cite idref="bib:KOCH09"/>]]></tt>,
+                which the document pre-processor would replace with <tt>[1]</tt> when numbering is turned on and
+                with <tt>[KOCH09]</tt> when numbering is off. 
+                </p>
+            </minisection>
+        </section>
+
+        <section>
+            <title>Generating Keyword Indexes</title>
+            <p>
+                ecromedos facilitates the generation of keyword indexes by allowing you to place index
+            markers in the text as you are writing. These markers are collected, sorted and turned into
+            corresponding index sections by the document pre-processor without requiring any additional
+            effort from the writer. Just as for the glossary (see section <ref idref="sect:glossariesmanually"/>),
+            you can also set indexes manually, if required.
+            </p>
+            <subsection>
+                <title>Placing Index Markers</title>
+                <p>
+                    <idxterm group="ecml"><item>idxterm</item></idxterm>
+
+                    Index markers are embedded inline into the runnning paragraph. However, in order to
+                not cause too much visual disturbance in the source document, it is recommended
+                to aggregate markers at    the beginning or end of paragraphs. The listing below is
+                an excerpt from the    source code of this chapter:
+                </p>
+                <listing>
+                    <code syntax="xml" strip="yes"><![CDATA[
+<p>
+    <idxterm group="ecml">
+        <item>biblio</item>
+            <subitem>number</subitem>
+    </idxterm>
+    <idxterm group="ecml">
+        <item>bibitem</item>
+    </idxterm>
+    <idxterm group="ecml">
+        <item>bibitem</item>
+            <subitem>label</subitem>
+    </idxterm>
+    <idxterm group="ecml">
+        <item>bibitem</item>
+            <subitem>id</subitem>
+    </idxterm>
+
+    The <tt><b>biblio</b></tt> element encloses a series of
+    <tt><b>bibitem</b></tt> elements, which represent the individual
+    entries in the bibliography. Each <tt><b>bibitem</b></tt> carries
+    a <tt><b>label</b></tt> and an <tt><b>id</b></tt> attribute. If
+    the <tt><b>number</b></tt>
+    ...
+</p>
+                    ]]></code>
+                </listing>
+                <p>
+                    <idxterm group="ecml"><item>item</item></idxterm>
+                    <idxterm group="ecml"><item>subitem</item></idxterm>
+                    <idxterm group="ecml"><item>subsubitem</item></idxterm>
+
+                    As you can see, you can arrange keywords into a hierarchy. In the example
+                above, a marker for <tt><b>bibitem</b></tt> is placed on the base level, using
+                the    <tt><b>idxterm</b></tt> and <tt><b>item</b></tt> elements. Then the
+                markers for <tt><b>label</b></tt> and <tt><b>id</b></tt> are added as
+                <tt><b>subitems</b></tt>. There is also a <tt><b>subsubitem</b></tt> element,
+                in case you ever need a third hierarchy level.
+                </p>
+                <p>
+                    <idxterm group="ecml"><item>idxterm</item><subitem>group</subitem></idxterm>
+
+                    There is one thing to note about this example: all entries are placed
+                in a separate <tt><b>group</b></tt> called <i>ecml</i>. Effectively, a separate
+                index listing all ECML language elements is created. Entries for which no group
+                is specified will go into the <i>default</i> group.
+                </p>
+                <p>
+                    <idxterm group="ecml"><item>idxterm</item><subitem>sortkey</subitem></idxterm>
+
+                    Analogously to the <tt><b>defterm</b></tt> element (see section
+                <ref idref="sect:defterm"/>), you can set an explicit <tt><b>sortkey</b></tt>
+                on the <tt><b>idxterm</b></tt> element, if you need to tweak the collation in
+                a special way.
+                </p>
+            </subsection>
+            <subsection>
+                <title>Automatic Index Generation</title>
+                <p>
+                    <idxterm group="ecml"><item>make-index</item></idxterm>
+
+                    Use the <tt><b>make-index</b></tt> element to have the index markers in a particular
+                group assembled into an actual keyword index. This document, for example, contains an
+                index that links all ECML language elements and attributes to the sections in which they
+                are discussed. The generation of this index is triggered with a <tt><b>make-index</b></tt>
+                element like this:
+                </p>
+                <listing>
+                    <code syntax="xml" strip="yes"><![CDATA[
+    ...
+    </biblio>
+
+    <make-index group="default" locale="en_US" alphabet="[Symbols],A,B,C,
+                D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" tocentry="yes"
+                        columns="2"/>
+</report>
+                    ]]></code>
+                </listing>
+                <p>
+                    <idxterm group="ecml"><item>make-index</item><subitem>group</subitem></idxterm>
+
+                The <tt><b>make-index</b></tt> element goes logically after the <tt><b>biblio</b></tt> element.
+                </p>
+                <p>
+                    <idxterm group="ecml"><item>make-index</item><subitem>locale</subitem></idxterm>
+
+                    The <tt><b>locale</b></tt> attribute indicates the language whose collation rules
+                will be used to <i>sort</i> the index. Use one of the locale identifiers listed
+                in section <ref idref="sect:doclang"/>. Even though this attribute is optional, it
+                is highly recommended that you always set it, or your index will be sorted
+                according to the default locale of the system or account in which ecromedos is
+                being run. If you select a locale, which is not supported on your system, ecromedos
+                will fall back to standard C sorting.
+                </p>
+                <p>
+                    <idxterm group="ecml"><item>make-index</item><subitem>title</subitem></idxterm>
+
+                    The optional <tt><b>title</b></tt> attribute allows you to override the
+                automatic title.
+                </p>
+            </subsection>
+            <subsection>
+                <title>Manual Index Creation</title>
+                <p>
+                    <idxterm group="ecml"><item>idxref</item></idxterm>
+                    <idxterm group="ecml"><item>index</item></idxterm>
+
+                    Creating a full index single-handedly, can be a lot of work, but if you really must,
+                here is how to do it: Instead of placing index markers in the document, you leave ordinary
+                <tt><b>labels</b></tt> in places that you wish to reference from the index. Then in the
+                index, simply use the <tt><b>idxref</b></tt> element, which behaves just like
+                <tt><b>pageref</b></tt> (see section <ref idref="sect:xreferences"/>), to obtain the page
+                number of a    label. The following is an excerpt from the XML that the document pre-processor
+                may    have generated for the listing of ECML language elements that can be found at the
+                end    of this document.
+                </p>
+                <listing>
+                    <code syntax="xml" strip="yes"><![CDATA[
+<index title="Language Elements" columns="2" tocentry="yes">
+    <idxsection name="A">
+        <item>abstract <idxref idref="idx:label1"/></item>
+        <item>appendix <idxref idref="idx:label2"/></item>
+        <item>article <idxref idref="idx:label3"/></item>
+        <subitem>bcor <idxref idref="idx:label4"/></subitem>
+        <subitem>div <idxref idref="idx:label5"/></subitem>
+        <subitem>lang <idxref idref="idx:label6"/></subitem>
+        <subitem>papersize <idxref idref="idx:label7"/></subitem>
+        <subitem>secnumdepth <idxref idref="idx:label8"/></subitem>
+        <subitem>secsplitdepth <idxref idref="idx:label9"/>,
+            <idxref idref="idx:label10"/></subitem>
+    </idxsection>
+    <idxsection name="B">
+        ...
+    </idxsection>
+    ...
+</index>
+                    ]]></code>
+                </listing>
+                <p>
+                    <idxterm group="ecml"><item>idxsection</item></idxterm>
+                    <idxterm group="ecml"><item>idxsection</item><subitem>name</subitem></idxterm>
+
+                    As you can see the structure of an index is somewhat similar to that of a glossary.
+                The <tt><b>index</b></tt> is split into <tt><b>idxsections</b></tt>, each of which
+                typically represents one letter of your alphabet. A section contains a series of
+                <tt><b>items</b></tt>. Please note that <tt><b>subitems</b></tt> are <i>not</i> nested
+                inside items. A <tt><b>subitem</b></tt> is considered as belonging to the <tt><b>item</b></tt>
+                element immediately preceding it.
+                </p>
+            </subsection>
+        </section>
+    </chapter>
+

@@ -1,0 +1,431 @@
+
+    <chapter>
+        <title><label id="sect:generalusage"/>General Usage Instructions</title>
+        <p>
+            This chapter explains how to start a new document by generating an empty document template
+        and how to convert documents to representational formats from the command line.
+        </p>
+        <section>
+            <title>Beginning a New Document</title>
+            <p>
+                Starting a new document is easy and boils down to (a) choosing a document class
+            and (b) generating a template from which to continue editing.
+            </p>
+            <subsection>
+                <title>Choosing a Document Class</title>
+                <p>
+                    When starting a new document, you first have to choose a
+                document class fitting the type of document you intend to write.
+                Document classes are abstractions of typical real-world document types,
+                such as <i>letter</i>, <i>book</i>, <i>newspaper article</i>, etc.
+                </p>
+                <p>
+                    The ecromedos Markup Language provides three document classes:
+                <b><tt>article</tt></b>, <b><tt>book</tt></b> and <b><tt>report</tt></b>. The
+                primary difference between these is how many levels of sections they
+                provide and how they are rendered when generating printable output.
+                </p>
+                <dl>
+                    <dt>article</dt>
+                    <dd>
+                        <idxterm group="ecml"><item>article</item></idxterm>
+
+                        The article class is intended for short documents without the need for a
+                    glossary or keyword index. On paper, articles are rendered single-sided with an
+                    in-page title. Articles offer three section levels through the sectioning
+                    elements <tt><b>section</b></tt>, <tt><b>subsection</b></tt> and
+                    <tt><b>subsubsection</b></tt>.
+                    </dd>
+                    <dt>book</dt>
+                    <dd>
+                        <idxterm group="ecml"><item>book</item></idxterm>
+
+                        The book class is for large documents that may contain glossary and keyword
+                    indexes. In print, documents are rendered double-sided with a separate title
+                    page. This class' top-level sectioning element is the <tt><b>chapter</b></tt>.
+                    Chapters start on odd-numbered pages and may be further grouped into
+                    <tt><b>parts</b></tt>.
+                    </dd>
+                    <dt>report</dt>
+                    <dd>
+                        <idxterm group="ecml"><item>report</item></idxterm>
+
+                        A report is essentially the same as a book, but documents are rendered
+                    single-sided when generating printable output.
+                    </dd>
+                </dl>
+            </subsection>
+            <subsection>
+                <title><label id="sect:maketemplate"/>Starting from a Template</title>
+                <p>
+                    When you have decided on which document class you want to use, the
+                recommended way of starting your document is to generate a bare document template.
+                For example, in order to start a new document of type <tt><b>report</b></tt>, open a
+                terminal window and issue the following command:
+                </p>
+                <listing>
+                    <code syntax="bash" strip="yes">
+ecromedos -n report &gt; main.xml
+                    </code>
+                </listing>
+                <p>
+                When you open the file <tt>main.xml</tt> in your editor, you should see
+                something similar to the following listing:
+                </p>
+                <listing>
+                    <code syntax="xml" strip="yes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE report SYSTEM
+    "http://www.ecromedos.net/dtd/2.0/ecromedos.dtd">
+<report lang="en_US" secnumdepth="3" secsplitdepth="1">
+        <head>
+                <subject>Subject</subject>
+                <title>Title</title>
+                <author>Author</author>
+                <date>Date</date>
+                <publisher>Publisher</publisher>
+        </head>
+        <make-toc depth="3" lof="no" lot="no" lol="no"/>
+
+        ...
+
+        <chapter>
+                <title>Chapter Title</title>
+                <p>
+                First paragraph in first chapter...
+                </p>
+        </chapter>
+
+        ...
+
+</report>
+                    ]]></code>
+                </listing>
+                <p>
+                    Even if you are not yet familiar with the ecromedos Markup Language, you
+                should be able to interpret the general structure of the markup. For now, you
+                don't need to know the details. You will dive deeper into document writing
+                in chapter <ref idref="sect:writingdocuments"/>.
+                </p>
+            </subsection>
+        </section>
+        <section>
+            <title>Transforming Documents</title>
+            <p>
+                In order to convert your documents from ecromedos Markup Language to one of
+            the supported output formats, you have to call the ecromedos Document Processor
+            from the command line. The exact procedures are explained in the following
+            subsections.
+            </p>
+            <subsection>
+                <title>Producing XHTML Output</title>
+                <p>
+                    The default output format is XHTML. You can change this by modifying the
+                <tt>target_format</tt> setting in <tt>ecmds.conf</tt>. In the default installation,
+                to convert a document from ECML to XHTML, you simply have to issue the following command:
+                </p>
+                <listing>
+                    <code syntax="bash" strip="yes">
+ecromedos main.xml
+                    </code>
+                </listing>
+                <p>
+                    Mind that the output files will be placed into the <i>current</i> working directory.
+                If you don't want the output in the same directory as the source files, simply create an
+                empty folder, change into it and call ecromedos from there:
+                 </p>
+                 <listing>
+                     <code syntax="bash" strip="yes">
+mkdir spool
+cd spool
+ecromedos ../main.xml
+                    </code>
+                </listing>
+                <p>
+                    ecromedos will automatically copy all resources required for viewing the
+                document to the output folder and (when the target format is HTML) adjust the
+                references inside the document accordingly. This means, for example, that even
+                though you can share images between source documents, each instance of a document
+                will be completely self-contained.
+                </p>
+                <p>
+                    After the transformation, load the file <tt>index.html</tt> into your Web
+                browser to view the results.
+                </p>
+            </subsection>
+            <subsection>
+                <title>Producing PostScript and PDF</title>
+                <p>
+                    If you want to produce a PostScript or PDF version of your document, you
+                    will have to generate &latex; output first. But don't worry, you don't need
+                to know anything about &latex;. Think of it as an intermediate output format.
+                Use the <tt><b>-f</b></tt> command line switch to tell ecromedos the desired
+                target format:
+                </p>
+                <listing>
+                    <code syntax="bash" strip="yes">
+ecromedos -f latex main.xml
+                    </code>
+                </listing>
+                <p>
+                    Depending on your setting of <tt><b>secsplitdepth</b></tt> (see section
+                <ref idref="sect:outputchunking"/>), you will obtain one or more output files
+                with the extension <i>tex</i>. The main &tex;-file will be called <tt>main.tex</tt>
+                In order to compile the &latex; sources of your document, invoke the &latex;
+                compiler like this:
+                </p>
+                <listing>
+                    <code syntax="bash" strip="yes">
+latex main.tex
+                    </code>
+                </listing>
+                <p>
+                    <title>Important:</title> You may have to call &latex; two or three times until all
+                cross-references are resolved and the table of contents is completely built. The
+                result will be a file with the extension <i>dvi</i>. You can use the following
+                commands to convert the DVI file to PostScript and PDF:
+                </p>
+                <listing>
+                    <code syntax="bash" strip="yes">
+dvips -Ppdf main.dvi
+ps2pdf main.ps
+                    </code>
+                </listing>
+                <p>
+                    The first command will generate PostScript output from the DVI file and the
+                second command will turn the PostScript into PDF. Starting with ecromedos 2.0,
+                you can take advantage of the fact that &tex; can produce PDF directly through
+                the <i>pdftex</i> driver. So instead of taking a detour via an intermediate
+                PostScript file, you can instruct ecromedos to produce output that can be
+                compiled with the <tt>pdflatex</tt> command:
+                </p>
+                <listing>
+                    <code syntax="bash" strip="yes">
+ecromedos -f pdflatex main.xml
+pdflatex main.tex
+                    </code>
+                </listing>
+                <p>
+                    In addition, you can generate output which can be processed with the Unicode-aware &xetex;
+                using the <tt>xelatex</tt> command:
+                </p>
+                <listing>
+                    <code syntax="bash" strip="yes">
+ecromedos -f xelatex main.xml
+xelatex main.tex
+                    </code>
+                </listing>
+                <p>
+                    And again, remember that you may have to call &latex; multiple times before
+                your document is rendered complete.
+                </p>
+            </subsection>
+        </section>
+        <section>
+            <title>Output Options</title>
+            <p>
+                Even though we are dealing with semantic markup, there are some decisions
+            about the presentation of a document that are left to the author, such as
+            whether the document should have a table of contents or not, whether sections
+            are to be numbered and if so, down to which section level, and so on. The
+            language elements and element attributes that are described below, give you some
+            limited control over these presentational aspects.
+            </p>
+            <subsection>
+                <title>Specifying the Document's Language<label id="sect:doclang"/></title>
+                <p>
+                    <idxterm group="ecml"><item>article</item><subitem>lang</subitem></idxterm>
+                    <idxterm group="ecml"><item>book</item><subitem>lang</subitem></idxterm>
+                    <idxterm group="ecml"><item>report</item><subitem>lang</subitem></idxterm>
+
+                     By setting the <tt><b>lang</b></tt> attribute on the document's root 
+                element you can select the language to be used for automatic titles, i.e.
+                section titles that are generated by the document processor automatically, such
+                as <qq>table of contents</qq> or <qq>bibliography</qq>. When generating &latex;
+                output, this also activates the hyphenation patterns for the specified language.
+                </p>
+                <p>
+                    In ecromedos version 1 you could simply supply the English name of the
+                desired language such as <tt><b>german</b></tt> or <tt><b>english</b></tt>.
+                Starting with version 2, you have to supply an ISO locale identifier such as
+                <tt><b>en_US</b></tt>.
+                This is to better take into consideration regional differences. For example,
+                there are countries that speak the same language but use different
+                scripts.
+                </p>
+                <p>
+                    Currently, ecromedos supports the following language/territory combinations:
+                </p>
+                <table print-width="60%" screen-width="600px" align="left" frame="rowsep,colsep"
+                    rulecolor="#ffffff">
+                    <colgroup>
+                        <col width="33%"/>
+                        <col width="34%"/>
+                        <col width="33%"/>
+                    </colgroup>
+                    <th color="#bbbbbb">
+                        <td><b>Language  </b></td>
+                        <td><b>Territory </b></td>
+                        <td><b>Identifier</b></td>
+                    </th>
+                    <tr color="#dfeeff"><td>English</td><td>Canada       </td><td>en_CA</td></tr>
+                    <tr color="#dfeeff"><td>       </td><td>Great Britain</td><td>en_GB</td></tr>
+                    <tr color="#dfeeff"><td>       </td><td>New Zealand  </td><td>en_NZ</td></tr>
+                    <tr color="#dfeeff"><td>       </td><td>USA          </td><td>en_US</td></tr>
+                    <tr color="#dfeeff"><td>German </td><td>Austria      </td><td>de_AU</td></tr>
+                    <tr color="#dfeeff"><td>       </td><td>Germany      </td><td>de_DE</td></tr>
+                    <tr color="#dfeeff"><td>       </td><td>Switzerland  </td><td>de_CH</td></tr>
+                </table>
+                <p>
+                    If you would like to add a new language/terrritory combination, please contact the
+                developers through the mailing list and provide translations for the strings in
+                the English localization catalog located at <tt>xslt/i18n/english.xml</tt> below
+                the installation folder.
+                </p>
+            </subsection>
+            <subsection>
+                <title><label id="sect:outputchunking"/>Chunking Into Multiple Files</title>
+                <p>
+                    <idxterm group="ecml"><item>article</item><subitem>secsplitdepth</subitem></idxterm>
+                    <idxterm group="ecml"><item>book</item><subitem>secsplitdepth</subitem></idxterm>
+                    <idxterm group="ecml"><item>report</item><subitem>secsplitdepth</subitem></idxterm>
+
+                    Set the <tt><b>secsplitdepth</b></tt> attribute on the root element of your
+                document to an integer value between 0 and 5, in order to control down to which
+                section level the document will be chunked into individual files. This is
+                especially useful when generating HTML output. Splitting up large HTML documents
+                into multiple files will improve the user experience, because the document will
+                be easier to navigate, individual parts will load more quickly, and the user's
+                browser doesn't have to keep the entire document in memory, at once.
+                </p>
+                <p>
+                    <idxterm group="ecml"><item>part</item></idxterm>
+
+                    Here is an example on how it works. When you write a book or report (without
+                making use of the <tt><b>part</b></tt> element), setting
+                <tt><b>secsplitdepth</b></tt> to 1 will result in each chapter being written to
+                a separate file. The level count always starts at zero. So if, one day,
+                you decide to group the chapters into parts, leaving
+                <tt><b>secsplitdepth</b></tt> at 1 means that the document is now split at the
+                parts' level. If you still want each chapter to go to a separate
+                file, you have to increment <tt><b>secsplitdepth</b></tt> to two. If you set
+                <tt><b>secsplitdepth</b></tt> to zero, the entire document will    be rendered into
+                a single file.
+                </p>
+                <p>
+                    When generating HTML, the document processor will take care of linking the
+                individual parts together via a navigation bar that will appear at the top and
+                bottom of each output file.
+                </p>
+            </subsection>
+            <subsection>
+                <title>Chapter and Section Numbering</title>
+                <p>
+                    <idxterm group="ecml"><item>article</item><subitem>secnumdepth</subitem></idxterm>
+                    <idxterm group="ecml"><item>book</item><subitem>secnumdepth</subitem></idxterm>
+                    <idxterm group="ecml"><item>report</item><subitem>secnumdepth</subitem></idxterm>
+
+                    Set the <tt><b>secnumdepth</b></tt> attribute on the document's root element
+                to an integer value between 0 and 5, in order to control down to which section
+                level sections are to be numbered. Setting it to zero will turn section    numbers
+                off completely.
+                </p>
+            </subsection>
+            <subsection>
+                <title>Generating a Table of Contents</title>
+                <p>
+                    <idxterm group="ecml"><item>make-toc</item></idxterm>
+
+                    In previous versions of ecromedos, the generation of the table of contents
+                (TOC) was controlled by setting the root element's <tt><b>tocdepth</b></tt>
+                attribute appropriately. Starting with version 2.0, there is a new language
+                element    <tt><b>make-toc</b></tt> for that purpose, which should be inserted
+                right after    the document header.
+                </p>
+                <p>
+                    <idxterm group="ecml"><item>make-toc</item><subitem>depth</subitem></idxterm>
+                    <idxterm group="ecml"><item>make-toc</item><subitem>lof</subitem></idxterm>
+                    <idxterm group="ecml"><item>make-toc</item><subitem>lot</subitem></idxterm>
+                    <idxterm group="ecml"><item>make-toc</item><subitem>lol</subitem></idxterm>
+
+                    By setting the element's <tt><b>depth</b></tt> attribute to an integer
+                value between 0 and 5, you determine the deepest section level that will be
+                included in the TOC. In addition, you may set either of the attributes
+                <tt><b>lof</b></tt>, <tt><b>lot</b></tt>, <tt><b>lol</b></tt> to
+                <tt>yes</tt> or <tt>no</tt>, to toggle whether the TOC should contain a <qq>List
+                of Figures</qq>, <qq>List of Tables</qq> or <qq>List of Listings</qq>,
+                respectively.
+                </p>
+            </subsection>
+            <subsection>
+                <title>Per-Section Overviews</title>
+                <p>
+                    ecromedos has experimental support for per-section overviews. This feature is
+                not extensively tested and has some limitations. In order to generate a mini table
+                of contents for a section, put a <tt><b>make-overview</b></tt> element right at the
+                beginning of the section.
+                </p>
+                <p>
+                There is one caveat however: &latex; only supports section overviews for the base
+                sections, i.e. in the book and report classes you can have section overviews for
+                parts and chapters but not for sections and subsections. For HTML this limitation
+                does not exist.
+                </p>
+            </subsection>
+            <subsection>
+                <title>Options Specific to Printable Output</title>
+                <p>
+                    <idxterm group="ecml"><item>article</item><subitem>papersize</subitem></idxterm>
+                    <idxterm group="ecml"><item>book</item><subitem>papersize</subitem></idxterm>
+                    <idxterm group="ecml"><item>report</item><subitem>papersize</subitem></idxterm>
+                    <idxterm group="ecml"><item>article</item><subitem>bcor</subitem></idxterm>
+                    <idxterm group="ecml"><item>book</item><subitem>bcor</subitem></idxterm>
+                    <idxterm group="ecml"><item>report</item><subitem>bcor</subitem></idxterm>
+                    <idxterm group="ecml"><item>article</item><subitem>div</subitem></idxterm>
+                    <idxterm group="ecml"><item>book</item><subitem>div</subitem></idxterm>
+                    <idxterm group="ecml"><item>report</item><subitem>div</subitem></idxterm>
+                    <idxterm group="ecml"><item>article</item><subitem>parskip</subitem></idxterm>
+                    <idxterm group="ecml"><item>book</item><subitem>parskip</subitem></idxterm>
+                    <idxterm group="ecml"><item>report</item><subitem>parskip</subitem></idxterm>
+
+                    The attributes <tt><b>papersize</b></tt>, <tt><b>bcor</b></tt> and
+                <tt><b>div</b></tt> on the root element are passed
+                through to &latex; and influence how your document is rendered when producing
+                PostScript and PDF.
+                </p>
+                <p>
+                    The purpose of the <tt><b>papersize</b></tt> attribute should be pretty
+                obvious. Supported values are <tt>legalpaper</tt>, <tt>letterpaper</tt>,
+                <tt>executivepaper</tt>, <tt>a<i>X</i>paper</tt>, <tt>b<i>X</i>paper</tt>,
+                <tt>c<i>X</i>paper</tt>, <tt>d<i>X</i>paper</tt>. The default is
+                <tt>a4paper</tt> which is the standard office paper format used in Germany. You
+                can activate landscreen mode by adding the keyword <tt>landscape</tt> separated
+                with a comma.
+                </p>
+                <p>
+                The <tt><b>bcor</b></tt> attribute lets you specify a binding correction. That is
+                the amount in centimeters (cm) or points (pt) by which the text body should be
+                indented to make up for margin space lost when binding the document. For example
+                write <tt>bcor="1.5cm"</tt> to get a binding correction of 1.5 centimeters.
+                </p>
+                <p>
+                The <tt><b>div</b></tt> attribute indirectly controls the dimensions of the text
+                body. Its argument is passed through to the &latex; macro package KOMA-Script
+                which is responsible for layouting the document. KOMA-Script tries to
+                automatically determine    the optimal dimensions for the text body by applying a
+                set of typographic rules. To this end, the page is divided into <m>div\ x\ div</m>
+                rectangles of equal size, which serve as the basic units for splitting the page
+                into margins and text body. The greater you choose <tt><b>div</b></tt>, the
+                larger the text area will be. Try values between eight and 16.
+                </p>
+                <p>
+                Use the <tt><b>parskip</b></tt> attribute to specify the amount of horizontal
+                space to insert in between paragraphs of text. You have the choice between
+                <tt>full</tt> for a full line, <tt>half</tt> for half a line (default) or
+                <tt>off</tt> to have no skip in between paragraphs. In the latter case, the
+                first line of each paragraph will be indented.
+                </p>
+            </subsection>
+        </section>
+    </chapter>
+
