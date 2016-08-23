@@ -176,7 +176,7 @@
         <tr>
             <td align="{$alignment}">
             <!-- table -->
-            <table border="0" cellspacing="0" cellpadding="0" style="{$style}{$width}">
+            <table border="0" cellspacing="0" cellpadding="0" class="table" style="{$style}{$width}">
                 <xsl:for-each select="th">
                     <xsl:call-template name="table.row">
                         <xsl:with-param name="rulewidth" select="$rulewidth"/>

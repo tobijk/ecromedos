@@ -839,6 +839,17 @@ div.content .textbody {
 }
 /******************************************************************************
  *
+ * TABLES
+ *
+ * This section contains basic styling for tables.
+ *
+ *****************************************************************************/
+table.table td {
+  padding-top: 0.25ex;
+  padding-bottom: 0.25ex;
+}
+/******************************************************************************
+ *
  * TYPO AND STYLING
  *
  * This section contains settings for typography and basic styling of elements.
@@ -1056,6 +1067,6 @@ td.eq-content {
 img.math {
   margin-left: 0.2ex;
   margin-right: 0.2ex;
-}  
+}
   ]]></css>
 </style>
