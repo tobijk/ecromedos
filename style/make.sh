@@ -39,16 +39,12 @@ do_build()
 ##############################################################################
 
 case "$1" in
-    build|css)
-        do_clean
-        do_build
-        ;;
     clean)
         do_clean
         ;;
     *)
-        echo "Usage: $0 {css|clean}"
-        exit 1
+        do_clean
+        do_build
         ;;
 esac
 
