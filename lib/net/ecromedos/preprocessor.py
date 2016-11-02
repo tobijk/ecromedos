@@ -25,7 +25,7 @@ class ECMDSPreprocessor():
             sys.stderr.write(msg)
             return
         #end try
-        
+
         def genList():
             filelist = []
             for filename in os.listdir(plugin_dir):
