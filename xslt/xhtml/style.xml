@@ -831,17 +831,6 @@ div.content .textbody {
 }
 /******************************************************************************
  *
- * TABLES
- *
- * This section contains basic styling for tables.
- *
- *****************************************************************************/
-table.table td {
-  padding-top: 0.25ex;
-  padding-bottom: 0.25ex;
-}
-/******************************************************************************
- *
  * TYPO AND STYLING
  *
  * This section contains settings for typography and basic styling of elements.
@@ -855,7 +844,7 @@ body {
   color: #444444;
   background-color: #ffffff;
   font-size: 14px;
-  line-height: 1.44;
+  line-height: 1.6;
 }
 
 /*
@@ -988,6 +977,7 @@ pre.verbatim {
   padding: 0.5em 0.5em;
   margin: 1.25em 0em;
   font-family: monospace;
+  line-height: 1.26;
 }
 
 div.listing {
@@ -1002,6 +992,7 @@ div.listing-caption {
 pre.listing {
   padding: 0.5em 0.5em;
   font-family: monospace;
+  line-height: 1.26;
 }
 
 /*
@@ -1060,5 +1051,13 @@ img.math {
   margin-left: 0.2ex;
   margin-right: 0.2ex;
 }
-  ]]></css>
+
+/*
+ * Tables
+ */
+table.table td {
+  padding-top: 0.25ex;
+  padding-bottom: 0.25ex;
+}    
+    ]]></css>
 </style>
