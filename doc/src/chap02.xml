@@ -3,11 +3,14 @@
         <title><label id="sect:installation"/>Installation</title>
         <p>
             This chapter explains how to install and configure ecromedos on your system.
+        ecromedos is developed on Debian/GNU Linux, but should run on any system which offers
+        the dependencies listed in section <ref idref="sect:dependencies"/>.
         </p>
         <section>
             <title>Obtaining the Latest Version</title>
             <p>
-                You can clone the complete Git repository from GitHub:
+                If you are considering contributing to ecromedos, you may clone the
+            complete source repository from GitHub:
             </p>
             <listing>
                 <code syntax="bash" strip="yes">
@@ -15,7 +18,8 @@ git clone https://github.com/tobijk/ecromedos.git
                 </code>
             </listing>
             <p>
-                Alternatively, download the sources as a tarball:
+                If you are only interested in installing ecromedos for day-to-day use, you
+            can download the sources in a tarball:
             </p>
             <dl>
                 <dt>trunk (3.0~beta, recommended)</dt>
@@ -34,8 +38,8 @@ git clone https://github.com/tobijk/ecromedos.git
         <section>
             <title>Dependencies<label id="sect:dependencies"/></title>
             <p>
-                ecromedos is developed on Debian/GNU Linux, but should run on any system which offers
-            the following dependencies:
+                In order to benefit from ecromedos' full feature set, you will need to install
+            the following third-party tools and libraries on your system.
             </p>
             <dl>
                 <dt>Python 3</dt>
@@ -91,10 +95,21 @@ git clone https://github.com/tobijk/ecromedos.git
         </section>
         <section>
             <title>Step-by-step Installation</title>
-            <p>
-                First of all, double-check that you have installed the dependencies listed in section
-            <ref idref="sect:dependencies"/>.
-            </p>
+            <minisection>
+                <title>Step <counter group="inst_step" simple="yes"/>: Installing Dependencies:</title>
+                <p>
+                        Double check that you have installed all the dependencies listed in section
+                    <ref idref="sect:dependencies"/>. If you are working on Debian/GNU Linux, you can
+                    install all dependencies using APT from the command line as root:
+                </p>
+                <listing>
+                    <code syntax="bash" strip="yes">
+apt-get install python3 python3-lxml dvipng imagemagick python3-pygments \
+    texlive texlive-latex-extra texlive-lang-english texlive-lang-german \
+    texlive-fonts-extra texlive-xetex
+                    </code>
+                </listing>
+            </minisection>
             <minisection>
                 <title>Step <counter group="inst_step" simple="yes"/>: Unpacking the Tarball</title>
                 <p>
@@ -117,7 +132,7 @@ cd /opt
                 </listing>
                 <p>
                     and unpack the tarball. The following example assumes that the tarball
-                resides in the home directory of system user tobias:
+                resides in the home directory of user tobias:
                 </p>
                 <listing>
                     <code syntax="bash" strip="yes">

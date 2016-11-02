@@ -5,7 +5,7 @@
             What you have learned up until now, won't get you far if you intend to write
         anything but plain prose. This chapter introduces some of the more advanced
         language constructs, that let you spice up your documents with illustrations,
-        tables, structured lists, program listings and mathematic formulas.
+        tables, structured lists, program listings and mathematical formulas.
         </p>
         <section>
             <title>Using Lists</title>
@@ -444,10 +444,8 @@
             particular output format, the document pre-processor will automatically convert
             it. For instance, when generating &latex; output, raster images are automatically
             converted to encapsulated postscript.
-            </p>
-            <p><title>Important:</title>
-                <i>Supply images in a high-enough resolution for
-                proper representation in all target formats.</i>
+                Make sure you Supply images in a high-enough resolution for
+            proper representation in all target formats.
             </p>
             <p>
                 <idxterm group="ecml"><item>img</item><subitem>print-width</subitem></idxterm>
@@ -581,7 +579,7 @@ pygmentize -L
         <section>
             <title><label id="sect:mathematics"/>Mathematical Formulas</title>
             <p>
-                Mathematic formulas are entered in &tex; notation. Explaining &tex; is beyond
+                Mathematics are entered in &tex; notation. Explaining &tex; is beyond
             the scope of this document. For more information, please refer to appropriate
             literature, such as <cite idref="bib:LSHORT"/>.
             </p>

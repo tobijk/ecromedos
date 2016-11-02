@@ -180,7 +180,7 @@ latex main.tex
                     </code>
                 </listing>
                 <p>
-                    <title>Important:</title> You may have to call &latex; two or three times until all
+                    You may have to call &latex; two or three times until all
                 cross-references are resolved and the table of contents is completely built. The
                 result will be a file with the extension <i>dvi</i>. You can use the following
                 commands to convert the DVI file to PostScript and PDF:
