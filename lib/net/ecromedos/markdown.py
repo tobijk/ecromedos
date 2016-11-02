@@ -6,7 +6,7 @@
 # URL:     http://www.ecromedos.net
 #
 
-import re
+import os, re
 from lxml import etree
 import com.lepture.mistune as mistune
 from net.ecromedos.configreader import ECMDSConfigReader
@@ -17,10 +17,11 @@ class ECMLRendererError(Exception):
 
 class ECMLRenderer(mistune.Renderer):
 
-    def __init__(self):
+    def __init__(self, config):
         mistune.Renderer.__init__(self)
         self.section_level = 0
         self.footnotes_map = {}
+        self.config = config
     #end if
 
     # BLOCK ELEMENTS
@@ -199,10 +200,10 @@ class ECMLRenderer(mistune.Renderer):
 class MarkdownConverterError(Exception):
     pass
 
-class MarkdownConverter(ECMDSDTDResolver):
+class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
 
     DOCUMENT_TEMPLATE = """\
-<!DOCTYPE report SYSTEM "http://www.ecromedos.net/dtd/3.0/ecromedos.dtd">
+<!DOCTYPE %(document_type)s SYSTEM "http://www.ecromedos.net/dtd/3.0/ecromedos.dtd">
 <%(document_type)s bcor="%(bcor)s" div="%(div)s" lang="%(lang)s" papersize="%(papersize)s" parskip="%(parskip)s" secnumdepth="%(secnumdepth)s" secsplitdepth="%(secsplitdepth)s">
 
     %(header)s
@@ -218,7 +219,7 @@ class MarkdownConverter(ECMDSDTDResolver):
         ECMDSConfigReader.__init__(self)
         ECMDSDTDResolver. __init__(self)
 
-        self.config = {
+        defaults = {
             "document_type": "report",
             "bcor": "0cm",
             "div": "16",
@@ -235,12 +236,14 @@ class MarkdownConverter(ECMDSDTDResolver):
             "contents": ""
         }
 
-        self.config.update(options)
+        self.readConfig(options)
+        self.config.update(defaults)
+        self.options = options
     #end function
 
     def convert(self, string):
         # initial conversion happening here
-        renderer  = ECMLRenderer()
+        renderer  = ECMLRenderer(self.config)
         markdown  = mistune.Markdown(renderer=renderer)
         contents  = markdown(self.parse_preamble(string))
         header    = self.generate_header(self.config)
@@ -257,8 +260,12 @@ class MarkdownConverter(ECMDSDTDResolver):
         contents = MarkdownConverter.DOCUMENT_TEMPLATE % self.config
 
         # parse XML to do post-processing
-        parser = etree.XMLParser(remove_blank_text=True)
-        tree   = etree.fromstring(contents, parser=parser)
+        parser = etree.XMLParser(
+            load_dtd=True,
+            remove_blank_text=True
+        )
+        parser.resolvers.add(self)
+        tree = etree.fromstring(contents, parser=parser)
 
         # fix footnotes, tables, section names...
         tree = self.post_process(tree)
@@ -296,6 +303,7 @@ class MarkdownConverter(ECMDSDTDResolver):
 
         self.validate_config(config)
         self.config.update(config)
+        self.config.update(self.options)
 
         return string[len(m):]
     #end function
@@ -352,6 +360,8 @@ class MarkdownConverter(ECMDSDTDResolver):
                 node = self.__fix_tbody(node)
             elif node.tag == "figure":
                 node = self.__fix_figure(node)
+            elif node.tag == "img":
+                node = self.__fix_img(node)
             #end if
 
             if len(node) != 0:
@@ -487,6 +497,20 @@ class MarkdownConverter(ECMDSDTDResolver):
         #end if
 
         return figure_node
+    #end function
+
+    def __fix_img(self, img_node):
+        src = img_node.attrib["src"]
+
+        if os.path.isabs(src) or os.path.isfile(src):
+            return img_node
+        if not "input_dir" in self.config:
+            return img_node
+
+        input_dir = self.config["input_dir"]
+        img_node.attrib["src"] = os.path.normpath(os.path.join(input_dir, src))
+
+        return img_node
     #end function
 
 #end class

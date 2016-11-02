@@ -187,6 +187,7 @@ if __name__ == "__main__":
         try:
             # SET INSTALLATION PATH
             options.setdefault("install_dir", MD2ECML_INSTALL_DIR)
+            options.setdefault("input_dir", os.path.dirname(files[0]))
 
             # DO DOCUMENT TRANSFORMATION
             print(MarkdownConverter(options).convert(buf))
