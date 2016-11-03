@@ -15,9 +15,9 @@ parskip: half
 secnumdepth: 5
 secsplitdepth: 1
 tocdepth: 5
-have-lof: yes
+have-lof: no
 have-lot: yes
-have-lol: yes
+have-lol: no
 
 -------------------------------------------------------------------------------
 

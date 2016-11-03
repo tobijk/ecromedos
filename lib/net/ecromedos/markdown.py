@@ -219,7 +219,8 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
         ECMDSConfigReader.__init__(self)
         ECMDSDTDResolver. __init__(self)
 
-        defaults = {
+        self.readConfig(options)
+        self.document_settings = {
             "document_type": "report",
             "bcor": "0cm",
             "div": "16",
@@ -235,10 +236,7 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
             "have_lol": "no",
             "contents": ""
         }
-
-        self.readConfig(options)
-        self.config.update(defaults)
-        self.options = options
+        self.user_settings = options
     #end function
 
     def convert(self, string):
@@ -246,18 +244,18 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
         renderer  = ECMLRenderer(self.config)
         markdown  = mistune.Markdown(renderer=renderer)
         contents  = markdown(self.parse_preamble(string))
-        header    = self.generate_header(self.config)
+        header    = self.generate_header(self.document_settings)
         footnotes = renderer.footnotes_map
 
         # close all open sections
         for i in range(renderer.section_level):
             contents += "</section>"
 
-        self.config["header"] = header
-        self.config["contents"] = contents
-        self.config["footnotes"] = footnotes
+        self.document_settings["header"] = header
+        self.document_settings["contents"] = contents
+        self.document_settings["footnotes"] = footnotes
 
-        contents = MarkdownConverter.DOCUMENT_TEMPLATE % self.config
+        contents = MarkdownConverter.DOCUMENT_TEMPLATE % self.document_settings
 
         # parse XML to do post-processing
         parser = etree.XMLParser(
@@ -275,7 +273,7 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
     #end function
 
     def parse_preamble(self, string):
-        config = {}
+        document_settings = {}
 
         m = re.match(r"\A---+\s*?$.*?^---+\s*?$", string, flags=re.MULTILINE|re.DOTALL)
 
@@ -295,20 +293,20 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
                 continue
 
             if k != "author":
-                config[k] = v
+                document_settings[k] = v
             else:
-                config.setdefault(k, []).append(v)
+                document_settings.setdefault(k, []).append(v)
             #end if
         #end for
 
-        self.validate_config(config)
-        self.config.update(config)
-        self.config.update(self.options)
+        self.document_settings.update(document_settings)
+        self.document_settings.update(self.user_settings)
+        self.validate_settings(self.document_settings)
 
         return string[len(m):]
     #end function
 
-    def generate_header(self, config):
+    def generate_header(self, settings):
         header_elements = [
             "subject",
             "title",
@@ -323,12 +321,12 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
 
         for element_name in header_elements:
             if element_name == "title":
-                header += "<title>%s</title>\n" % config.get("title", "")
+                header += "<title>%s</title>\n" % settings.get("title", "")
             elif element_name == "author":
-                for author in config.get("author", []):
+                for author in settings.get("author", []):
                     header += "<author>%s</author>\n" % author
             else:
-                element_text = config.get(element_name, "")
+                element_text = settings.get(element_name, "")
                 if element_text:
                     header += "<%s>%s</%s>\n" % \
                             (element_name, element_text , element_name)
@@ -339,7 +337,7 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
         return "<head>\n%s</head>" % header
     #end function
 
-    def validate_config(self, config):
+    def validate_settings(self, settings):
         pass
     #end function
 
@@ -385,7 +383,7 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
     # PRIVATE
 
     def __fix_footnote(self, ref_node):
-        footnotes    = self.config["footnotes"]
+        footnotes    = self.document_settings["footnotes"]
         footnote_ref = ref_node.get("idref", None)
         footnote_def = footnotes.get(footnote_ref, None)
 
@@ -414,7 +412,7 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
     #end function
 
     def __fix_section(self, section_node):
-        document_type = self.config["document_type"]
+        document_type = self.document_settings["document_type"]
 
         if document_type == "article":
             section_names = ["section", "subsection", "subsubsection", "minisection"]

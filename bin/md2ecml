@@ -60,20 +60,7 @@ def printUsage():
 def parseCmdLine():
     """Parse and extract arguments of command line options."""
 
-    options = {
-        "document_type": "report",
-        "bcor": "0cm",
-        "div": "16",
-        "lang": "en_US",
-        "papersize": "a4",
-        "parskip": "half",
-        "secnumdepth": "5",
-        "secsplitdepth": "1",
-        "tocdepth": "5",
-        "have_lof": "no",
-        "have_lot": "no",
-        "have_lol": "no"
-    }
+    options = {}
 
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hv",
