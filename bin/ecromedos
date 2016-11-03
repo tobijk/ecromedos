@@ -165,10 +165,6 @@ if __name__ == "__main__":
                 # DO DOCUMENT TRANSFORMATION
                 ECMLProcessor(options).process(files[0])
             #end with
-        except ECMDSPluginError as e:
-            msg = "Plugin '%s' caused an error:\n %s" % (e.pluginName(), e.msg())
-            sys.stderr.write(msg + "\n")
-            sys.exit(ECMDS_ERR_PROCESSING)
         except ECMDSError as e:
             sys.stderr.write(e.msg() + "\n")
             sys.exit(ECMDS_ERR_PROCESSING)
