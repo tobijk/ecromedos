@@ -9,6 +9,7 @@
 from lxml import etree
 from net.ecromedos.error import ECMDSPluginError
 from net.ecromedos.highlight.formatter import ECMLPygmentsFormatter
+from net.ecromedos.highlight.styles.github import GithubStyle
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.styles import get_style_by_name
@@ -102,13 +103,16 @@ class Plugin():
 
         # style to use
         try:
-            self.__style = get_style_by_name(
-                options.get('colorscheme', self.__colorscheme))
+            color_scheme = options.get('colorscheme', self.__colorscheme)
+            if color_scheme in ["default", "github"]:
+                self.__style = GithubStyle
+            else:
+                self.__style = get_style_by_name(color_scheme)
         except PygmentsClassNotFound:
             msg = "No style by name '%s'" % options["colorscheme"]
             raise ECMDSPluginError(msg, "highlight")
         except KeyError:
-            self.__style = get_style_by_name("default")
+            self.__style = GithubStyle
         #end try
 
         # get a lexer for given syntax
