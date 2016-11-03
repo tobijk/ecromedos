@@ -25,26 +25,41 @@
     </xsl:variable>
     <xsl:variable name="style">
         <xsl:choose>
-            <xsl:when test="@type">
-                <xsl:value-of select="@type"/>
+            <!-- explicit -->
+            <xsl:when test="@type = '1'">
+                <xsl:text>decimal</xsl:text>
             </xsl:when>
+            <xsl:when test="@type = 'i'">
+                <xsl:text>lower-roman</xsl:text>
+            </xsl:when>
+            <xsl:when test="@type = 'I'">
+                <xsl:text>upper-roman</xsl:text>
+            </xsl:when>
+            <xsl:when test="@type = 'a'">
+                <xsl:text>lower-alpha</xsl:text>
+            </xsl:when>
+            <xsl:when test="@type = 'A'">
+                <xsl:text>upper-alpha</xsl:text>
+            </xsl:when>
+            <!-- automatic -->
             <xsl:when test="$num_ancestors = 3">
-                <xsl:text>A</xsl:text>
+                <xsl:text>upper-alpha</xsl:text>
             </xsl:when>
             <xsl:when test="$num_ancestors = 2">
-                <xsl:text>i</xsl:text>
+                <xsl:text>lower-roman</xsl:text>
             </xsl:when>
             <xsl:when test="$num_ancestors = 1">
-                <xsl:text>a</xsl:text>
+                <xsl:text>lower-alpha</xsl:text>
             </xsl:when>
             <xsl:otherwise>
-                <!-- empty -->
+                <xsl:text>decimal</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
     <ol>
         <xsl:if test="$style != ''">
-            <xsl:attribute name="type">
+            <xsl:attribute name="style">
+                <xsl:text>list-style-type:</xsl:text>
                 <xsl:value-of select="$style"/>
             </xsl:attribute>
         </xsl:if>
