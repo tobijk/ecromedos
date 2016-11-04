@@ -44,7 +44,7 @@ class UTTestConfigReader(unittest.TestCase):
             'plugin_dir': ECMDS_INSTALL_DIR + '/lib/net/ecromedos/plugins',
             'style_dir': ECMDS_INSTALL_DIR + '/xslt',
             'target_format': 'xhtml',
-            'pygments_default_colorscheme': 'monokai'
+            'pygments_default_colorscheme': 'default'
         }
 
         expected_pmap = {  
