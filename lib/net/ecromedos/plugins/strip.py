@@ -83,6 +83,8 @@ class Plugin():
             if len(n):
                 n = n[0]
                 continue
+            elif n == node:
+                return
 
             while True:
                 if n.tail:
