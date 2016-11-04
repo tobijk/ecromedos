@@ -12,45 +12,41 @@
  * Document titles and front matter
  */
 div.frontmatter {
-    color: #000000;
     border-bottom: 1px dotted #888888;
 
-    .head-table {
-        display: table;
-        min-height: 300px;
+    .title-wrapper {
+        margin: 2.5em 0;
+        color: #000000;
+        line-height: 1.2;
 
-        .head-table-cell {
-            display: table-cell;
-            padding: 2em 0;
-            vertical-align: middle;
+        .head-title {
+            font-size: 240%;
+            font-weight: bold;
+
+            .head-subject   {
+                margin-bottom: 0.5em;
+                font-size: 70%;
+            }
+
+            .head-subtitle {
+                margin-top: 0.5em;
+                font-size: 70%;
+            }
         }
-    }
 
-    .head-title     {
-        .head-subject   {
-            font-size: 70%;
+        .head-author {
+            margin-top: 2em;
         }
-
-        font-size: 300%;
-        font-weight: bold;
-        margin: 0;
-
-        .head-subtitle {
-            font-size: 70%;
+        .head-date {
+            margin-top: 1em;
         }
-    }
-
-    .head-author    {
-        margin: 0.5em 0 0 0;
-    }
-    .head-date      {
-        margin: 0.5em 0 0 0;
-    }
-    .head-publisher {
-        margin: 0.5em 0 0 0;
-    }
-    .head-legal {
-        margin: 2em 0 0 0;
+        .head-publisher {
+            margin-top: 1em;
+        }
+        .head-legal {
+            margin-top: 2em;
+            line-height: 1.4;
+        }
     }
 
     a, a:link, a:hover, a:active, a:visited {

@@ -33,55 +33,51 @@
         <div class="container">
             <div class="row">
                 <div class="span12">
+                    <div class="title-wrapper">
 
-                    <div class="head-table">
-                        <div class="head-table-cell">
-
-                            <!-- title -->
-                            <div class="head-title">
-                                <!-- subject -->
-                                <xsl:if test="head/subject">
-                                    <div class="head-subject">
-                                        <xsl:apply-templates select="head/subject"/>
-                                    </div>
-                                </xsl:if>
-                                
-                                <div><xsl:apply-templates select="head/title"/></div>
-
-                                <!-- subtitle -->
-                                <xsl:if test="head/subtitle">
-                                    <div class="head-subtitle">
-                                        <xsl:apply-templates select="head/subtitle"/>
-                                    </div>
-                                </xsl:if>
-                            </div>
-                            <!-- authors -->
-                            <xsl:for-each select="head/author">
-                                <div class="head-author">
-                                    <xsl:apply-templates select="."/>
-                                </div>
-                            </xsl:for-each>
-                            <!-- date -->
-                            <xsl:if test="head/date">
-                                <div class="head-date">
-                                    <xsl:apply-templates select="head/date"/>
+                        <!-- title -->
+                        <div class="head-title">
+                            <!-- subject -->
+                            <xsl:if test="head/subject">
+                                <div class="head-subject">
+                                    <xsl:apply-templates select="head/subject"/>
                                 </div>
                             </xsl:if>
-                            <xsl:if test="head/publisher">
-                                <div class="head-publisher">
-                                    <xsl:apply-templates select="head/publisher"/>
+                            
+                            <div><xsl:apply-templates select="head/title"/></div>
+
+                            <!-- subtitle -->
+                            <xsl:if test="head/subtitle">
+                                <div class="head-subtitle">
+                                    <xsl:apply-templates select="head/subtitle"/>
                                 </div>
                             </xsl:if>
-                            <!-- legal info -->
-                            <xsl:for-each select="legal">
-                                <div class="head-legal">
-                                    <xsl:apply-templates/>
-                                </div>
-                            </xsl:for-each>
-
                         </div>
-                    </div>
+                        <!-- authors -->
+                        <xsl:for-each select="head/author">
+                            <div class="head-author">
+                                <xsl:apply-templates select="."/>
+                            </div>
+                        </xsl:for-each>
+                        <!-- date -->
+                        <xsl:if test="head/date">
+                            <div class="head-date">
+                                <xsl:apply-templates select="head/date"/>
+                            </div>
+                        </xsl:if>
+                        <xsl:if test="head/publisher">
+                            <div class="head-publisher">
+                                <xsl:apply-templates select="head/publisher"/>
+                            </div>
+                        </xsl:if>
+                        <!-- legal info -->
+                        <xsl:for-each select="legal">
+                            <div class="head-legal">
+                                <xsl:apply-templates/>
+                            </div>
+                        </xsl:for-each>
 
+                    </div>
                 </div>
             </div>
         </div>

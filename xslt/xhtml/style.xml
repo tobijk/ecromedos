@@ -740,40 +740,38 @@ th {
  * Document titles and front matter
  */
 div.frontmatter {
-  color: #000000;
   border-bottom: 1px dotted #888888;
 }
-div.frontmatter .head-table {
-  display: table;
-  min-height: 300px;
+div.frontmatter .title-wrapper {
+  margin: 2.5em 0;
+  color: #000000;
+  line-height: 1.2;
 }
-div.frontmatter .head-table .head-table-cell {
-  display: table-cell;
-  padding: 2em 0;
-  vertical-align: middle;
-}
-div.frontmatter .head-title {
-  font-size: 300%;
+div.frontmatter .title-wrapper .head-title {
+  font-size: 240%;
   font-weight: bold;
-  margin: 0;
+  margin: 1em 0 0.5em 0;
 }
-div.frontmatter .head-title .head-subject {
+div.frontmatter .title-wrapper .head-title .head-subject {
+  margin-bottom: 0.5em;
   font-size: 70%;
 }
-div.frontmatter .head-title .head-subtitle {
+div.frontmatter .title-wrapper .head-title .head-subtitle {
+  margin-top: 0.5em;
   font-size: 70%;
 }
-div.frontmatter .head-author {
-  margin: 0.5em 0 0 0;
+div.frontmatter .title-wrapper .head-author {
+  margin-top: 1em;
 }
-div.frontmatter .head-date {
-  margin: 0.5em 0 0 0;
+div.frontmatter .title-wrapper .head-date {
+  margin-top: 1em;
 }
-div.frontmatter .head-publisher {
-  margin: 0.5em 0 0 0;
+div.frontmatter .title-wrapper .head-publisher {
+  margin-top: 1em;
 }
-div.frontmatter .head-legal {
-  margin: 2em 0 0 0;
+div.frontmatter .title-wrapper .head-legal {
+  margin-top: 2em;
+  line-height: 1.4;
 }
 div.frontmatter a, div.frontmatter a:link, div.frontmatter a:hover, div.frontmatter a:active, div.frontmatter a:visited {
   text-decoration: none;
@@ -841,7 +839,7 @@ div.content .textbody {
  */
 body {
   font-family: sans-serif;
-  color: #444444;
+  color: #333333;
   background-color: #ffffff;
   font-size: 14px;
   line-height: 1.6;
