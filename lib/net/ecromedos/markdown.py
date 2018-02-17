@@ -39,11 +39,9 @@ class ECMLRenderer(mistune.Renderer):
 
     def block_quote(self, text):
         return "<blockquote>%s</blockquote>" % text
-    #end function
 
     def block_html(self, ecml):
         return ecml
-    #end function
 
     def header(self, text, level, raw=None):
         retval = ""
@@ -73,7 +71,6 @@ class ECMLRenderer(mistune.Renderer):
 
     def hrule(self):
         return ""
-    #end function
 
     def list(self, body, ordered=True):
         if ordered:
@@ -84,11 +81,9 @@ class ECMLRenderer(mistune.Renderer):
 
     def list_item(self, text):
         return "<li>%s</li>" % text
-    #end function
 
     def paragraph(self, text):
         return "<p>%s</p>" % text
-    #end function
 
     def table(self, header, body):
         return """\
@@ -104,7 +99,6 @@ class ECMLRenderer(mistune.Renderer):
 
     def table_row(self, content):
         return '<tr valign="top">%s</tr>' % content
-    #end function
 
     def table_cell(self, content, **flags):
         align = flags['align']
@@ -116,23 +110,19 @@ class ECMLRenderer(mistune.Renderer):
     # INLINE ELEMENTS
 
     def autolink(self, link, is_email=False):
-        text = link = mistune.escape(link)
-        if is_email:
-            link = "mailto:%s" % link
-        return '<link url="%s">%s</link>' % (link, link)
+        link = mistune.escape(link)
+        href = "mailto:%s" % link if is_email else link
+        return '<link url="%s">%s</link>' % (href, link)
     #end function
 
     def codespan(self, text):
         return "<tt>%s</tt>" % mistune.escape(text)
-    #end function
 
     def double_emphasis(self, text):
         return "<b>%s</b>" % text
-    #end function
 
     def emphasis(self, text):
         return "<i>%s</i>" % text
-    #end function
 
     def image(self, src, title, text):
         src  = mistune.escape_link(src)
@@ -159,15 +149,12 @@ class ECMLRenderer(mistune.Renderer):
 
     def linebreak(self):
         return "<br/>"
-    #end function
 
     def newline(self):
         return ""
-    #end function
 
     def footnote_ref(self, key, index):
         return '<footnote-ref idref="%s"/>' % mistune.escape(key)
-    #end function
 
     def footnote_item(self, key, text):
         self.footnotes_map[key] = text
@@ -176,7 +163,6 @@ class ECMLRenderer(mistune.Renderer):
 
     def footnotes(self, text):
         return ""
-    #end function
 
     def link(self, link, title, text):
         link = mistune.escape_link(link)
@@ -185,15 +171,12 @@ class ECMLRenderer(mistune.Renderer):
 
     def strikethrough(self, text):
         return text
-    #end function
 
     def text(self, text):
         return mistune.escape(text)
-    #end function
 
     def inline_html(self, ecml):
         return ecml
-    #end function
 
 #end class
 
@@ -207,6 +190,7 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
 <%(document_type)s bcor="%(bcor)s" div="%(div)s" lang="%(lang)s" papersize="%(papersize)s" parskip="%(parskip)s" secnumdepth="%(secnumdepth)s" secsplitdepth="%(secsplitdepth)s">
 
     %(header)s
+    %(legal)s
 
     <make-toc depth="%(tocdepth)s" lof="%(have_lof)s" lot="%(have_lot)s" lol="%(have_lol)s"/>
 
@@ -234,7 +218,8 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
             "have_lof": "no",
             "have_lot": "no",
             "have_lol": "no",
-            "contents": ""
+            "contents": "",
+            "legal": ""
         }
         self.user_settings = options
     #end function
@@ -244,8 +229,38 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
         renderer  = ECMLRenderer(self.config)
         markdown  = mistune.Markdown(renderer=renderer)
         contents  = markdown(self.parse_preamble(string))
-        header    = self.generate_header(self.document_settings)
         footnotes = renderer.footnotes_map
+
+        def inline_markdown(s_):
+            t_ = etree.fromstring(markdown(s_))
+
+            # Maybe there can be a more elegant solution for this?
+            v_ = etree.tostring(t_, pretty_print=True,
+                    encoding="unicode")
+            v_ = re.sub(r"^\<p\>|\</p\>$", "", v_,
+                    flags=re.MULTILINE)
+
+            return v_.strip()
+        #end inline function
+
+        for k, v in self.document_settings.items():
+            if not v or isinstance(v, str) and not v.strip():
+                continue
+
+            if k == "legal":
+                self.document_settings["legal"] = \
+                    "<legal>" + \
+                        markdown(v) + \
+                    "</legal>"
+            elif k == "author":
+                for i in range(len(v)):
+                    v[i] = inline_markdown(v[i])
+            else:
+                v = re.sub(r"\s+", " ", v, flags=re.MULTILINE).strip()
+                self.document_settings[k] = inline_markdown(v)
+        #end if
+
+        header = self.generate_header(self.document_settings)
 
         # close all open sections
         for i in range(renderer.section_level):
@@ -275,27 +290,29 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
     def parse_preamble(self, string):
         document_settings = {}
 
-        m = re.match(r"\A---+\s*?$.*?^---+\s*?$", string, flags=re.MULTILINE|re.DOTALL)
+        m = re.match(r"\A---+\s*?$.*?^---+\s*?$", string,
+                flags=re.MULTILINE|re.DOTALL)
 
         if not m:
             return string
 
         m = m.group(0)
+        k = ""
+        v = ""
 
         for line in m.strip("-").splitlines():
-            if not line.strip():
-                continue
+            if re.match(r"^\S+.*:.*$", line):
+                k, v = line.split(":", 1)
 
-            try:
-                k, v = [x.strip() for x in line.split(":", 1)]
-                k = k.replace("-", "_")
-            except:
-                continue
-
-            if k != "author":
-                document_settings[k] = v
-            else:
-                document_settings.setdefault(k, []).append(v)
+                if k != "author":
+                    document_settings[k] = v
+                else:
+                    document_settings.setdefault(k, []).append(v)
+            elif k:
+                if k != "author":
+                    document_settings[k] += line
+                else:
+                    document_settings[k][-1] += line
             #end if
         #end for
 
@@ -339,7 +356,6 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
 
     def validate_settings(self, settings):
         pass
-    #end function
 
     def post_process(self, root_node):
 
@@ -415,9 +431,20 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
         document_type = self.document_settings["document_type"]
 
         if document_type == "article":
-            section_names = ["section", "subsection", "subsubsection", "minisection"]
+            section_names = [
+                "section",
+                "subsection",
+                "subsubsection",
+                "minisection"
+            ]
         else:
-            section_names = ["chapter", "section", "subsection", "subsubsection", "minisection"]
+            section_names = [
+                "chapter",
+                "section",
+                "subsection",
+                "subsubsection",
+                "minisection"
+            ]
         #end if
 
         level = int(section_node.attrib["level"]) - 1
@@ -485,7 +512,8 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
             raise MarkdownConverterError("The parent or grandparent of image "\
                 "'%s' is not a sectioning element." % figure_node.get("alt"))
 
-        if etree.tostring(parent, method="text", encoding="unicode").strip() == "":
+        if etree.tostring(parent, method="text", encoding="unicode")\
+                .strip() == "":
             grandparent.replace(parent, figure_node)
         else:
             figure_node.attrib["align"] = "left"
