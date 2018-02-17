@@ -5,13 +5,13 @@
 
     The fastest markdown parser in pure Python with renderer feature.
 
-    :copyright: (c) 2014 - 2015 by Hsiaoming Yang.
+    :copyright: (c) 2014 - 2017 by Hsiaoming Yang.
 """
 
 import re
 import inspect
 
-__version__ = '0.7.3'
+__version__ = '0.8.3'
 __author__ = 'Hsiaoming Yang <me@lepture.com>'
 __all__ = [
     'BlockGrammar', 'BlockLexer',
@@ -31,12 +31,12 @@ _inline_tags = [
     'u', 'i', 'b', 'tt', 'sup', 'sub', 'xx-small', 'x-small', 'small',
     'medium', 'large', 'x-large', 'xx-large' 'color', 'br', 'counter',
     'defterm', 'entity', 'img', 'idxref', 'idxterm', 'item', 'subitem',
-    'subsubitem', 'label', 'm', 'nobr', 'pagebreak', 'pageref', 'ref',
-    'y'
+    'subsubitem', 'label', 'm', 'nobr', 'pagebreak', 'pageref', 'q',
+    'qq', 'ref', 'y'
 ]
 _pre_tags = ['verbatim', 'code']
 _valid_end = r'(?!:/|[^\w\s@]*@)\b'
-_valid_attr = r'''\s*[a-zA-Z\-](?:\=(?:"[^"]*"|'[^']*'|\d+))*'''
+_valid_attr = r'''\s*[a-zA-Z\-](?:\=(?:"[^"]*"|'[^']*'|[^\s'">]+))?'''
 _block_tag = r'(?!(?:%s)\b)\w+%s' % ('|'.join(_inline_tags), _valid_end)
 _scheme_blacklist = ('javascript:', 'vbscript:')
 
@@ -49,7 +49,8 @@ def _pure_pattern(regex):
 
 
 def _keyify(key):
-    return _key_pattern.sub(' ', key.lower())
+    key = escape(key.lower(), quote=True)
+    return _key_pattern.sub(' ', key)
 
 
 def escape(text, quote=False, smart_amp=True):
@@ -76,8 +77,9 @@ def escape(text, quote=False, smart_amp=True):
 def escape_link(url):
     """Remove dangerous URL schemes like javascript: and escape afterwards."""
     lower_url = url.lower().strip('\x00\x1a \n\r\t')
+
     for scheme in _scheme_blacklist:
-        if lower_url.startswith(scheme):
+        if re.sub(r'[^A-Za-z0-9\/:]+', '', lower_url).startswith(scheme):
             return ''
     return escape(url, quote=True, smart_amp=False)
 
@@ -85,7 +87,6 @@ def escape_link(url):
 def preprocessing(text, tab=4):
     text = _newline_pattern.sub('\n', text)
     text = text.expandtabs(tab)
-    text = text.replace('\u00a0', ' ')
     text = text.replace('\u2424', '\n')
     pattern = re.compile(r'^ +$', re.M)
     return pattern.sub('', text)
@@ -118,11 +119,12 @@ class BlockGrammar(object):
     lheading = re.compile(r'^([^\n]+)\n *(=|-)+ *(?:\n+|$)')
     block_quote = re.compile(r'^( *>[^\n]+(\n[^\n]+)*\n*)+')
     list_block = re.compile(
-        r'^( *)([*+-]|\d+\.) [\s\S]+?'
+        r'^( *)(?=[*+-]|\d+\.)(([*+-])?(?:\d+\.)?) [\s\S]+?'
         r'(?:'
         r'\n+(?=\1?(?:[-*_] *){3,}(?:\n+|$))'  # hrule
         r'|\n+(?=%s)'  # def links
-        r'|\n+(?=%s)'  # def footnotes
+        r'|\n+(?=%s)'  # def footnotes\
+        r'|\n+(?=\1(?(3)\d+\.|[*+-]) )'   # heterogeneous bullet
         r'|\n{2,}'
         r'(?! )'
         r'(?!\1(?:[*+-]|\d+\.) )\n*'
@@ -373,9 +375,9 @@ class BlockLexer(object):
         cells = cells.split('\n')
         for i, v in enumerate(cells):
             v = re.sub(r'^ *\| *| *\| *$', '', v)
-            cells[i] = re.split(r' *\| *', v)
+            cells[i] = re.split(r' *(?<!\\)\| *', v)
 
-        item['cells'] = cells
+        item['cells'] = self._process_cells(cells)
         self.tokens.append(item)
 
     def parse_nptable(self, m):
@@ -384,9 +386,9 @@ class BlockLexer(object):
         cells = re.sub(r'\n$', '', m.group(3))
         cells = cells.split('\n')
         for i, v in enumerate(cells):
-            cells[i] = re.split(r' *\| *', v)
+            cells[i] = re.split(r' *(?<!\\)\| *', v)
 
-        item['cells'] = cells
+        item['cells'] = self._process_cells(cells)
         self.tokens.append(item)
 
     def _process_table(self, m):
@@ -411,6 +413,14 @@ class BlockLexer(object):
             'align': align,
         }
         return item
+
+    def _process_cells(self, cells):
+        for i, line in enumerate(cells):
+            for c, cell in enumerate(line):
+                # de-escape any pipe inside the cell here
+                cells[i][c] = re.sub('\\\\\|', '|', cell)
+
+        return cells
 
     def parse_block_html(self, m):
         tag = m.group(1)
@@ -446,8 +456,8 @@ class InlineGrammar(object):
     inline_html = re.compile(
         r'^(?:%s|%s|%s)' % (
             r'<!--[\s\S]*?-->',
-            r'<([-\w]+%s)((?:%s)*?)\s*>([\s\S]*?)<\/\1>' % (_valid_end, _valid_attr),
-            r'<[-\w]+%s(?:%s)*?\s*\/?>' % (_valid_end, _valid_attr),
+            r'<(\w[-\w]*%s)((?:%s)*?)\s*>([\s\S]*?)<\/\1>' % (_valid_end, _valid_attr),
+            r'<\w[-\w]*%s(?:%s)*?\s*\/?>' % (_valid_end, _valid_attr),
         )
     )
     autolink = re.compile(r'^<([^ >]+(@|:)[^ >]+)>')
@@ -502,7 +512,7 @@ class InlineLexer(object):
         'linebreak', 'strikethrough', 'text',
     ]
     inline_html_rules = [
-        'escape', 'autolink', 'url', 'link', 'reflink',
+        'escape', 'inline_html', 'autolink', 'url', 'link', 'reflink',
         'nolink', 'double_emphasis', 'emphasis', 'code',
         'linebreak', 'strikethrough', 'text',
     ]
@@ -556,10 +566,8 @@ class InlineLexer(object):
                     return m, out
             return False  # pragma: no cover
 
-        self.line_started = False
         while text:
             ret = manipulate(text)
-            self.line_started = True
             if ret is not False:
                 m, out = ret
                 output += out
@@ -831,6 +839,8 @@ class Renderer(object):
 
         :param text: text content.
         """
+        if self.options.get('parse_block_html'):
+            return text
         return escape(text)
 
     def escape(self, text):
@@ -846,7 +856,7 @@ class Renderer(object):
         :param link: link content or email address.
         :param is_email: whether this is an email or not.
         """
-        text = link = escape(link)
+        text = link = escape_link(link)
         if is_email:
             link = 'mailto:%s' % link
         return '<a href="%s">%s</a>' % (link, text)
@@ -903,7 +913,7 @@ class Renderer(object):
         """
         html = (
             '<sup class="footnote-ref" id="fnref-%s">'
-            '<a href="#fn-%s" rel="footnote">%d</a></sup>'
+            '<a href="#fn-%s">%d</a></sup>'
         ) % (escape(key), escape(key), index)
         return html
 
@@ -914,7 +924,7 @@ class Renderer(object):
         :param text: text content of the footnote.
         """
         back = (
-            '<a href="#fnref-%s" rev="footnote">&#8617;</a>'
+            '<a href="#fnref-%s" class="footnote">&#8617;</a>'
         ) % escape(key)
         text = text.rstrip()
         if text.endswith('</p>'):
