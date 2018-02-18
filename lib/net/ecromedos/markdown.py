@@ -87,7 +87,9 @@ class ECMLRenderer(mistune.Renderer):
 
     def table(self, header, body):
         return """\
-        <table print-width="100%%" screen-width="800px" align="center" frame="top,left,right,bottom">
+        <table print-width="100%%" screen-width="800px" align="center"
+            frame="rowsep,colsep" print-rulewidth="1pt" screen-rulewidth="1px"
+            rulecolor="#ffffff">
             <thead>
                 %s
             </thead>
@@ -464,11 +466,33 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
         colgroup_node = etree.Element("colgroup")
 
         for cell in header_cells:
+            # create a col entry for each column
             col_node = etree.Element("col")
             col_node.attrib["width"] = str(width) + "%"
             colgroup_node.append(col_node)
+
+            # wrap the content in a <b> tag
+            cell.tag = "b"
+            new_td_element = etree.Element("td")
+            cell.getparent().replace(cell, new_td_element)
+            new_td_element.append(cell)
+
+            # copy attributes
+            for k, v in cell.attrib.items():
+                new_td_element.set(k, v)
+            cell.attrib.clear()
+
+            # set the background color of table header
+            new_td_element.attrib["color"] = "#aaaaaa"
         #end for
 
+        body_cells = table_node.xpath("tbody/tr/td")
+
+        # set background color of table body cells
+        for cell in body_cells:
+            cell.attrib["color"] = "#eeeeee"
+
+        # insert the newly-created colgroup element
         table_node.insert(0, colgroup_node)
 
         return table_node
