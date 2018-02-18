@@ -300,7 +300,7 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
         k = ""
         v = ""
 
-        for line in m.strip("-").splitlines():
+        for line in m.strip("-").splitlines(True):
             if re.match(r"^\S+.*:.*$", line):
                 k, v = line.split(":", 1)
 
