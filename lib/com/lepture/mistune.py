@@ -392,6 +392,9 @@ class BlockLexer(object):
         self.tokens.append(item)
 
     def _process_table(self, m):
+        header = re.sub(r'(?:^ *\|)|(?:\| *$)', '', m.group(1))
+        width  = [len(s) for s in header.split("|")]
+
         header = re.sub(r'^ *| *\| *$', '', m.group(1))
         header = re.split(r' *\| *', header)
         align = re.sub(r' *|\| *$', '', m.group(2))
@@ -411,6 +414,7 @@ class BlockLexer(object):
             'type': 'table',
             'header': header,
             'align': align,
+            'width': width
         }
         return item
 
@@ -1072,6 +1076,7 @@ class Markdown(object):
         )
 
     def output_table(self):
+        widths = self.token['width']
         aligns = self.token['align']
         aligns_length = len(aligns)
         cell = self.renderer.placeholder()
@@ -1079,8 +1084,9 @@ class Markdown(object):
         # header part
         header = self.renderer.placeholder()
         for i, value in enumerate(self.token['header']):
+            width = widths[i]
             align = aligns[i] if i < aligns_length else None
-            flags = {'header': True, 'align': align}
+            flags = {'header': True, 'align': align, 'width': width}
             cell += self.renderer.table_cell(self.inline(value), **flags)
 
         header += self.renderer.table_row(cell)

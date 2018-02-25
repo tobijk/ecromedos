@@ -87,7 +87,7 @@ class ECMLRenderer(mistune.Renderer):
 
     def table(self, header, body):
         return """\
-        <table print-width="100%%" screen-width="800px" align="center"
+        <table print-width="100%%" screen-width="940px" align="left"
             frame="rowsep,colsep" print-rulewidth="1pt" screen-rulewidth="1px"
             rulecolor="#ffffff">
             <thead>
@@ -104,9 +104,16 @@ class ECMLRenderer(mistune.Renderer):
 
     def table_cell(self, content, **flags):
         align = flags['align']
-        if not align:
-            return '<td>%s</td>' % content
-        return '<td align="%s">%s</td>' % (align, content)
+        width = flags.get('width')
+
+        attributes = ""
+
+        if align:
+            attributes += ' align="%s"' % align
+        if width:
+            attributes += ' width="%s"' % width
+
+        return '<td%s>%s</td>' % (attributes, content)
     #end function
 
     # INLINE ELEMENTS
@@ -133,14 +140,14 @@ class ECMLRenderer(mistune.Renderer):
         if title:
             title = mistune.escape(title, quote=True)
             ecml = """\
-                <figure align="center">
+                <figure align="left">
                     <caption>%s</caption>
                     <img src="%s" print-width="100%%" screen-width="800px"/>
                 </figure>
             """ % (title, src)
         else:
             ecml = """\
-                <figure align="center">
+                <figure align="left">
                     <img src="%s" print-width="100%%" screen-width="800px"/>
                 </figure>
             """ % (src,)
@@ -462,13 +469,23 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
 
         header_cells = table_node.xpath("thead/tr/td")
 
-        width = 100 / len(header_cells)
+        widths       = [int(c.attrib["width"]) for c in header_cells]
+        total_width  = sum(widths)
+        widths       = [w * 100.0 / float(total_width) for w in widths]
+        total_width += len(widths) - 1
+
+        print_width  = int(total_width /  80.0 * 100.0)
+        screen_width = int(940.0 * print_width / 100.0)
+
+        table_node.attrib["print-width"]  = str(print_width)  + "%"
+        table_node.attrib["screen-width"] = str(screen_width) + "px"
+
         colgroup_node = etree.Element("colgroup")
 
-        for cell in header_cells:
+        for i, cell in enumerate(header_cells):
             # create a col entry for each column
             col_node = etree.Element("col")
-            col_node.attrib["width"] = str(width) + "%"
+            col_node.attrib["width"] = str(widths[i]) + "%"
             colgroup_node.append(col_node)
 
             # wrap the content in a <b> tag
@@ -479,6 +496,8 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
 
             # copy attributes
             for k, v in cell.attrib.items():
+                if k == "width":
+                    continue
                 new_td_element.set(k, v)
             cell.attrib.clear()
 
