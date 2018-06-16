@@ -36,7 +36,7 @@ class UTTestConfigReader(unittest.TestCase):
             'data_dir': ECMDS_INSTALL_DIR + '/data',
             'do_validate': True,
             'dvipng_bin': '/usr/bin/dvipng',
-            'dvipng_dpi': '90',
+            'dvipng_dpi': '100',
             'identify_bin': '/usr/bin/identify',
             'install_dir': ECMDS_INSTALL_DIR + '',
             'latex_bin': '/usr/bin/latex',

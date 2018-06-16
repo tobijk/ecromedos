@@ -100,11 +100,11 @@ Here comes a mixed and nested list:
 
 Here comes a table with columns and header:
 
- Col1 | Col2 | Col3 
-:-----|:----:|-----:
-  A   |      |   a  
-  B   |  2   |   b  
-  C   |  3   |   c
+| Col1 | Col2 | Col3 |
+|:-----|:----:|-----:|
+|  A   |      |   a  |
+|  B   |  2   |   b  |
+|  C   |  3   |   c  |
 
 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
 fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in

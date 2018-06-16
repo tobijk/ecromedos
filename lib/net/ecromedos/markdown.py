@@ -142,13 +142,13 @@ class ECMLRenderer(mistune.Renderer):
             ecml = """\
                 <figure align="left">
                     <caption>%s</caption>
-                    <img src="%s" print-width="100%%" screen-width="800px"/>
+                    <img src="%s" print-width="100%%" screen-width="940px"/>
                 </figure>
             """ % (title, src)
         else:
             ecml = """\
                 <figure align="left">
-                    <img src="%s" print-width="100%%" screen-width="800px"/>
+                    <img src="%s" print-width="100%%" screen-width="940px"/>
                 </figure>
             """ % (src,)
         #end if
@@ -502,14 +502,14 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
             cell.attrib.clear()
 
             # set the background color of table header
-            new_td_element.attrib["color"] = "#aaaaaa"
+            new_td_element.attrib["color"] = "#bbbbbb"
         #end for
 
         body_cells = table_node.xpath("tbody/tr/td")
 
         # set background color of table body cells
         for cell in body_cells:
-            cell.attrib["color"] = "#eeeeee"
+            cell.attrib["color"] = "#ddeeff"
 
         # insert the newly-created colgroup element
         table_node.insert(0, colgroup_node)
@@ -538,14 +538,14 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
 
     def __fix_figure(self, figure_node):
         section_elements = {
-            "chapter": 1,
-            "section": 1,
-            "subsection": 1,
+            "chapter":       1,
+            "section":       1,
+            "subsection":    1,
             "subsubsection": 1,
-            "minisection": 1,
-            "preface": 1,
-            "abstract": 1,
-            "appendix": 1
+            "minisection":   1,
+            "preface":       1,
+            "abstract":      1,
+            "appendix":      1
         }
 
         parent      = figure_node.getparent()
@@ -562,7 +562,7 @@ class MarkdownConverter(ECMDSDTDResolver, ECMDSConfigReader):
             figure_node.attrib["align"] = "left"
             img_node = figure_node.xpath("img")[0]
             img_node.attrib["print-width"] = "50%"
-            img_node.attrib["screen-width"] = "400px"
+            img_node.attrib["screen-width"] = "460px"
         #end if
 
         return figure_node
