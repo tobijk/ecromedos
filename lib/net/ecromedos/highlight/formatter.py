@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 #
 # Desc:    This file is part of the ecromedos Document Preparation System
 # Author:  Tobias Koch <tobias@tobijk.de>
