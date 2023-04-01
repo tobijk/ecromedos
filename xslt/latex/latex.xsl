@@ -225,7 +225,7 @@
     <xsl:text>\usepackage{wrapfig}&#x0a;&#x0a;</xsl:text>
 
     <xsl:text>% Enable custom page headers&#x0a;</xsl:text>
-    <xsl:text>\usepackage{scrpage2}&#x0a;</xsl:text>
+    <xsl:text>\usepackage{scrlayer-scrpage}&#x0a;</xsl:text>
     <xsl:text>\usepackage{scrhack}&#x0a;</xsl:text>
 
     <!-- explicitly set parskip/parindent -->
