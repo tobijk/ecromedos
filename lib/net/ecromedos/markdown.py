@@ -175,7 +175,7 @@ class ECMLRenderer(mistune.Renderer):
 
     def link(self, link, title, text):
         link = mistune.escape_link(link)
-        return '<link url="%s">%s</a>' % (link, text)
+        return '<link url="%s">%s</link>' % (link, text)
     #end function
 
     def strikethrough(self, text):
