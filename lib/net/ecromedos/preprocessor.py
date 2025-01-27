@@ -6,7 +6,10 @@
 # URL:     http://www.ecromedos.net
 #
 
-import os, sys, imp
+import importlib.util
+import os
+import sys
+
 from net.ecromedos.error import ECMDSError, ECMDSPluginError
 
 class ECMDSPreprocessor():
@@ -48,12 +51,15 @@ class ECMDSPreprocessor():
         self.plugins = {}
         for name in plugins_list:
             try:
-                fp, path, desc = imp.find_module(name, [plugin_dir])
-                try:
-                    module = imp.load_module(name, fp, path, desc)
-                finally:
-                    if fp: fp.close()
-                #got'cha
+                spec = importlib.util.spec_from_file_location(
+                    name, os.path.join(plugin_dir, name + ".py")
+                )
+                if spec is None:
+                    raise ImportError(
+                        "Could not load spec for module '%s'" % name
+                    )
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
                 self.plugins[name] = module.getInstance(self.config)
             except AttributeError:
                 msg = "Warning: '%s' is not a plugin." % (name,)
