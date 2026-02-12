@@ -33,6 +33,28 @@ print(sass.compile(filename=sys.argv[1], output_style='expanded', precision=8))
     do
         cat "css/${css_file}.css" >> style.css
     done
+
+    # install into XSLT directory
+    STYLE_XML="../xslt/html/style.xml"
+
+    cat > "$STYLE_XML" <<'HEADER'
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ - Desc:    This file is part of the ecromedos Document Preparation System
+ - Author:  Tobias Koch <tobias@tobijk.de>
+ - License: MIT
+ - URL:     http://www.ecromedos.net
+-->
+<style>
+    <css><![CDATA[
+HEADER
+
+    cat style.css >> "$STYLE_XML"
+
+    cat >> "$STYLE_XML" <<'FOOTER'
+    ]]></css>
+</style>
+FOOTER
 }
 
 ##############################################################################

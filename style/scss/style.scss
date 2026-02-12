@@ -137,6 +137,7 @@ pre.verbatim {
     margin: 1.25em 0em;
     font-family: monospace;
     line-height: 1.26;
+    overflow-x: auto;
 }
 
 div.listing {
@@ -152,6 +153,7 @@ pre.listing {
     padding: 0.5em 0.5em;
     font-family: monospace;
     line-height: 1.26;
+    overflow-x: auto;
 }
 
 /*
@@ -231,6 +233,10 @@ img.math {
 /*
  * Tables
  */
+
+figure.block-table {
+    overflow-x: auto;
+}
 
 table.table {
     border-collapse: collapse;
