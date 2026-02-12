@@ -513,6 +513,8 @@ can be found on the <i>Comprehensive &tex; Archive Network</i> at
                 <tr color="#dfeeff"><td>&amp;latex;</td><td>&latex;</td></tr>
                 <tr color="#dfeeff"><td>&amp;xetex;</td><td>&xetex;</td></tr>
                 <tr color="#dfeeff"><td>&amp;xelatex;</td><td>&xelatex;</td></tr>
+                <tr color="#dfeeff"><td>&amp;luatex;</td><td>&luatex;</td></tr>
+                <tr color="#dfeeff"><td>&amp;lualatex;</td><td>&lualatex;</td></tr>
                 <tr color="#dfeeff"><td>&amp;nbsp;</td><td>The non-breaking space</td></tr>
                 <tr color="#dfeeff"><td>&amp;zwsp;</td><td>The zero-width space</td></tr>
                 <tr color="#dfeeff"><td>&amp;endash;</td><td>&endash;</td></tr>
