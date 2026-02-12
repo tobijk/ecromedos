@@ -1,6 +1,6 @@
 # ecromedos
 
-Write in Markdown. Publish to the Web and Print.
+Write in Markdown. Publish to Print and Web.
 
 ecromedos is a technical document preparation system that produces both
 responsive HTML5 and professionally typeset PDF (via LuaLaTeX) from a single
