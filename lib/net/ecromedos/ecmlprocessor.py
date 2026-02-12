@@ -105,6 +105,15 @@ class ECMLProcessor(ECMDSConfigReader, ECMDSDTDResolver, ECMDSPreprocessor):
     def applyStylesheet(self, document):
         """Apply stylesheet to document."""
 
+        # register extension function to collect output filenames
+        self.output_files = []
+        ns = etree.FunctionNamespace("urn:ecmds")
+        output_files = self.output_files
+        def register_output(context, filename):
+            output_files.append(str(filename))
+            return ""
+        ns["register-output"] = register_output
+
         params = None
         try:
             params = self.config['xsl_params']
@@ -118,6 +127,39 @@ class ECMLProcessor(ECMDSConfigReader, ECMDSDTDResolver, ECMDSPreprocessor):
         #end try
 
         return result
+    #end function
+
+    def tidyOutput(self):
+        """Run collected HTML output files through HTML Tidy."""
+
+        try:
+            import tidylib
+        except ImportError:
+            raise ECMDSError(
+                "pytidylib is not installed. Install with: pip install pytidylib")
+        #end try
+
+        tidy_options = {
+            "indent": 1,
+            "output-html": 1,
+            "wrap": 100,
+            "tidy-mark": 0,
+            "doctype": "html5",
+            "new-blocklevel-tags": "nav,figure,figcaption",
+            "quiet": 1,
+            "show-warnings": 0,
+        }
+
+        for html_file in self.output_files:
+            if not html_file.endswith(".html"):
+                continue
+            with open(html_file, "r", encoding="utf-8") as f:
+                content = f.read()
+            tidied, errors = tidylib.tidy_document(content, options=tidy_options)
+            with open(html_file, "w", encoding="utf-8") as f:
+                f.write(tidied)
+            #end with
+        #end for
     #end function
 
     def process(self, filename, verbose=True):
@@ -156,6 +198,14 @@ class ECMLProcessor(ECMDSConfigReader, ECMDSDTDResolver, ECMDSPreprocessor):
         message("Transforming document...", verbose)
         self.applyStylesheet(document)
         status("DONE", verbose)
+
+        # tidy output
+        if self.config.get('do_tidy') and \
+                self.config.get('target_format') == 'xhtml':
+            message("Tidying HTML output...", verbose)
+            self.tidyOutput()
+            status("DONE", verbose)
+        #end if
     #end function
 
 #end class

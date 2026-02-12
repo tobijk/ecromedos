@@ -5,7 +5,8 @@
  - License: MIT
  - URL:     http://www.ecromedos.net
 -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:ecmds="urn:ecmds" exclude-result-prefixes="ecmds">
 
 <xsl:include href="../shared/version.xsl"/>
 <xsl:include href="../shared/wspace.xsl"/>
@@ -70,6 +71,7 @@
 
     <!-- output to file index.html -->
     <xsl:document href="index.html" method="html" indent="no" encoding="UTF-8">
+        <xsl:variable name="_r" select="ecmds:register-output('index.html')"/>
         <xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html&gt;&#10;</xsl:text>
         <!-- page start -->
         <html lang="{$global.lang.id}-{$global.lang.territory}">

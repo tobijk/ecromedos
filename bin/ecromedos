@@ -59,6 +59,7 @@ def printUsage():
     print("                       overful horizontal boxes.                             ")
     print(" --nohyperref          Disable active links in PDF output.                   ")
     print(" --novalid             Skip validation of the document.                      ")
+    print(" --tidy                Run HTML output through tidy (xhtml only).            ")
 #end function
 
 def parseCmdLine():
@@ -69,7 +70,7 @@ def parseCmdLine():
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hvn:f:s:b:c:",
             ["help", "basedir=", "config=", "format=", "new=", "style=",
-                "draft", "finedtp", "nohyperref", "novalid", "version"])
+                "draft", "finedtp", "nohyperref", "novalid", "tidy", "version"])
     except getopt.GetoptError as e:
         msg  = "Error while parsing command line: %s\n" % e.msg
         msg += "Type 'ecromedos --help' for more information."
@@ -91,6 +92,8 @@ def parseCmdLine():
             params["global.hyperref"] = "'no'"
         elif o == "--novalid":
             options["do_validate"] = False
+        elif o == "--tidy":
+            options["do_tidy"] = True
         elif o in ["--basedir", "-b"]:
             options["style_dir"] = v
         elif o in ["--config", "-c"]:

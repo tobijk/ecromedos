@@ -5,7 +5,8 @@
  - License: MIT
  - URL:     http://www.ecromedos.net
 -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:ecmds="urn:ecmds" exclude-result-prefixes="ecmds">
 
 <!--
  - This is there, to allow filtering of text with the pre-processor.
@@ -280,6 +281,7 @@
             </xsl:variable>
             <!-- output to separate file -->
             <xsl:document href="{$filename}" method="html" indent="no" encoding="UTF-8">
+                <xsl:variable name="_r" select="ecmds:register-output(string($filename))"/>
                 <xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html&gt;&#10;</xsl:text>
                 <!-- page start -->
                 <html lang="{$global.lang.id}-{$global.lang.territory}">

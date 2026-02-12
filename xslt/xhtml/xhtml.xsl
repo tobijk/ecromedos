@@ -5,7 +5,8 @@
  - License: MIT
  - URL:     http://www.ecromedos.net
 -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:ecmds="urn:ecmds" exclude-result-prefixes="ecmds">
 
 <xsl:param name="global.stylesheet" select="document('style.xml')"/>
 
@@ -522,6 +523,7 @@
 -->
 <xsl:template name="css.stylesheet">
     <xsl:document href="style.css" method="text" indent="no" encoding="UTF-8">
+        <xsl:variable name="_r" select="ecmds:register-output('style.css')"/>
         <xsl:call-template name="css.definitions"/>
     </xsl:document>
 </xsl:template>

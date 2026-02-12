@@ -7,7 +7,7 @@ do_clean() {
 do_build() {
     mkdir -p html pdf spool
 
-    (cd html  && ../../bin/ecromedos -f xhtml   ../src/manual.xml)
+    (cd html  && ../../bin/ecromedos --tidy -f xhtml   ../src/manual.xml)
     (cd spool && ../../bin/ecromedos -f xelatex ../src/manual.xml)
 
     (
