@@ -102,14 +102,14 @@
   - Set text in italics.
 -->
 <xsl:template match="i">
-    <i><xsl:apply-templates/></i>
+    <em><xsl:apply-templates/></em>
 </xsl:template>
 
 <!--
   - Set text in bold face.
 -->
 <xsl:template match="b">
-    <b><xsl:apply-templates/></b>
+    <strong><xsl:apply-templates/></strong>
 </xsl:template>
 
 <!--
@@ -181,7 +181,7 @@
   - Place a label for a cross-reference.
 -->
 <xsl:template match="label">
-    <a name="{generate-id()}" id="{generate-id()}"></a>
+    <a id="{generate-id()}"></a>
 </xsl:template>
 
 <!--

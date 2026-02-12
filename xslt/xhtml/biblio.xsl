@@ -61,7 +61,7 @@
 <xsl:template match="bibitem" mode="auto">
     <tr>
         <td class="biblio-label-auto">
-            <a name="{generate-id()}" id="{generate-id()}"></a>
+            <a id="{generate-id()}"></a>
             <xsl:text>[</xsl:text>
             <xsl:value-of select="position()"/>
             <xsl:text>]</xsl:text>
@@ -78,7 +78,7 @@
 <xsl:template match="bibitem" mode="manual">
     <tr>
         <td class="biblio-label-manual">
-            <a name="{generate-id()}" id="{generate-id()}"></a>
+            <a id="{generate-id()}"></a>
             <xsl:text>[</xsl:text>
             <xsl:value-of select="@label"/>
             <xsl:text>]</xsl:text>

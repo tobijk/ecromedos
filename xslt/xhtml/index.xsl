@@ -54,7 +54,7 @@
     <!-- section name, usually a letter from the alphabet -->
     <xsl:if test="@name">
         <h2 class="idxsection">
-            <a id="{generate-id()}" name="{generate-id()}"></a><xsl:value-of select="normalize-space(@name)"/>
+            <a id="{generate-id()}"></a><xsl:value-of select="normalize-space(@name)"/>
         </h2>
     </xsl:if>
 

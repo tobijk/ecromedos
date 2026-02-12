@@ -68,9 +68,9 @@
         </xsl:call-template>
     </xsl:variable>
 
-    <span style="{$width} {$style}">
+    <figure class="block-figure-inline" style="{$width} {$style}">
         <!-- label -->
-        <a name="{generate-id()}" id="{generate-id()}"></a>
+        <a id="{generate-id()}"></a>
         <!-- graphic -->
         <img style="display: block" alt="">
             <xsl:attribute name="src">
@@ -78,11 +78,7 @@
             </xsl:attribute>
         </img>
         <xsl:if test="caption">
-        <span style="display: block; font-size: xx-small;">
-            <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-        </span>
-        <span style="display: block; text-align: center;">
-            <span class="caption">
+        <figcaption class="caption" style="text-align: center;">
             <xsl:if test="$prefix != ''">
                 <span class="caption-counter">
                 <xsl:call-template name="i18n.print">
@@ -94,10 +90,9 @@
                 </span>
             </xsl:if>
             <xsl:apply-templates select="caption"/>
-            </span>
-        </span>
+        </figcaption>
         </xsl:if>
-    </span>
+    </figure>
 </xsl:template>
 
 <!--
@@ -135,50 +130,32 @@
     </xsl:variable>
 
     <!-- container -->
-    <table border="0" cellspacing="0" cellpadding="0" width="100%" class="block-element">
-        <tr>
-            <td align="{$alignment}">
-                <!-- figure -->
-                <table border="0" cellspacing="0" cellpadding="0" width="1px">
-                    <tr>
-                        <td>
-                            <!-- label -->
-                            <a name="{generate-id()}" id="{generate-id()}"></a>
-                            <!-- graphic -->
-                            <img style="vertical-align: middle; {$border}" alt="">
-                                <xsl:attribute name="src">
-                                    <xsl:value-of select="img/@src"/>
-                                </xsl:attribute>
-                            </img>
-                        </td>
-                    </tr>
-                    <!-- caption -->
-                    <xsl:if test="caption">
-                        <tr>
-                            <td style="font-size: xx-small;">
-                                <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                            </td>
-                        </tr>
-                        <tr align="{$alignment}">
-                            <td class="caption">
-                                <xsl:if test="$prefix != ''">
-                                    <span class="caption-counter">
-                                    <xsl:call-template name="i18n.print">
-                                        <xsl:with-param name="key" select="'figure'"/>
-                                        <xsl:with-param name="number" select="$prefix"/>
-                                        <xsl:with-param name="context" select="'caption'"/>
-                                    </xsl:call-template>
-                                    <xsl:text>: </xsl:text>
-                                    </span>
-                                </xsl:if>
-                                <xsl:apply-templates select="caption"/>
-                            </td>
-                        </tr>
-                    </xsl:if>
-                </table>
-            </td>
-        </tr>
-    </table>
+    <figure class="block-element block-figure block-figure-{$alignment}">
+        <!-- label -->
+        <a id="{generate-id()}"></a>
+        <!-- graphic -->
+        <img style="vertical-align: middle; {$border}" alt="">
+            <xsl:attribute name="src">
+                <xsl:value-of select="img/@src"/>
+            </xsl:attribute>
+        </img>
+        <!-- caption -->
+        <xsl:if test="caption">
+            <figcaption class="caption">
+                <xsl:if test="$prefix != ''">
+                    <span class="caption-counter">
+                    <xsl:call-template name="i18n.print">
+                        <xsl:with-param name="key" select="'figure'"/>
+                        <xsl:with-param name="number" select="$prefix"/>
+                        <xsl:with-param name="context" select="'caption'"/>
+                    </xsl:call-template>
+                    <xsl:text>: </xsl:text>
+                    </span>
+                </xsl:if>
+                <xsl:apply-templates select="caption"/>
+            </figcaption>
+        </xsl:if>
+    </figure>
 </xsl:template>
 
 </xsl:stylesheet>

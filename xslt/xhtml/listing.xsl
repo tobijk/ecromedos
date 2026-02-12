@@ -22,7 +22,7 @@
         <xsl:if test="caption">
             <div class="listing-caption">
                 <!-- label -->
-                <a name="{generate-id()}" id="{generate-id()}"></a>
+                <a id="{generate-id()}"></a>
                 <!-- caption -->
                 <span class="caption">
                     <span class="caption-counter">

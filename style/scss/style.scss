@@ -200,13 +200,27 @@ span.idxlink {
  * Math
  */
 
-td.eq-counter {
-    width: 8em;
-    padding-left: 2em;
-}
+figure.block-figure,
+figure.block-table { margin: 1.5em 0; padding: 0; }
+figure.block-figure-center,
+figure.block-table-center { text-align: center; }
+figure.block-figure-left,
+figure.block-table-left { text-align: left; }
+figure.block-figure-right,
+figure.block-table-right { text-align: right; }
+figure.block-figure img { display: inline-block; vertical-align: middle; }
+figure.block-figure figcaption,
+figure.block-table figcaption { margin-top: 0.5em; }
+figure.block-figure-inline { margin: 0; padding: 0; display: inline-block; }
+figure.block-table-center > table { margin: 0 auto; }
+figure.block-table-right > table { margin-left: auto; }
 
-td.eq-content {
-    font-weight: normal;
+figure.block-equation {
+    display: flex; align-items: center; margin: 1.5em 0;
+}
+figure.block-equation .eq-content { flex: 1; }
+figure.block-equation .eq-counter {
+    width: 8em; padding-left: 2em; flex-shrink: 0; text-align: left;
 }
 
 img.math {
@@ -219,6 +233,9 @@ img.math {
  */
 
 table.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+
     td {
         padding-top: 0.25ex;
         padding-bottom: 0.25ex;

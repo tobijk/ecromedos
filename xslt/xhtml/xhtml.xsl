@@ -436,7 +436,7 @@
     <xsl:param name="secnumdepth"/>
     <xsl:param name="curdepth"/>
 
-    <div class="nav-top">
+    <nav class="nav-top">
         <div class="container">
             <div class="row">
                 <!-- print title -->
@@ -466,7 +466,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </nav>
 </xsl:template>
 
 <!--
@@ -478,7 +478,7 @@
     <xsl:param name="secnumdepth"/>
     <xsl:param name="curdepth"/>
 
-    <div class="nav-bottom">
+    <nav class="nav-bottom">
         <div class="container">
             <div class="row">
                 <div class="s-span12 m-span04 l-span04 s-center m-left-align l-left-align">
@@ -507,7 +507,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </nav>
 </xsl:template>
 
 <!--
@@ -530,7 +530,7 @@
   - Print CSS definitions inline
 -->
 <xsl:template name="css.inline">
-    <style type="text/css">
+    <style>
         <xsl:comment>
             <xsl:call-template name="css.definitions"/>
         </xsl:comment>

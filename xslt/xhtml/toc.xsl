@@ -355,7 +355,7 @@
             <xsl:choose>
                 <xsl:when test="name() = 'preface'">
                     <xsl:variable name="position" select="count(preceding-sibling::preface) + 1"/>
-                    <a href="preface{$position}.html" id="{generate-id()}" name="{generate-id()}" class="{$link-style}">
+                    <a href="preface{$position}.html" id="{generate-id()}" class="{$link-style}">
                         <xsl:call-template name="toc.section.prefix">
                             <xsl:with-param name="curdepth" select="$curdepth"/>
                             <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
@@ -368,7 +368,7 @@
                 </xsl:when>
                 <xsl:when test="self::index">
                     <xsl:variable name="position" select="count(preceding-sibling::index) + 1"/>
-                    <a href="{name()}{$position}.html" id="{generate-id()}" name="{generate-id()}" class="{$link-style}">
+                    <a href="{name()}{$position}.html" id="{generate-id()}" class="{$link-style}">
                         <xsl:choose>
                             <xsl:when test="@title">
                                 <xsl:value-of select="normalize-space(@title)"/>
@@ -382,7 +382,7 @@
                     </a>
                 </xsl:when>
                 <xsl:when test="not(title)">
-                    <a href="{name()}.html" id="{generate-id()}" name="{generate-id()}" class="{$link-style}">
+                    <a href="{name()}.html" id="{generate-id()}" class="{$link-style}">
                         <xsl:call-template name="toc.section.prefix">
                             <xsl:with-param name="curdepth" select="$curdepth"/>
                             <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
@@ -403,7 +403,7 @@
                     <xsl:choose>
                         <!-- section has its own file -->
                         <xsl:when test="$secsplitdepth >= $curdepth">
-                            <a href="{$filename}" id="{$node.id}" name="{$node.id}" class="{$link-style}">
+                            <a href="{$filename}" id="{$node.id}" class="{$link-style}">
                                 <xsl:call-template name="toc.section.prefix">
                                     <xsl:with-param name="curdepth" select="$curdepth"/>
                                     <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
@@ -416,7 +416,7 @@
                         </xsl:when>
                         <!-- section is contained in ancestor's file -->
                         <xsl:otherwise>
-                            <a href="{$filename}#{generate-id()}" id="{$node.id}" name="{$node.id}" class="{$link-style}">
+                            <a href="{$filename}#{generate-id()}" id="{$node.id}" class="{$link-style}">
                                 <xsl:call-template name="toc.section.prefix">
                                     <xsl:with-param name="curdepth" select="$curdepth"/>
                                     <xsl:with-param name="secnumdepth" select="$secnumdepth"/>

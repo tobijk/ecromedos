@@ -141,67 +141,50 @@
     </xsl:variable>
 
     <!-- container -->
-    <table border="0" cellspacing="0" cellpadding="0" width="100%" class="block-element">
+    <figure class="block-element block-table block-table-{$alignment}">
         <xsl:if test="caption and $parent.issection = 1">
-        <tr>
-            <td align="{$alignment}">
-                <table border="0" cellspacing="0" cellpadding="0">
-                    <tr align="center">
-                        <td class="caption">
-                            <xsl:if test="$prefix != ''">
-                            <span class="caption-counter">
-                            <xsl:call-template name="i18n.print">
-                                <xsl:with-param name="key" select="'table'"/>
-                                <xsl:with-param name="number" select="$prefix"/>
-                                <xsl:with-param name="context" select="'caption'"/>
-                            </xsl:call-template>
-                            <xsl:text>: </xsl:text>
-                            </span>
-                            </xsl:if>
-                            <!-- label -->
-                            <a name="{generate-id()}" id="{generate-id()}"></a>
-                            <!-- caption -->
-                            <xsl:apply-templates select="caption"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: xx-small;">
-                            <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
+            <figcaption class="caption">
+                <xsl:if test="$prefix != ''">
+                <span class="caption-counter">
+                <xsl:call-template name="i18n.print">
+                    <xsl:with-param name="key" select="'table'"/>
+                    <xsl:with-param name="number" select="$prefix"/>
+                    <xsl:with-param name="context" select="'caption'"/>
+                </xsl:call-template>
+                <xsl:text>: </xsl:text>
+                </span>
+                </xsl:if>
+                <!-- label -->
+                <a id="{generate-id()}"></a>
+                <!-- caption -->
+                <xsl:apply-templates select="caption"/>
+            </figcaption>
         </xsl:if>
-        <tr>
-            <td align="{$alignment}">
-            <!-- table -->
-            <table border="0" cellspacing="0" cellpadding="0" class="table" style="{$style}{$width}">
-                <xsl:for-each select="th">
-                    <xsl:call-template name="table.row">
-                        <xsl:with-param name="rulewidth" select="$rulewidth"/>
-                        <xsl:with-param name="rule" select="$rule"/>
-                        <xsl:with-param name="rulecolor" select="$rulecolor"/>
-                    </xsl:call-template>
-                </xsl:for-each>
-                <xsl:for-each select="tr">
-                    <xsl:call-template name="table.row">
-                        <xsl:with-param name="rulewidth" select="$rulewidth"/>
-                        <xsl:with-param name="rule" select="$rule"/>
-                        <xsl:with-param name="rulecolor" select="$rulecolor"/>
-                    </xsl:call-template>
-                </xsl:for-each>
-                <xsl:for-each select="tf">
-                    <xsl:call-template name="table.row">
-                        <xsl:with-param name="rulewidth" select="$rulewidth"/>
-                        <xsl:with-param name="rule" select="$rule"/>
-                        <xsl:with-param name="rulecolor" select="$rulecolor"/>
-                    </xsl:call-template>
-                </xsl:for-each>
-            </table>
-            </td>
-        </tr>
-    </table>
+        <!-- table -->
+        <table class="table" style="{$style}{$width}">
+            <xsl:for-each select="th">
+                <xsl:call-template name="table.row">
+                    <xsl:with-param name="rulewidth" select="$rulewidth"/>
+                    <xsl:with-param name="rule" select="$rule"/>
+                    <xsl:with-param name="rulecolor" select="$rulecolor"/>
+                </xsl:call-template>
+            </xsl:for-each>
+            <xsl:for-each select="tr">
+                <xsl:call-template name="table.row">
+                    <xsl:with-param name="rulewidth" select="$rulewidth"/>
+                    <xsl:with-param name="rule" select="$rule"/>
+                    <xsl:with-param name="rulecolor" select="$rulecolor"/>
+                </xsl:call-template>
+            </xsl:for-each>
+            <xsl:for-each select="tf">
+                <xsl:call-template name="table.row">
+                    <xsl:with-param name="rulewidth" select="$rulewidth"/>
+                    <xsl:with-param name="rule" select="$rule"/>
+                    <xsl:with-param name="rulecolor" select="$rulecolor"/>
+                </xsl:call-template>
+            </xsl:for-each>
+        </table>
+    </figure>
 </xsl:template>
 
 <!--
@@ -231,7 +214,7 @@
     <xsl:param name="rulewidth"/>
     <xsl:param name="rulecolor"/>
 
-    <table border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;width:100%">
+    <table style="border-collapse:collapse;width:100%">
         <xsl:for-each select="tr">
             <xsl:call-template name="table.row">
                 <xsl:with-param name="rulewidth" select="$rulewidth"/>

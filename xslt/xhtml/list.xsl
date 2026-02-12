@@ -90,7 +90,7 @@
 -->
 <xsl:template match="dt">
     <dt>
-        <b><xsl:apply-templates/></b>
+        <strong><xsl:apply-templates/></strong>
     </dt>
 </xsl:template>
 

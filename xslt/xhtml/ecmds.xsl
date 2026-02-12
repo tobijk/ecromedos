@@ -69,14 +69,12 @@
     </xsl:variable>
 
     <!-- output to file index.html -->
-    <xsl:document href="index.html" method="xml" indent="no" encoding="UTF-8"
-    doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
-    doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
-    omit-xml-declaration="yes">
+    <xsl:document href="index.html" method="html" indent="no" encoding="UTF-8">
+        <xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html&gt;&#10;</xsl:text>
         <!-- page start -->
-        <html>
+        <html lang="{$global.lang.id}-{$global.lang.territory}">
             <head>
-                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+                <meta charset="UTF-8"/>
                 <meta name="generator" content="{$global.version}"/>
                 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 
@@ -86,7 +84,7 @@
                 <xsl:choose>
                     <xsl:when test="$secsplitdepth > 0">
                         <xsl:call-template name="css.stylesheet"/>
-                        <link rel="stylesheet" type="text/css" href="style.css"/>
+                        <link rel="stylesheet" href="style.css"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:call-template name="css.inline"/>

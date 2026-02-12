@@ -18,28 +18,26 @@
   - Set block equation
 -->
 <xsl:template match="equation">
-    <table border="0" cellspacing="0" cellpadding="0" class="block-element">
-        <tr>
-            <td class="eq-counter">
-                <xsl:choose>
-                    <xsl:when test="@number = 'yes'">
-                        <xsl:text>(</xsl:text>
-                        <xsl:call-template name="element.prefix">
-                            <xsl:with-param name="element" select="'equation'"/>
-                        </xsl:call-template>
-                        <xsl:text>)</xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <a name="{generate-id()}" id="{generate-id()}"></a>
-            </td>
-            <td class="eq-content">
-                <xsl:apply-templates/>
-            </td>
-        </tr>
-    </table>
+    <figure class="block-element block-equation">
+        <a id="{generate-id()}"></a>
+        <span class="eq-content">
+            <xsl:apply-templates/>
+        </span>
+        <span class="eq-counter">
+            <xsl:choose>
+                <xsl:when test="@number = 'yes'">
+                    <xsl:text>(</xsl:text>
+                    <xsl:call-template name="element.prefix">
+                        <xsl:with-param name="element" select="'equation'"/>
+                    </xsl:call-template>
+                    <xsl:text>)</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </span>
+    </figure>
 </xsl:template>
 
 <!--

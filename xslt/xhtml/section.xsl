@@ -64,7 +64,7 @@
         letter from the alphabet -->
         <xsl:if test="@name">
             <h1 class="glsection">
-                <a id="{generate-id()}" name="{generate-id()}"></a><xsl:value-of select="normalize-space(@name)"/>
+                <a id="{generate-id()}"></a><xsl:value-of select="normalize-space(@name)"/>
             </h1>
         </xsl:if>
         <!-- render content -->
@@ -153,7 +153,7 @@
     <!-- choose heading weight, depending on level -->
     <xsl:choose>
         <xsl:when test="not(title)">
-            <h1><a id="{generate-id()}" name="{generate-id()}"></a>
+            <h1><a id="{generate-id()}"></a>
                 <xsl:choose>
                     <xsl:when test="@title">
                         <xsl:value-of select="normalize-space(@title)"/>
@@ -167,19 +167,19 @@
             </h1>
         </xsl:when>
         <xsl:when test="$curdepth >= 5">
-            <h4><a name="{generate-id()}" id="{generate-id()}"></a><xsl:value-of select="$prefix"/><xsl:apply-templates select="title"/></h4>        
+            <h4><a id="{generate-id()}"></a><xsl:value-of select="$prefix"/><xsl:apply-templates select="title"/></h4>
         </xsl:when>
         <xsl:when test="$curdepth = 4">
-            <h4><a name="{generate-id()}" id="{generate-id()}"></a><xsl:value-of select="$prefix"/><xsl:apply-templates select="title"/></h4>
+            <h4><a id="{generate-id()}"></a><xsl:value-of select="$prefix"/><xsl:apply-templates select="title"/></h4>
         </xsl:when>
         <xsl:when test="$curdepth = 3">
-            <h3><a name="{generate-id()}" id="{generate-id()}"></a><xsl:value-of select="$prefix"/><xsl:apply-templates select="title"/></h3>
+            <h3><a id="{generate-id()}"></a><xsl:value-of select="$prefix"/><xsl:apply-templates select="title"/></h3>
         </xsl:when>
         <xsl:when test="$curdepth = 2">
-            <h2><a name="{generate-id()}" id="{generate-id()}"></a><xsl:value-of select="$prefix"/><xsl:apply-templates select="title"/></h2>
+            <h2><a id="{generate-id()}"></a><xsl:value-of select="$prefix"/><xsl:apply-templates select="title"/></h2>
         </xsl:when>
         <xsl:when test="$curdepth = 1">
-            <h1><a name="{generate-id()}" id="{generate-id()}"></a><xsl:value-of select="$prefix"/><xsl:apply-templates select="title"/></h1>
+            <h1><a id="{generate-id()}"></a><xsl:value-of select="$prefix"/><xsl:apply-templates select="title"/></h1>
         </xsl:when>
     </xsl:choose>
 </xsl:template>
@@ -279,20 +279,18 @@
                 <xsl:call-template name="section.file"/>
             </xsl:variable>
             <!-- output to separate file -->
-            <xsl:document href="{$filename}" method="xml" indent="no" encoding="UTF-8"
-            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
-            doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
-            omit-xml-declaration="yes">
+            <xsl:document href="{$filename}" method="html" indent="no" encoding="UTF-8">
+                <xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html&gt;&#10;</xsl:text>
                 <!-- page start -->
-                <html>
+                <html lang="{$global.lang.id}-{$global.lang.territory}">
                     <head>
-                        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+                        <meta charset="UTF-8"/>
                         <meta name="generator" content="{$global.version}"/>
                         <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 
                         <title><xsl:value-of select="//head/title"/></title>
 
-                        <link rel="stylesheet" type="text/css" href="style.css"/>
+                        <link rel="stylesheet" href="style.css"/>
                     </head>
                     <body>
 

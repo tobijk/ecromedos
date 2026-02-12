@@ -57,7 +57,7 @@
                 <xsl:value-of select="count(preceding::footnote[ancestor::*[generate-id(self::*) = $sectid]]) + 1"/>
             </xsl:variable>
             <div class="footnote">
-                <sup>(<a id="{generate-id()}" name="{generate-id()}"><xsl:value-of select="$counter"/></a>)</sup>
+                <sup>(<a id="{generate-id()}"><xsl:value-of select="$counter"/></a>)</sup>
                 <xsl:text> </xsl:text>
                 <xsl:apply-templates select="." mode="settext"/>
             </div>
@@ -71,7 +71,7 @@
   - adjusting the actual marginal with javascript.
 -->
 <xsl:template match="marginal">
-    <a id="a:{generate-id()}" name="a:{generate-id()}" class="marginal"></a>
+    <a id="a:{generate-id()}" class="marginal"></a>
 </xsl:template>
 
 <!--
@@ -91,7 +91,7 @@
     <xsl:param name="curdepth"/>
     <xsl:param name="secsplitdepth"/>
 
-    <script type="text/javascript">
+    <script>
         <xsl:comment>
             <xsl:variable name="num_marginals">
                 <xsl:choose>

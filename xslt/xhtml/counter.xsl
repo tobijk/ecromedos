@@ -11,7 +11,7 @@
   - Print value of a named counter
 -->
 <xsl:template match="counter">
-    <a name="{generate-id()}" id="{generate-id()}"></a>
+    <a id="{generate-id()}"></a>
     <xsl:call-template name="counter.prefix"/>
 </xsl:template>
 
