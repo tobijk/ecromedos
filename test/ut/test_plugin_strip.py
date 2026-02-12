@@ -21,7 +21,7 @@ class UTTestPluginStrip(unittest.TestCase):
         root = etree.fromstring(content)
 
         plugin = strip.getInstance({})
-        plugin.process(root.find("./p"), "xhtml")
+        plugin.process(root.find("./p"), "html")
         plugin.flush()
 
         tree = etree.ElementTree(element=root)
@@ -37,7 +37,7 @@ class UTTestPluginStrip(unittest.TestCase):
         root = etree.fromstring(content)
 
         plugin = strip.getInstance({})
-        plugin.process(root.find("./p"), "xhtml")
+        plugin.process(root.find("./p"), "html")
         plugin.flush()
 
         tree = etree.ElementTree(element=root)
@@ -53,7 +53,7 @@ class UTTestPluginStrip(unittest.TestCase):
         root = etree.fromstring(content)
 
         plugin = strip.getInstance({})
-        plugin.process(root.find("./p"), "xhtml")
+        plugin.process(root.find("./p"), "html")
         plugin.flush()
 
         tree = etree.ElementTree(element=root)

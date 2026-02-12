@@ -297,7 +297,7 @@
                     <body>
 
                         <!-- top navigation bar -->
-                        <xsl:call-template name="xhtml.pagehead">
+                        <xsl:call-template name="html.pagehead">
                             <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                             <xsl:with-param name="curdepth" select="$curdepth"/>
                             <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
@@ -319,7 +319,7 @@
                         </div>
 
                         <!-- bottom navigation bar -->
-                        <xsl:call-template name="xhtml.pagefoot">
+                        <xsl:call-template name="html.pagefoot">
                             <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                             <xsl:with-param name="curdepth" select="$curdepth"/>
                             <xsl:with-param name="secnumdepth" select="$secnumdepth"/>

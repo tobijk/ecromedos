@@ -68,7 +68,7 @@ class Plugin():
         elif format.endswith("latex"):
             self.LaTeX_prepareImg(node, format="pdf")
         else:
-            self.XHTML_prepareImg(node)
+            self.HTML_prepareImg(node)
         #end if
 
         return node
@@ -110,7 +110,7 @@ class Plugin():
         node.attrib["src"] = dst
     #end function
 
-    def XHTML_prepareImg(self, node):
+    def HTML_prepareImg(self, node):
         # get image src path
         src = self.__imgSrc(node)
         dst = ""

@@ -36,7 +36,7 @@ class UTTestPluginTable(unittest.TestCase):
             root.find("./tr")[col].attrib["frame"] = "colsep"
 
             plugin = table.getInstance({})
-            plugin.process(root, "xhtml")
+            plugin.process(root, "html")
             plugin.flush()
 
             tree = etree.ElementTree(element=root)
@@ -71,7 +71,7 @@ class UTTestPluginTable(unittest.TestCase):
         root = etree.fromstring(content)
 
         plugin = table.getInstance({})
-        plugin.process(root, "xhtml")
+        plugin.process(root, "html")
         plugin.flush()
 
         tree = etree.ElementTree(element=root)
@@ -105,7 +105,7 @@ class UTTestPluginTable(unittest.TestCase):
         root = etree.fromstring(content)
 
         plugin = table.getInstance({})
-        plugin.process(root, "xhtml")
+        plugin.process(root, "html")
         plugin.flush()
 
         tree = etree.ElementTree(element=root)
@@ -139,7 +139,7 @@ class UTTestPluginTable(unittest.TestCase):
         root = etree.fromstring(content)
 
         plugin = table.getInstance({})
-        plugin.process(root, "xhtml")
+        plugin.process(root, "html")
         plugin.flush()
 
         tree = etree.ElementTree(element=root)

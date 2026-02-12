@@ -69,14 +69,14 @@ class Plugin():
         if format.endswith("latex"):
             result = self.LaTeX_ProcessMath(node)
         else:
-            result = self.XHTML_ProcessMath(node)
+            result = self.HTML_ProcessMath(node)
         #end if
 
         return result
     #end function
 
     def flush(self):
-        """If target format is XHTML, generate GIFs from formulae."""
+        """If target format is HTML, generate GIFs from formulae."""
 
         # generate bitmaps of formulae
         if self.out.tell() > 0:
@@ -107,7 +107,7 @@ class Plugin():
         return math_node
     #end function
 
-    def XHTML_ProcessMath(self, node):
+    def HTML_ProcessMath(self, node):
         """Call LaTeX and ImageMagick to produce a GIF."""
 
         if self.out.tell() == 0:

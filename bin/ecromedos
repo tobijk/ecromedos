@@ -47,7 +47,7 @@ def printUsage():
     print("                       up the transformation rules.                          ")
     print(" --config, -c <file>   Use an alternative configuration file.                ")
     print(" --format, -f <format> Generate the specified output format                  ")
-    print("                       (xhtml, latex, pdflatex or xelatex).                  ")
+    print("                       (html, latex, pdflatex or xelatex).                  ")
     print(" --new, -n <doctype>   Start a new document of given doctype                 ")
     print("                       (article, book or report).                            ")
     print(" --style, -s <file>    Use an alternative style definition file.             ") 
@@ -59,7 +59,7 @@ def printUsage():
     print("                       overful horizontal boxes.                             ")
     print(" --nohyperref          Disable active links in PDF output.                   ")
     print(" --novalid             Skip validation of the document.                      ")
-    print(" --tidy                Run HTML output through tidy (xhtml only).            ")
+    print(" --tidy                Run HTML output through tidy (html only).            ")
 #end function
 
 def parseCmdLine():

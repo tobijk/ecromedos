@@ -40,7 +40,7 @@ class UTTestPluginPicture(unittest.TestCase):
             plugin = picture.getInstance(config)
 
             try:
-                plugin.process(root.find("./img"), "xhtml")
+                plugin.process(root.find("./img"), "html")
             except ECMDSPluginError as e:
                 self.assertTrue(e.msg().startswith(
                     "Could not find bitmap file at location"))
@@ -89,7 +89,7 @@ class UTTestPluginPicture(unittest.TestCase):
         os.unlink("img000001.eps")
     #end function
 
-    def test_targetXHTMLSetScreenWidth(self):
+    def test_targetHTMLSetScreenWidth(self):
         tree = etree.parse(ECMDS_TEST_DATA_DIR + os.sep + "ecromedos_png_explicit_width.xml")
         root = tree.getroot()
 
@@ -103,14 +103,14 @@ class UTTestPluginPicture(unittest.TestCase):
             }
 
             plugin = picture.getInstance(config)
-            plugin.process(root.find("./img"), "xhtml")
+            plugin.process(root.find("./img"), "html")
             plugin.flush()
         #end with
 
         os.unlink("img000001.png")
     #end function
 
-    def test_targetXHTMLIdentifyWidth(self):
+    def test_targetHTMLIdentifyWidth(self):
         tree = etree.parse(ECMDS_TEST_DATA_DIR + os.sep + "ecromedos_png.xml")
         root = tree.getroot()
 
@@ -124,14 +124,14 @@ class UTTestPluginPicture(unittest.TestCase):
             }
 
             plugin = picture.getInstance(config)
-            plugin.process(root.find("./img"), "xhtml")
+            plugin.process(root.find("./img"), "html")
             plugin.flush()
         #end with
 
         os.unlink("img000001.png")
     #end function
 
-    def test_targetXHTMLEPStoIMG(self):
+    def test_targetHTMLEPStoIMG(self):
         tree = etree.parse(ECMDS_TEST_DATA_DIR + os.sep + "ecromedos_eps.xml")
         root = tree.getroot()
 
@@ -145,7 +145,7 @@ class UTTestPluginPicture(unittest.TestCase):
             }
 
             plugin = picture.getInstance(config)
-            plugin.process(root.find("./img"), "xhtml")
+            plugin.process(root.find("./img"), "html")
             plugin.flush()
         #end with
 

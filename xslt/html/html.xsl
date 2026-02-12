@@ -13,14 +13,14 @@
 <!--
   - Filter out labels to avoid nested links.
 -->
-<xsl:template name="xhtml.section.title">
+<xsl:template name="html.section.title">
     <xsl:apply-templates select="child::*[not(name() = 'label')] | text()"/>
 </xsl:template>
 
 <!--
  - Determine the filename for the current node.
 -->
-<xsl:template name="xhtml.file">
+<xsl:template name="html.file">
     <xsl:choose>
         <xsl:when test="generate-id() = generate-id(/*[1])">
             <xsl:text>index.html</xsl:text>
@@ -54,7 +54,7 @@
 <!--
  - Print link to prev, next, ..., section
 -->
-<xsl:template name="xhtml.nav.link">
+<xsl:template name="html.nav.link">
 
     <xsl:param name="curdepth"/>
     <xsl:param name="secnumdepth"/>
@@ -63,7 +63,7 @@
 
     <!-- determine filename -->
     <xsl:variable name="filename">
-        <xsl:call-template name="xhtml.file"/>
+        <xsl:call-template name="html.file"/>
     </xsl:variable>
 
     <!-- print direction -->
@@ -97,7 +97,7 @@
                     </xsl:if>
                 </xsl:if>
                 <xsl:for-each select="title">
-                    <xsl:call-template name="xhtml.section.title"/>
+                    <xsl:call-template name="html.section.title"/>
                 </xsl:for-each>
             </xsl:when>
             <xsl:when test="@title">
@@ -115,14 +115,14 @@
 <!--
  - Load button graphic linking to prev, next, ..., section
 -->
-<xsl:template name="xhtml.nav.button">
+<xsl:template name="html.nav.button">
     <!-- prev, up, next -->
     <xsl:param name="direction"/>
     <xsl:param name="nodeid" select="''"/>
 
     <!-- determine filename -->
     <xsl:variable name="filename">
-        <xsl:call-template name="xhtml.file"/>
+        <xsl:call-template name="html.file"/>
     </xsl:variable>
 
     <!-- load button -->
@@ -134,7 +134,7 @@
 <!--
  - Prints a link to the TOC or containing section
 -->
-<xsl:template name="xhtml.pageup">
+<xsl:template name="html.pageup">
 
     <xsl:param name="curdepth"/>
     <xsl:param name="secsplitdepth"/>
@@ -156,13 +156,13 @@
     <xsl:for-each select="parent::*">
         <xsl:choose>
             <xsl:when test="$mode = 'button'">
-                <xsl:call-template name="xhtml.nav.button">
+                <xsl:call-template name="html.nav.button">
                     <xsl:with-param name="direction" select="'up'"/>
                     <xsl:with-param name="nodeid" select="$nodeid"/>
                 </xsl:call-template>
             </xsl:when>
             <xsl:when test="$mode = 'link'">
-                <xsl:call-template name="xhtml.nav.link">
+                <xsl:call-template name="html.nav.link">
                     <xsl:with-param name="curdepth" select="$curdepth - 1"/>
                     <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                     <xsl:with-param name="direction" select="'up'"/>
@@ -176,7 +176,7 @@
 <!--
  - Prints the link to the next page.
 -->
-<xsl:template name="xhtml.nextpage">
+<xsl:template name="html.nextpage">
 
     <xsl:param name="curdepth"/>
     <xsl:param name="secsplitdepth"/>
@@ -204,12 +204,12 @@
                         ][1]">
                         <xsl:choose>
                             <xsl:when test="$mode = 'button'">
-                                <xsl:call-template name="xhtml.nav.button">
+                                <xsl:call-template name="html.nav.button">
                                     <xsl:with-param name="direction" select="'next'"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="$mode = 'link'">
-                                <xsl:call-template name="xhtml.nav.link">
+                                <xsl:call-template name="html.nav.link">
                                     <xsl:with-param name="curdepth" select="$curdepth + 1"/>
                                     <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                                     <xsl:with-param name="direction" select="'next'"/>
@@ -220,7 +220,7 @@
                 </xsl:when>
                 <!-- none eligible found, look in ancestor chain for a following sibling -->
                 <xsl:otherwise>
-                    <xsl:call-template name="xhtml.firstfollowing">
+                    <xsl:call-template name="html.firstfollowing">
                         <xsl:with-param name="curdepth" select="$curdepth"/>
                         <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                         <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
@@ -231,7 +231,7 @@
         </xsl:when>
         <!-- recurse back through ancestor chain and look for a following-sibling -->
         <xsl:otherwise>
-            <xsl:call-template name="xhtml.firstfollowing">
+            <xsl:call-template name="html.firstfollowing">
                 <xsl:with-param name="curdepth" select="$curdepth"/>
                 <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                 <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
@@ -242,10 +242,10 @@
 </xsl:template>
 
 <!--
- - Helper template called by 'xhtml.nextpage' to find the first
+ - Helper template called by 'html.nextpage' to find the first
  - following sibling in the chain of ancestors.
 -->
-<xsl:template name="xhtml.firstfollowing">
+<xsl:template name="html.firstfollowing">
 
     <xsl:param name="curdepth"/>
     <xsl:param name="secnumdepth"/>
@@ -258,12 +258,12 @@
             <xsl:for-each select="following-sibling::*[not(substring(name(),1,4) = 'make')][1]">
                 <xsl:choose>
                     <xsl:when test="$mode = 'button'">
-                        <xsl:call-template name="xhtml.nav.button">
+                        <xsl:call-template name="html.nav.button">
                             <xsl:with-param name="direction" select="'next'"/>
                         </xsl:call-template>
                     </xsl:when>
                     <xsl:when test="$mode = 'link'">
-                        <xsl:call-template name="xhtml.nav.link">
+                        <xsl:call-template name="html.nav.link">
                             <xsl:with-param name="curdepth" select="$curdepth"/>
                             <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                             <xsl:with-param name="direction" select="'next'"/>
@@ -280,7 +280,7 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:for-each select="parent::*">
-                        <xsl:call-template name="xhtml.firstfollowing">
+                        <xsl:call-template name="html.firstfollowing">
                             <xsl:with-param name="curdepth" select="$curdepth - 1"/>
                             <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                             <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
@@ -294,11 +294,11 @@
 </xsl:template>
 
 <!--
- - Helper template called by 'xhtml.prevpage' to find the last child
+ - Helper template called by 'html.prevpage' to find the last child
  - of all descendants of a node where the descendants are at the level
  - of chunking.
 -->
-<xsl:template name="xhtml.lastvisiblechild">
+<xsl:template name="html.lastvisiblechild">
 
     <xsl:param name="curdepth"/>
     <xsl:param name="secsplitdepth"/>
@@ -322,7 +322,7 @@
                     name() = 'subsection' or
                     name() = 'subsubsection'
                 ][last()]">
-                <xsl:call-template name="xhtml.lastvisiblechild">
+                <xsl:call-template name="html.lastvisiblechild">
                     <xsl:with-param name="curdepth" select="$curdepth + 1"/>
                     <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                     <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
@@ -334,12 +334,12 @@
         <xsl:otherwise>
             <xsl:choose>
                 <xsl:when test="$mode = 'button'">
-                    <xsl:call-template name="xhtml.nav.button">
+                    <xsl:call-template name="html.nav.button">
                         <xsl:with-param name="direction" select="'prev'"/>
                     </xsl:call-template>
                 </xsl:when>
                 <xsl:when test="$mode = 'link'">
-                    <xsl:call-template name="xhtml.nav.link">
+                    <xsl:call-template name="html.nav.link">
                         <xsl:with-param name="curdepth" select="$curdepth"/>
                         <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                         <xsl:with-param name="direction" select="'prev'"/>
@@ -353,7 +353,7 @@
 <!--
  - Prints the link to the previous page.
 -->
-<xsl:template name="xhtml.prevpage">
+<xsl:template name="html.prevpage">
 
     <xsl:param name="curdepth"/>
     <xsl:param name="secsplitdepth"/>
@@ -391,7 +391,7 @@
                     name() = 'biblio' or
                     name() = 'index'
                 ][1]">
-                <xsl:call-template name="xhtml.lastvisiblechild">
+                <xsl:call-template name="html.lastvisiblechild">
                     <xsl:with-param name="curdepth" select="$curdepth"/>
                     <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                     <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
@@ -406,12 +406,12 @@
                     <xsl:for-each select="parent::*">
                         <xsl:choose>
                             <xsl:when test="$mode = 'button'">
-                                <xsl:call-template name="xhtml.nav.button">
+                                <xsl:call-template name="html.nav.button">
                                     <xsl:with-param name="direction" select="'prev'"/>
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:when test="$mode = 'link'">
-                                <xsl:call-template name="xhtml.nav.link">
+                                <xsl:call-template name="html.nav.link">
                                     <xsl:with-param name="curdepth" select="$curdepth - 1"/>
                                     <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                                     <xsl:with-param name="direction" select="'prev'"/>
@@ -431,7 +431,7 @@
 <!--
  - Print the page head and the navigation bar.
 -->
-<xsl:template name="xhtml.pagehead">
+<xsl:template name="html.pagehead">
 
     <xsl:param name="secsplitdepth"/>
     <xsl:param name="secnumdepth"/>
@@ -446,19 +446,19 @@
                 </div>
                 <!-- show buttons -->
                 <div class="s-span12 m-span03 l-span03 s-center m-right-align l-right-align nav-top-buttons">
-                    <xsl:call-template name="xhtml.prevpage">
+                    <xsl:call-template name="html.prevpage">
                         <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                         <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                         <xsl:with-param name="curdepth" select="$curdepth"/>
                         <xsl:with-param name="mode" select="'button'"/>
                     </xsl:call-template>
-                    <xsl:call-template name="xhtml.pageup">
+                    <xsl:call-template name="html.pageup">
                         <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                         <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                         <xsl:with-param name="curdepth" select="$curdepth"/>
                         <xsl:with-param name="mode" select="'button'"/>
                     </xsl:call-template>
-                    <xsl:call-template name="xhtml.nextpage">
+                    <xsl:call-template name="html.nextpage">
                         <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                         <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                         <xsl:with-param name="curdepth" select="$curdepth"/>
@@ -473,7 +473,7 @@
 <!--
  - Print the page foot and navigation bar.
 -->
-<xsl:template name="xhtml.pagefoot">
+<xsl:template name="html.pagefoot">
 
     <xsl:param name="secsplitdepth"/>
     <xsl:param name="secnumdepth"/>
@@ -483,7 +483,7 @@
         <div class="container">
             <div class="row">
                 <div class="s-span12 m-span04 l-span04 s-center m-left-align l-left-align">
-                    <xsl:call-template name="xhtml.prevpage">
+                    <xsl:call-template name="html.prevpage">
                         <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                         <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                         <xsl:with-param name="curdepth" select="$curdepth"/>
@@ -491,7 +491,7 @@
                     </xsl:call-template>
                 </div>
                 <div class="s-span12 m-span04 l-span04 s-center m-center l-center">
-                    <xsl:call-template name="xhtml.pageup">
+                    <xsl:call-template name="html.pageup">
                         <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                         <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                         <xsl:with-param name="curdepth" select="$curdepth"/>
@@ -499,7 +499,7 @@
                     </xsl:call-template>
                 </div>
                 <div class="s-span12 m-span04 l-span04 s-center m-right-align l-right-align">
-                    <xsl:call-template name="xhtml.nextpage">
+                    <xsl:call-template name="html.nextpage">
                         <xsl:with-param name="secsplitdepth" select="$secsplitdepth"/>
                         <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                         <xsl:with-param name="curdepth" select="$curdepth"/>

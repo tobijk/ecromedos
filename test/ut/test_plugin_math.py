@@ -35,7 +35,7 @@ class UTTestPluginMath(unittest.TestCase):
         self.assertEqual(result, expected_result)
     #end function
 
-    def test_handleMathNodeXHTML(self):
+    def test_handleMathNodeHTML(self):
         root = etree.fromstring("<root><m>Formula Here</m></root>")
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -45,7 +45,7 @@ class UTTestPluginMath(unittest.TestCase):
                 "tmp_dir":    tmpdir
             }
             plugin = math.getInstance(config)
-            plugin.process(root.find("./m"), "xhtml")
+            plugin.process(root.find("./m"), "html")
             plugin.flush()
         #end with
 

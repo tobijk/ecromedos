@@ -118,11 +118,11 @@ ecromedos -n report &gt; main.xml
             subsections.
             </p>
             <subsection>
-                <title>Producing XHTML Output</title>
+                <title>Producing HTML Output</title>
                 <p>
-                    The default output format is XHTML. You can change this by modifying the
+                    The default output format is HTML. You can change this by modifying the
                 <tt>target_format</tt> setting in <tt>ecmds.conf</tt>. In the default installation,
-                to convert a document from ECML to XHTML, you simply have to issue the following command:
+                to convert a document from ECML to HTML, you simply have to issue the following command:
                 </p>
                 <listing>
                     <code syntax="bash" strip="yes">

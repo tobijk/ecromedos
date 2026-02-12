@@ -131,7 +131,7 @@ will find learning ECML particularly easy.
 
                     The <tt><b>tocentry</b></tt> attribute, which can occur on any sectioning element,
                 may    be set to <tt>no</tt> to prevent the glossary from showing up in the table of
-                contents (TOC), when generating printable output. In XHTML output, the glossary will
+                contents (TOC), when generating printable output. In HTML output, the glossary will
                 <i>always</i> be listed in the TOC.
                 </p>
             </subsection>

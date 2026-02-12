@@ -455,7 +455,7 @@ cool skate videos.
             </p>
             <listing>
                 <code syntax="xml" strip="yes"><![CDATA[
-ecromedos supports the target formats XHTML and &latex;, where
+ecromedos supports the target formats HTML and &latex;, where
 the latter can be compiled into high-quality PostScript and PDF
 via the &tex;<footnote>More information on &tex; and &latex;
 can be found on the <i>Comprehensive &tex; Archive Network</i> at

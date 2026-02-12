@@ -18,7 +18,7 @@
         <section>
             <title>Modifying the CSS-Stylesheet</title>
             <p>
-                The central style definition for XHTML is a CSS stylesheet
+                The central style definition for HTML is a CSS stylesheet
             wrapped inside an XML container. The CSS stylesheet is generated from a number of
             SCSS stylesheets located in the <tt>style/scss</tt> subfolder in the source
             distribution. SCSS is an extended syntax of CSS that needs to be translated

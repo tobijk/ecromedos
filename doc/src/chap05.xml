@@ -452,7 +452,7 @@
                 <idxterm group="ecml"><item>img</item><subitem>screen-width</subitem></idxterm>
 
                 The attributes <tt><b>print-width</b></tt> and <tt><b>screen-width</b></tt>
-            determine the width of the image in printable output and in XHTML output, respectively.
+            determine the width of the image in printable output and in HTML output, respectively.
             For printable output this can be a value in points (pt) or centimeters (cm) or a
             percentage (%) of the overall width of the page's text area. The width for HTML
             output is specified in pixels (px).

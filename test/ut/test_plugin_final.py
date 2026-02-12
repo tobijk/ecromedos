@@ -28,7 +28,7 @@ class UTTestPluginFinal(unittest.TestCase):
         tree = etree.ElementTree(element=root)
         
         plugin = final.getInstance({})
-        plugin.process(root.find("./p"), "xhtml")
+        plugin.process(root.find("./p"), "html")
 
         result = etree.tostring(tree, encoding="utf-8", method="xml")
         self.assertEqual(result, expected_result)

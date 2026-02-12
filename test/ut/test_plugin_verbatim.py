@@ -16,7 +16,7 @@ import net.ecromedos.plugins.verbatim as verbatim
 
 class UTTestPluginText(unittest.TestCase):
 
-    def test_processVerbatimTagXHTML(self):
+    def test_processVerbatimTagHTML(self):
         content = """
 <root>
     <verbatim><![CDATA[
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
         root = etree.fromstring(content)
 
         plugin = verbatim.getInstance({})
-        plugin.process(root.find('./verbatim'), "xhtml")
+        plugin.process(root.find('./verbatim'), "html")
         plugin.flush()
 
         tree = etree.ElementTree(element=root)

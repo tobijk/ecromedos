@@ -25,7 +25,7 @@ class UTTestPluginData(unittest.TestCase):
         tree = etree.ElementTree(element=root)
 
         plugin = data.getInstance({"data_dir": ECMDS_INSTALL_DIR + os.sep + "data"})
-        plugin.process(root, "xhtml")
+        plugin.process(root, "html")
         plugin.flush()
 
         all_files_found = True

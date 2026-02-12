@@ -55,13 +55,13 @@ class UTTestPluginGlossary(unittest.TestCase):
 
         for term in defterms:
             defterm_node = etree.fromstring(term)
-            plugin.process(defterm_node, "xhtml")
+            plugin.process(defterm_node, "html")
         #end for
 
         glossary_node = etree.fromstring('''<make-glossary
                 alphabet="[S y m b o l e],A,B,C,G,Z"
                 locale="de_DE.UTF-8"/>''')
-        plugin.process(glossary_node, "xhtml")
+        plugin.process(glossary_node, "html")
 
         tree = etree.ElementTree(element=glossary_node)
         result = etree.tostring(tree, pretty_print=True, encoding="unicode")

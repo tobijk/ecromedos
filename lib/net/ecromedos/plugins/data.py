@@ -36,7 +36,7 @@ class Plugin():
     def process(self, node, format):
         """Prepare node for target format."""
 
-        if format == "xhtml" and node.attrib.get("secsplitdepth", '0') != '0':
+        if format == "html" and node.attrib.get("secsplitdepth", '0') != '0':
             self.__filelist = ["next.gif", "prev.gif", "up.gif"]
         #end if
 

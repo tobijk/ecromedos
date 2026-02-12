@@ -19,7 +19,7 @@
 <xsl:include href="keys.xsl"/>
 <xsl:include href="entities.xsl"/>
 <xsl:include href="utility.xsl"/>
-<xsl:include href="xhtml.xsl"/>
+<xsl:include href="html.xsl"/>
 <xsl:include href="annotation.xsl"/>
 <xsl:include href="figure.xsl"/>
 <xsl:include href="equation.xsl"/>

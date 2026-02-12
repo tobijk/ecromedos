@@ -45,7 +45,7 @@ class ECMDSConfigReader():
 
         # some hard-coded defaults
         config = {
-            "target_format" : "xhtml",
+            "target_format" : "html",
             "do_validate"   : True
         }
 

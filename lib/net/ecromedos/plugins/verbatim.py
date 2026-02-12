@@ -27,7 +27,7 @@ class Plugin():
         if format.endswith("latex"):
             self.verbatimString = self.LaTeX_verbatimString
         else:
-            self.verbatimString = self.XHTML_verbatimString
+            self.verbatimString = self.HTML_verbatimString
         #end if
 
         for child in node.iter():
@@ -46,7 +46,7 @@ class Plugin():
         pass
     #end function
 
-    def XHTML_verbatimString(self, string, tab_spaces):
+    def HTML_verbatimString(self, string, tab_spaces):
         """Replaces tabs with spaces."""
 
         frame_start = 0

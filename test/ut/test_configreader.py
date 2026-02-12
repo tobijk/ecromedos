@@ -43,7 +43,7 @@ class UTTestConfigReader(unittest.TestCase):
             'lib_dir': ECMDS_INSTALL_DIR + '/lib',
             'plugin_dir': ECMDS_INSTALL_DIR + '/lib/net/ecromedos/plugins',
             'style_dir': ECMDS_INSTALL_DIR + '/xslt',
-            'target_format': 'xhtml',
+            'target_format': 'html',
             'pygments_default_colorscheme': 'default'
         }
 

@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
         tree = etree.ElementTree(element=root)
 
         plugin = highlight.getInstance({})
-        plugin.process(root.find("./code"), "xhtml")
+        plugin.process(root.find("./code"), "html")
 
         result = etree.tostring(tree, encoding="utf-8", method="xml")
 

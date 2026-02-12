@@ -201,7 +201,7 @@ class ECMLProcessor(ECMDSConfigReader, ECMDSDTDResolver, ECMDSPreprocessor):
 
         # tidy output
         if self.config.get('do_tidy') and \
-                self.config.get('target_format') == 'xhtml':
+                self.config.get('target_format') == 'html':
             message("Tidying HTML output...", verbose)
             self.tidyOutput()
             status("DONE", verbose)

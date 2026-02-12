@@ -91,13 +91,13 @@ class UTTestPluginIndex(unittest.TestCase):
 
         for term in idxterms:
             idxterm_root = etree.fromstring(term)
-            plugin.process(idxterm_root.find("./idxterm"), "xhtml")
+            plugin.process(idxterm_root.find("./idxterm"), "html")
         #end for
 
         index_node = etree.fromstring('''<make-index
                 alphabet="[S y m b o l e],A,B,C,G,Z"
                 locale="de_DE.UTF-8"/>''')
-        plugin.process(index_node, "xhtml")
+        plugin.process(index_node, "html")
 
         tree = etree.ElementTree(element=index_node)
         result = etree.tostring(tree, pretty_print=True, encoding="unicode")
