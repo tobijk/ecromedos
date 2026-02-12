@@ -190,7 +190,7 @@ class Plugin():
 
     def __resetLocale(self):
         """Resets LC_COLLATE to its default."""
-        locale.resetlocale(locale.LC_COLLATE)
+        locale.setlocale(locale.LC_COLLATE, "")
     #end function
 
     def __sortIndex(self, index, level="item", config=None):

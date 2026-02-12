@@ -14,7 +14,7 @@ do_build() {
         cd spool
         for i in `seq 1 3`
         do
-            xelatex main.tex
+            xelatex -interaction=nonstopmode main.tex
         done
     )
 
