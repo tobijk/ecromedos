@@ -47,7 +47,7 @@ class UTTestPluginPicture(unittest.TestCase):
         #end with
     #end function
 
-    def test_targetPDFLatexEPStoPDF(self):
+    def test_targetLuaLatexEPStoPDF(self):
         tree = etree.parse(ECMDS_TEST_DATA_DIR + os.sep + "ecromedos_eps.xml")
         root = tree.getroot()
 
@@ -61,14 +61,14 @@ class UTTestPluginPicture(unittest.TestCase):
             }
 
             plugin = picture.getInstance(config)
-            plugin.process(root.find("./img"), "pdflatex")
+            plugin.process(root.find("./img"), "lualatex")
             plugin.flush()
         #end with
 
         os.unlink("img000001.pdf")
     #end function
 
-    def test_targetLatexIMGtoEPS(self):
+    def test_targetLuaLatexIMGtoPDF(self):
         tree = etree.parse(ECMDS_TEST_DATA_DIR + os.sep + "ecromedos_png.xml")
         root = tree.getroot()
 
@@ -82,11 +82,11 @@ class UTTestPluginPicture(unittest.TestCase):
             }
 
             plugin = picture.getInstance(config)
-            plugin.process(root.find("./img"), "latex")
+            plugin.process(root.find("./img"), "lualatex")
             plugin.flush()
         #end with
 
-        os.unlink("img000001.eps")
+        os.unlink("img000001.pdf")
     #end function
 
     def test_targetHTMLSetScreenWidth(self):

@@ -12,19 +12,37 @@
 <xsl:param name="global.entities" select="document('entities.xml')"/>
 
 <xsl:template name="latex.preamble.encoding">
-    <!-- XeTeX understands unicode, so nothing to do here -->
+    <!-- LuaTeX is Unicode-native, no inputenc/fontenc needed -->
 </xsl:template>
 
 <xsl:template name="latex.preamble.fonts">
     <xsl:text>\usepackage{fontspec}&#x0a;</xsl:text>
     <xsl:text>\usepackage{pifont}&#x0a;</xsl:text>
-    <!-- Computer Modern Unicode fonts are loaded, when available. If
-    you wish to use specific system fonts, take a look at the "fontspec"
+    <!-- Latin Modern OpenType fonts are loaded by default via fontspec.
+    If you wish to use specific system fonts, take a look at the "fontspec"
     package documentation -->
 </xsl:template>
 
 <xsl:template name="latex.preamble.misc">
 
+    <xsl:text>% Full microtype support&#x0a;</xsl:text>
+    <xsl:text>\usepackage[final]{microtype}&#x0a;&#x0a;</xsl:text>
+
+    <xsl:text>% Emoji support via luaotfload font fallback&#x0a;</xsl:text>
+    <xsl:text>\directlua{&#x0a;</xsl:text>
+    <xsl:text>  local ok, _ = pcall(function()&#x0a;</xsl:text>
+    <xsl:text>    luaotfload.add_fallback("emojifallback", {&#x0a;</xsl:text>
+    <xsl:text>      "NotoColorEmoji:mode=harf;"&#x0a;</xsl:text>
+    <xsl:text>    })&#x0a;</xsl:text>
+    <xsl:text>  end)&#x0a;</xsl:text>
+    <xsl:text>  if ok then&#x0a;</xsl:text>
+    <xsl:text>    tex.print("\\setmainfont{Latin Modern Roman}[RawFeature={fallback=emojifallback}]")&#x0a;</xsl:text>
+    <xsl:text>    tex.print("\\setsansfont{Latin Modern Sans}[RawFeature={fallback=emojifallback}]")&#x0a;</xsl:text>
+    <xsl:text>    tex.print("\\setmonofont{Latin Modern Mono}[RawFeature={fallback=emojifallback}]")&#x0a;</xsl:text>
+    <xsl:text>  end&#x0a;</xsl:text>
+    <xsl:text>}&#x0a;&#x0a;</xsl:text>
+
+    <xsl:text>% Redefine \em for proper nesting with fontspec&#x0a;</xsl:text>
     <xsl:text>\DeclareRobustCommand\em&#x0a;</xsl:text>
     <xsl:text>  {\@nomath\em&#x0a;</xsl:text>
     <xsl:text>   \edef\@tempa{\f@shape}%&#x0a;</xsl:text>
@@ -38,7 +56,7 @@
     <xsl:text>\let\emshape\itshape&#x0a;</xsl:text>
     <xsl:text>\let\eminnershape\upshape&#x0a;&#x0a;</xsl:text>
 
-    <xsl:text>&#x0a;</xsl:text>
+    <xsl:text>% TeX/LaTeX/LuaTeX/LuaLaTeX logo macros&#x0a;</xsl:text>
     <xsl:text>\makeatletter&#x0a;</xsl:text>
     <xsl:text>\newlength\xxt@kern@Te&#x0a;</xsl:text>
     <xsl:text>\newlength\xxt@kern@eX&#x0a;</xsl:text>
@@ -73,51 +91,11 @@
     <xsl:text>  }%&#x0a;</xsl:text>
     <xsl:text>  \kern\xxt@kern@aT&#x0a;</xsl:text>
     <xsl:text>  \TeX}}&#x0a;</xsl:text>
-    <xsl:text>\DeclareRobustCommand\XeTeX{%&#x0a;</xsl:text>
-    <xsl:text>  \leavevmode&#x0a;</xsl:text>
-    <xsl:text>  \smash{%&#x0a;</xsl:text>
-    <xsl:text>   X\lower\xxt@lower@e&#x0a;</xsl:text>
-    <xsl:text>   \hbox{\kern\xxt@kern@eX&#x0a;</xsl:text>
-    <xsl:text>     \ifnum\XeTeXfonttype\font>0&#x0a;</xsl:text>
-    <xsl:text>       \ifnum\XeTeXcharglyph"018E>0&#x0a;</xsl:text>
-    <xsl:text>         \char"018E\relax&#x0a;</xsl:text>
-    <xsl:text>       \else&#x0a;</xsl:text>
-    <xsl:text>         \ifdim\fontdimen1\font=0pt&#x0a;</xsl:text>
-    <xsl:text>           \reflectbox{E}%&#x0a;</xsl:text>
-    <xsl:text>         \else&#x0a;</xsl:text>
-    <xsl:text>           \XeTeXuseglyphmetrics=1%&#x0a;</xsl:text>
-    <xsl:text>           \setbox0=\hbox{E}\dimen0=\ht0\advance\dimen0by\dp0%&#x0a;</xsl:text>
-    <xsl:text>           \raise\dimen0\hbox{\rotatebox{180}{\box0}}%&#x0a;</xsl:text>
-    <xsl:text>         \fi&#x0a;</xsl:text>
-    <xsl:text>       \fi&#x0a;</xsl:text>
-    <xsl:text>     \else&#x0a;</xsl:text>
-    <xsl:text>       \setbox0=\hbox{E}\dimen0=\ht0\advance\dimen0by\dp0%&#x0a;</xsl:text>
-    <xsl:text>       \raise\dimen0\hbox{\rotatebox{180}{\box0}}%&#x0a;</xsl:text>
-    <xsl:text>     \fi&#x0a;</xsl:text>
-    <xsl:text>   }\kern\xxt@kern@Te\TeX}}%&#x0a;</xsl:text>
-    <xsl:text>\DeclareRobustCommand\XeLaTeX{%&#x0a;</xsl:text>
-    <xsl:text>   \leavevmode&#x0a;</xsl:text>
-    <xsl:text>   \smash{%&#x0a;</xsl:text>
-    <xsl:text>    X\lower\xxt@lower@e&#x0a;</xsl:text>
-    <xsl:text>    \hbox{\kern\xxt@kern@eX&#x0a;</xsl:text>
-    <xsl:text>      \ifnum\XeTeXfonttype\font>0\relax&#x0a;</xsl:text>
-    <xsl:text>        \ifnum\XeTeXcharglyph"018E>0\relax&#x0a;</xsl:text>
-    <xsl:text>          \char"018E\relax&#x0a;</xsl:text>
-    <xsl:text>        \else&#x0a;</xsl:text>
-    <xsl:text>          \ifdim\fontdimen1\font=0pt\relax&#x0a;</xsl:text>
-    <xsl:text>            \reflectbox{E}%&#x0a;</xsl:text>
-    <xsl:text>          \else&#x0a;</xsl:text>
-    <xsl:text>            \XeTeXuseglyphmetrics=1\relax&#x0a;</xsl:text>
-    <xsl:text>            \setbox0=\hbox{E}\dimen0=\ht0\advance\dimen0by\dp0\relax&#x0a;</xsl:text>
-    <xsl:text>            \raise\dimen0\hbox{\rotatebox{180}{\box0}}%&#x0a;</xsl:text>
-    <xsl:text>          \fi&#x0a;</xsl:text>
-    <xsl:text>        \fi&#x0a;</xsl:text>
-    <xsl:text>      \else&#x0a;</xsl:text>
-    <xsl:text>        \setbox0=\hbox{E}\dimen0=\ht0\advance\dimen0by\dp0\relax&#x0a;</xsl:text>
-    <xsl:text>        \raise\dimen0\hbox{\rotatebox{180}{\box0}}%&#x0a;</xsl:text>
-    <xsl:text>      \fi}\kern\xxt@kern@eL\LaTeX}}&#x0a;</xsl:text>
+    <xsl:text>\DeclareRobustCommand\LuaTeX{Lua\TeX}&#x0a;</xsl:text>
+    <xsl:text>\DeclareRobustCommand\LuaLaTeX{Lua\LaTeX}&#x0a;</xsl:text>
     <xsl:text>\TeX@logo@spacing{-0.15em}{-0.15em}{0.5ex}{-0.36em}{-0.15em}{-0.1em}&#x0a;</xsl:text>
     <xsl:text>\makeatother&#x0a;&#x0a;</xsl:text>
+
 </xsl:template>
 
 </xsl:stylesheet>

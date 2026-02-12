@@ -7,14 +7,14 @@ do_clean() {
 do_build() {
     mkdir -p html pdf spool
 
-    (cd html  && ../../bin/ecromedos --tidy -f html   ../src/manual.xml)
-    (cd spool && ../../bin/ecromedos -f xelatex ../src/manual.xml)
+    (cd html  && ../../bin/ecromedos --tidy -f html     ../src/manual.xml)
+    (cd spool && ../../bin/ecromedos        -f lualatex ../src/manual.xml)
 
     (
         cd spool
         for i in `seq 1 3`
         do
-            xelatex -interaction=nonstopmode main.tex
+            lualatex -interaction=nonstopmode main.tex
         done
     )
 

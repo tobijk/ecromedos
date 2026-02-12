@@ -47,7 +47,7 @@ def printUsage():
     print("                       up the transformation rules.                          ")
     print(" --config, -c <file>   Use an alternative configuration file.                ")
     print(" --format, -f <format> Generate the specified output format                  ")
-    print("                       (html, latex, pdflatex or xelatex).                  ")
+    print("                       (html or lualatex).                                  ")
     print(" --new, -n <doctype>   Start a new document of given doctype                 ")
     print("                       (article, book or report).                            ")
     print(" --style, -s <file>    Use an alternative style definition file.             ") 

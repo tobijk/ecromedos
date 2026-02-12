@@ -9,8 +9,10 @@
 
     <value key="tex">\TeX{}</value>
     <value key="latex">\LaTeX{}</value>
-    <value key="xetex">\XeTeX{}</value>
-    <value key="xelatex">\XeLaTeX{}</value>
+    <value key="xetex">Xe\TeX{}</value>
+    <value key="xelatex">Xe\LaTeX{}</value>
+    <value key="luatex">\LuaTeX{}</value>
+    <value key="lualatex">\LuaLaTeX{}</value>
     <value key="nbsp">&#x00a0;</value>
     <value key="zwsp">\hspace{0pt}</value>
     <value key="endash">&#x2013;</value>

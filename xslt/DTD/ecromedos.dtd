@@ -11,10 +11,12 @@
 <!-- ====================================================================== -->
 <!-- ====================================================================== -->
 
-<!ENTITY tex     "<entity name='tex'/>"   >
-<!ENTITY latex   "<entity name='latex'/>" >
-<!ENTITY xetex   "<entity name='xetex'/>" >
-<!ENTITY xelatex "<entity name='xelatex'/>" >
+<!ENTITY tex      "<entity name='tex'/>"      >
+<!ENTITY latex    "<entity name='latex'/>"    >
+<!ENTITY xetex    "<entity name='xetex'/>"    >
+<!ENTITY xelatex  "<entity name='xelatex'/>"  >
+<!ENTITY luatex   "<entity name='luatex'/>"   >
+<!ENTITY lualatex "<entity name='lualatex'/>" >
 <!ENTITY nbsp    "<entity name='nbsp'/>"  >
 <!ENTITY zwsp    "<entity name='zwsp'/>"  >
 <!ENTITY endash  "<entity name='endash'/>">

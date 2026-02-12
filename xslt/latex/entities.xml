@@ -11,6 +11,8 @@
     <value key="latex">\LaTeX{}</value>
     <value key="xetex">Xe\TeX{}</value>
     <value key="xelatex">Xe\LaTeX{}</value>
+    <value key="luatex">Lua\TeX{}</value>
+    <value key="lualatex">Lua\LaTeX{}</value>
     <value key="nbsp">~</value>
     <value key="zwsp">\hspace{0pt}</value>
     <value key="endash">--</value>

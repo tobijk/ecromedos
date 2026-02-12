@@ -6,7 +6,7 @@
 # URL:     http://www.ecromedos.net
 #
 
-import os, shutil, re, subprocess, tempfile
+import os, shutil, re, subprocess
 import lxml.etree as etree
 from net.ecromedos.error import ECMDSPluginError
 
@@ -49,9 +49,6 @@ class Plugin():
             raise ECMDSPluginError(msg, "picture")
         #end if
 
-        # temporary directory
-        self.tmp_dir = config['tmp_dir']
-
         # conversion dpi
         try:
             self.convert_dpi = config['convert_dpi']
@@ -63,9 +60,7 @@ class Plugin():
     def process(self, node, format):
         """Prepare @node for target @format."""
 
-        if format == "latex":
-            self.LaTeX_prepareImg(node)
-        elif format.endswith("latex"):
+        if format.endswith("latex"):
             self.LaTeX_prepareImg(node, format="pdf")
         else:
             self.HTML_prepareImg(node)
@@ -81,11 +76,11 @@ class Plugin():
         self.imgwidth = {}
     #end function
 
-    def LaTeX_prepareImg(self, node, format="eps"):
+    def LaTeX_prepareImg(self, node, format="pdf"):
         # get image src path
         src = self.__imgSrc(node)
         dst = ""
-        
+
         # check if we used this image before
         try:
             dst = self.imgmap[src][0]
@@ -94,11 +89,7 @@ class Plugin():
             self.counter += 1
 
             if not src.endswith(format):
-                if src.endswith(".eps") and format == "pdf":
-                    self.__eps2pdf(src, dst)
-                else:
-                    self.__convertImg(src, dst)
-                #end if
+                self.__convertImg(src, dst)
             else:
                 shutil.copyfile(src, dst)
             #end if
@@ -213,57 +204,6 @@ class Plugin():
             msg = "Could not convert graphics file '%s'." % src
             raise ECMDSPluginError(msg, "picture")
         #end if
-    #end function
-
-    def __eps2pdf(self, src, dst):
-        # determine extension
-        ext = '.' + src.strip().split('.')[-1]
-
-        # look for bounding box
-        rexpr = re.compile(r"(^%%BoundingBox:)\s+([0-9]+)\s+([0-9]+)\s+([0-9]+)\s+([0-9]+)")
-
-        infile  = None
-        outfile = None
-
-        try:
-            # open source file and temporary output
-            infile = open(src, "r", encoding="utf-8")
-            tmpfd, tmpname = tempfile.mkstemp(suffix=".eps", dir=self.tmp_dir)
-            outfile = os.fdopen(tmpfd, "w", encoding="utf-8")
-
-            # Look for bounding box and adjust
-            done = False
-            for line in infile:
-                m = rexpr.match(line)
-
-                if not done and m:
-                    llx = int(m.group(2))
-                    lly = int(m.group(3))
-                    urx = int(m.group(4))
-                    ury = int(m.group(5))
-                    width, height = (urx - llx, ury - lly)
-                    xoff, yoff = (-llx, -lly)
-                    outfile.write("%%%%BoundingBox: 0 0 %d %d\n" % (width, height))
-                    outfile.write("<< /PageSize [%d %d] >> setpagedevice\n" % (width, height))
-                    outfile.write("gsave %d %d translate\n" % (xoff, yoff));
-                    done = True
-                else:
-                    outfile.write(line)
-                #end if
-            #end for
-
-            self.__convertImg(tmpname, dst)
-        except IOError:
-            msg = "Could not convert EPS file '%s'" % src
-            raise ECMDSPluginError(msg, "picture")
-        finally:
-            try:
-                infile.close()
-            except: pass
-            try:
-                outfile.close()
-            except: pass
-        #end try
     #end function
 
     def __identifyWidth(self, src):
