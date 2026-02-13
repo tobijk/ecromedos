@@ -108,6 +108,148 @@ ecromedos -n report &gt; main.xml
                 in chapter <ref idref="sect:writingdocuments"/>.
                 </p>
             </subsection>
+            <subsection>
+                <title><label id="sect:markdown"/>Using Markdown</title>
+                <p>
+                    As an alternative to writing documents in the ecromedos Markup Language,
+                you can also write your content in Markdown. The <tt>md2ecml</tt> command
+                converts a Markdown source file to ECML, which can then be processed with
+                ecromedos as usual. For example, to convert a Markdown file to an ECML
+                article:
+                </p>
+                <listing>
+                    <code syntax="bash" strip="yes">
+md2ecml --doctype article source.md &gt; main.xml
+                    </code>
+                </listing>
+                <p>
+                    The output is written to standard output, so you can redirect it to a
+                file. Once you have the ECML file, you can transform it to any supported
+                output format as described in the following sections.
+                </p>
+                <p>
+                    If you prefer to go directly from Markdown to the final output, you can
+                combine the two steps in one go:
+                </p>
+                <listing>
+                    <code syntax="bash" strip="yes">
+md2ecml --doctype article source.md | ecromedos -f html -
+                    </code>
+                </listing>
+                <p>
+                    Instead of passing options on the command line, you can place a preamble
+                at the top of your Markdown file. The preamble is delimited by lines of
+                dashes and uses a <tt>key: value</tt> format. Here is an example:
+                </p>
+                <listing>
+                    <code syntax="text" strip="yes"><![CDATA[
+---
+
+subject: My Subject
+title: My Document Title
+author: Jane Doe
+date: 14 February 2026
+publisher: Example Publishing
+
+document-type: article
+lang: en_US
+papersize: a4
+parskip: half
+secnumdepth: 5
+secsplitdepth: 1
+tocdepth: 5
+have-lof: no
+have-lot: no
+have-lol: no
+
+---
+
+# First Section
+
+Your content starts here...
+                    ]]></code>
+                </listing>
+                <p>
+                    The preamble supports the following metadata fields:
+                </p>
+                <dl>
+                    <dt>subject</dt>
+                    <dd>The subject line of the document.</dd>
+                    <dt>title</dt>
+                    <dd>The document title.</dd>
+                    <dt>subtitle</dt>
+                    <dd>An optional subtitle.</dd>
+                    <dt>author</dt>
+                    <dd>The document author. This field can be repeated to
+                    specify multiple authors.</dd>
+                    <dt>date</dt>
+                    <dd>The publication date.</dd>
+                    <dt>publisher</dt>
+                    <dd>The publisher name.</dd>
+                    <dt>dedication</dt>
+                    <dd>An optional dedication.</dd>
+                    <dt>legal</dt>
+                    <dd>Optional legal text (e.g. copyright notice). This field
+                    may span multiple lines.</dd>
+                </dl>
+                <p>
+                    The following layout settings can also be specified in the preamble.
+                Values given on the command line take precedence over the preamble.
+                </p>
+                <dl>
+                    <dt>document-type</dt>
+                    <dd>
+                        Document class, one of <tt>article</tt>, <tt>report</tt>
+                    (default) or <tt>book</tt>.
+                    </dd>
+                    <dt>lang</dt>
+                    <dd>
+                        Document language (default: <tt>en_US</tt>).
+                    </dd>
+                    <dt>papersize</dt>
+                    <dd>
+                        Paper type, e.g. <tt>a4</tt> (default), <tt>letter</tt>,
+                    <tt>legal</tt>.
+                    </dd>
+                    <dt>parskip</dt>
+                    <dd>
+                        Paragraph skip, one of <tt>half</tt> (default), <tt>full</tt>
+                    or <tt>off</tt>.
+                    </dd>
+                    <dt>secnumdepth</dt>
+                    <dd>
+                        Number headings down to this section level (default: <tt>2</tt>).
+                    </dd>
+                    <dt>secsplitdepth</dt>
+                    <dd>
+                        Chunk the document to this section level (default: <tt>1</tt>).
+                    </dd>
+                    <dt>tocdepth</dt>
+                    <dd>
+                        Depth of the table of contents (default: <tt>5</tt>).
+                    </dd>
+                    <dt>bcor</dt>
+                    <dd>
+                        Binding correction (default: <tt>0cm</tt>).
+                    </dd>
+                    <dt>div</dt>
+                    <dd>
+                        Page grid resolution (default: <tt>16</tt>).
+                    </dd>
+                    <dt>have-lof, have-lot, have-lol</dt>
+                    <dd>
+                        Include list of figures, tables or listings in the table
+                    of contents, respectively. Set to <tt>yes</tt> or <tt>no</tt>
+                    (default).
+                    </dd>
+                </dl>
+                <p>
+                    The <tt>md2ecml</tt> command also accepts these layout settings as
+                command line options (e.g. <tt>--doctype</tt>, <tt>--lang</tt>,
+                <tt>--papersize</tt>). Command line options override values set in
+                the preamble. Run <tt>md2ecml --help</tt> for a full list of options.
+                </p>
+            </subsection>
         </section>
         <section>
             <title>Transforming Documents</title>
