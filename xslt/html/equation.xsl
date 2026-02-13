@@ -8,7 +8,8 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <!--
-  - Set an inline math node (this is never called)
+  - Set an inline math node. The math plugin replaces <m> with <copy>
+  - containing KaTeX-delimited text before XSLT runs.
 -->
 <xsl:template match="m">
     <xsl:value-of select="."/>

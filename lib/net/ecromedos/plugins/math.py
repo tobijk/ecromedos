@@ -6,7 +6,7 @@
 # URL:     http://www.ecromedos.net
 #
 
-import os, lxml, io, re, subprocess, tempfile
+import os, shutil
 import lxml.etree as etree
 from net.ecromedos.error import ECMDSPluginError
 
@@ -18,49 +18,9 @@ def getInstance(config):
 class Plugin():
 
     def __init__(self, config):
-        # init counter
-        self.counter = 1
-        self.nodelist = []
-
-        # look for latex executable
-        try:
-            self.latex_bin = config['latex_bin']
-        except KeyError:
-            msg = "Location of the 'latex' executable unspecified."
-            raise ECMDSPluginError(msg, "math")
-        #end try
-
-        if not os.path.isfile(self.latex_bin):
-            msg = "Could not find latex executable '%s'." % (self.latex_bin,)
-            raise ECMDSPluginError(msg, "math")
-        #end if
-
-        # look for conversion tool
-        try:
-            self.dvipng_bin = ""
-            self.dvipng_bin = config['dvipng_bin']
-        except KeyError:
-            msg  = "Location of the 'dvipng' executable unspecified."
-            raise ECMDSPluginError(msg, "math")
-        #end try
-
-        if not os.path.isfile(self.dvipng_bin):
-            msg = "Could not find 'dvipng' executable '%s'." % (self.dvipng_bin,)
-            raise ECMDSPluginError(msg, "math")
-        #end if
-
-        # temporary directory
-        self.tmp_dir = config['tmp_dir']
-
-        # conversion dpi
-        try:
-            self.dvipng_dpi = config['dvipng_dpi']
-        except KeyError:
-            self.dvipng_dpi = "100"
-        #end try
-
-        # output document
-        self.out = io.StringIO()
+        self.target_format = config.get('target_format', 'html')
+        self.data_dir = config.get('data_dir', '')
+        self.has_math = False
     #end function
 
     def process(self, node, format):
@@ -76,19 +36,13 @@ class Plugin():
     #end function
 
     def flush(self):
-        """If target format is HTML, generate GIFs from formulae."""
+        """Copy KaTeX files to output directory for HTML."""
 
-        # generate bitmaps of formulae
-        if self.out.tell() > 0:
-            self.out.write("\\end{document}\n")
-            self.__LaTeX2Dvi2Gif()
-            self.out.close()
-            self.out = io.StringIO()
+        if self.has_math and not self.target_format.endswith("latex"):
+            self.__copyKaTeXFiles()
         #end if
 
-        #reset counter
-        self.counter = 1
-        self.nodelist = []
+        self.has_math = False
     #end function
 
     def LaTeX_ProcessMath(self, node):
@@ -108,126 +62,49 @@ class Plugin():
     #end function
 
     def HTML_ProcessMath(self, node):
-        """Call LaTeX and ImageMagick to produce a GIF."""
+        """Wrap formula in KaTeX delimiters for client-side rendering."""
 
-        if self.out.tell() == 0:
-            self.out.write("""\
-\\documentclass[12pt]{scrartcl}\\usepackage{courier}
-\\usepackage{courier}
-\\usepackage{helvet}
-\\usepackage{mathpazo}
-\\usepackage{amsmath}
-\\usepackage[active,displaymath,textmath]{preview}
-\\frenchspacing{}
-\\usepackage{ucs}
-\\usepackage[utf8x]{inputenc}
-\\usepackage[T1]{autofe}
-\\PrerenderUnicode{äöüß}
-\\pagestyle{empty}
-\\begin{document}""")
+        if not self.has_math:
+            self.has_math = True
+            root = node.getroottree().getroot()
+            root.attrib["katex"] = "yes"
         #end if
 
-        # save TeX markup
-        #formula = etree.tostring(node, method="text", encoding="unicode")
+        formula = node.text or ""
+        parent = node.getparent()
+        is_block = (parent is not None and parent.tag == "equation")
 
-        # give each formula one page
-        self.out.write("$%s$\n\\clearpage{}\n" % node.text)
+        if is_block:
+            delimited = "\\[" + formula + "\\]"
+        else:
+            delimited = "\\(" + formula + "\\)"
+        #end if
 
         copy_node = etree.Element("copy")
-        img_node  = etree.Element("img")
-
-        img_node.attrib["src"]   = "m%06d.gif" % (self.counter,)
-        img_node.attrib["alt"]   = "formula"
-        img_node.attrib["class"] = "math"
-
+        copy_node.text = delimited
         copy_node.tail = node.tail
-        copy_node.append(img_node)
-        copy_node.tail = node.tail
-        node.getparent().replace(node, copy_node)
-
-        # keep track of images for flush
-        self.nodelist.append(img_node)
-        self.counter += 1
+        parent.replace(node, copy_node)
 
         return copy_node
     #end function
 
     # PRIVATE
 
-    def __LaTeX2Dvi2Gif(self):
-        """Write formulae to LaTeX file, compile and extract images."""
+    def __copyKaTeXFiles(self):
+        """Copy bundled KaTeX files to output directory."""
 
-        # open a temporary file for TeX output
-        tmpfp, tmpname = tempfile.mkstemp(suffix=".tex", dir=self.tmp_dir)
+        katex_src = os.path.join(self.data_dir, "katex")
+        katex_dst = "katex"
 
-        try:
-            with os.fdopen(tmpfp, "w", encoding="utf-8") as texfile:
-                texfile.write(self.out.getvalue())
-        except IOError:
-            msg = "Error while writing temporary TeX file."
-            raise ECMDSPluginError(msg, "math")
-        #end try
+        if not os.path.isdir(katex_src):
+            return
+        #end if
 
-        # compile LaTeX file
-        with open(os.devnull, "wb") as devnull:
-            cmd = [self.latex_bin, "-interaction", "nonstopmode", tmpname]
+        if os.path.isdir(katex_dst):
+            shutil.rmtree(katex_dst)
+        #end if
 
-            # run LaTeX twice
-            for i in range(2):
-                proc = subprocess.Popen(cmd, stdout=devnull, stderr=devnull,
-                        cwd=self.tmp_dir)
-                rval = proc.wait()
-
-                # test exit code
-                if rval != 0:
-                    msg = "Could not compile temporary TeX file."
-                    raise ECMDSPluginError(msg, "math")
-                #end if
-            #end if
-        #end with
-
-        # determine dvi file name
-        dvifile = self.tmp_dir + os.sep + \
-            ''.join(tmpname.split(os.sep)[-1].split('.')[:-1]) + ".dvi"
-
-        # we need to log the output
-        logfp, logname = tempfile.mkstemp(suffix=".log", dir=self.tmp_dir)
-
-        # convert dvi file to GIF image
-        with os.fdopen(logfp, "w", encoding="utf-8") as dvilog:
-            cmd = [self.dvipng_bin, "-D", self.dvipng_dpi, "--depth",
-                    "-gif", "-T", "tight", "-o", "m%06d.gif", dvifile]
-
-            proc = subprocess.Popen(cmd, stdout=dvilog, stderr=dvilog)
-            rval = proc.wait()
-
-            # test exit code
-            if rval != 0:
-                msg = "Could not convert dvi file to GIF images."
-                raise ECMDSPluginError(msg, "math")
-            #end if
-        #end with
-
-        # read dvipng's log output
-        try:
-            with open(logname, "r", encoding="utf-8") as logfp:
-                string = logfp.read()
-        except IOError:
-            msg = "Could not read dvipng's log output from '%s'" % logname
-            raise ECMDSPluginError(msg, "math")
-        #end try
-
-        # look for [??? depth=???px]
-        rexpr = re.compile("\\[[0-9]* depth=[0-9]*\\]")
-
-        # add style property to node
-        i = 0
-        for match in rexpr.finditer(string):
-            align = match.group().split("=")[1].strip(" []")
-            node = self.nodelist[i]
-            node.attrib["style"] = "vertical-align: -" + align + "px;"
-            i += 1
-        #end for
+        shutil.copytree(katex_src, katex_dst)
     #end function
 
 #end class

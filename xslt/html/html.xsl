@@ -512,6 +512,35 @@
 </xsl:template>
 
 <!--
+  - Include bundled KaTeX CSS, JS and auto-render extension
+-->
+<xsl:template name="katex.head">
+    <xsl:if test="/*[1]/@katex = 'yes'">
+        <link rel="stylesheet" href="katex/katex.min.css"/>
+        <script defer="" src="katex/katex.min.js"><xsl:text> </xsl:text></script>
+        <script defer="" src="katex/contrib/auto-render.min.js"><xsl:text> </xsl:text></script>
+    </xsl:if>
+</xsl:template>
+
+<!--
+  - KaTeX auto-render initialization script, placed before closing body tag
+-->
+<xsl:template name="katex.body.end">
+    <xsl:if test="/*[1]/@katex = 'yes'">
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "\\[", right: "\\]", display: true},
+                        {left: "\\(", right: "\\)", display: false}
+                    ]
+                });
+            });
+        </script>
+    </xsl:if>
+</xsl:template>
+
+<!--
   - Print CSS definitions
 -->
 <xsl:template name="css.definitions">

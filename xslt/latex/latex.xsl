@@ -147,8 +147,10 @@
     <xsl:text>\usepackage[gen]{eurosym}&#x0a;&#x0a;</xsl:text>
 
     <xsl:text>% Load math environment&#x0a;</xsl:text>
-    <xsl:text>\usepackage{amsmath}&#x0a;</xsl:text>
-    <xsl:text>\usepackage{amsthm}&#x0a;&#x0a;</xsl:text>
+    <xsl:text>\usepackage{mathtools}&#x0a;</xsl:text>
+    <xsl:text>\usepackage{amssymb}&#x0a;</xsl:text>
+    <xsl:text>\usepackage{amsthm}&#x0a;</xsl:text>
+    <xsl:text>\usepackage{cancel}&#x0a;&#x0a;</xsl:text>
 
     <xsl:text>% Disable extra space after fullstops&#x0a;</xsl:text>
     <xsl:text>\frenchspacing{}&#x0a;&#x0a;</xsl:text>

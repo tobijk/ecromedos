@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article SYSTEM "http://www.ecromedos.net/dtd/3.0/ecromedos.dtd">
+<article lang="en_US" fontsize="12pt" papersize="a4paper" div="14" bcor="0cm"
+    secnumdepth="3" secsplitdepth="0">
+
+    <head>
+        <subject>Mathematics</subject>
+        <title>A Brief Tour of Classical Analysis</title>
+        <author>Leonhard Euler</author>
+        <date>February 2026</date>
+        <publisher>ecromedos Press</publisher>
+    </head>
+
+    <make-toc depth="3" lof="no" lot="no" lol="no"/>
+
+    <abstract>
+        <p>
+            We present a concise overview of fundamental results in calculus,
+            linear algebra, and number theory. Starting from the derivative and
+            the integral, we proceed through eigenvalue problems, the Fourier
+            transform, and the distribution of prime numbers.
+        </p>
+    </abstract>
+
+    <section>
+        <title>Differential Calculus</title>
+        <p>
+            The derivative of a function <m>f</m> at a point <m>x</m> is
+            defined as the limit
+        </p>
+        <equation number="yes" id="eq:derivative">
+            <m>f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}</m>
+        </equation>
+        <p>
+            provided this limit exists. A function is said to be
+            <i>differentiable</i> at <m>x</m> if the limit
+            in (<ref idref="eq:derivative"/>) converges. By repeated
+            application, we obtain higher-order derivatives
+            <m>f'', f''', \ldots, f^{(n)}</m>.
+        </p>
+        <p>
+            The chain rule states that if <m>g</m> is differentiable at
+            <m>x</m> and <m>f</m> is differentiable at <m>g(x)</m>, then
+        </p>
+        <equation number="yes" id="eq:chain-rule">
+            <m>(f \circ g)'(x) = f'(g(x)) \cdot g'(x)</m>
+        </equation>
+        <p>
+            Taylor's theorem provides a polynomial approximation of a smooth
+            function near a point <m>a</m>:
+        </p>
+        <equation number="yes" id="eq:taylor">
+            <m>f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(x-a)^k + R_n(x)</m>
+        </equation>
+        <p>
+            where the remainder term <m>R_n(x)</m> can be expressed in
+            several forms.
+        </p>
+    </section>
+
+    <section>
+        <title>Integral Calculus</title>
+        <p>
+            The Fundamental Theorem of Calculus connects differentiation
+            and integration. If <m>f</m> is continuous on <m>[a, b]</m>
+            and <m>F</m> is an antiderivative of <m>f</m>, then
+        </p>
+        <equation number="yes" id="eq:ftc">
+            <m>\int_a^b f(x)\, dx = F(b) - F(a)</m>
+        </equation>
+        <p>
+            Integration by parts, derived from the product rule, gives us
+        </p>
+        <equation number="yes" id="eq:parts">
+            <m>\int_a^b u\, dv = \left[ uv \right]_a^b - \int_a^b v\, du</m>
+        </equation>
+        <p>
+            The Gaussian integral is one of the most celebrated results in
+            analysis:
+        </p>
+        <equation number="yes" id="eq:gaussian">
+            <m>\int_{-\infty}^{\infty} e^{-x^2}\, dx = \sqrt{\pi}</m>
+        </equation>
+        <p>
+            This result is essential in probability theory, where the normal
+            distribution with mean <m>\mu</m> and variance
+            <m>\sigma^2</m> has density
+            <m>\frac{1}{\sigma\sqrt{2\pi}} \exp\!\left(-\frac{(x - \mu)^2}{2\sigma^2}\right)</m>.
+        </p>
+    </section>
+
+    <section>
+        <title>Linear Algebra</title>
+        <p>
+            A central problem in linear algebra is the eigenvalue equation.
+            Given a square matrix <m>A \in \mathbb{R}^{n \times n}</m>,
+            we seek scalars <m>\lambda</m> and nonzero vectors
+            <m>\mathbf{v}</m> such that
+        </p>
+        <equation number="yes" id="eq:eigenvalue">
+            <m>A\mathbf{v} = \lambda\mathbf{v}</m>
+        </equation>
+        <p>
+            The eigenvalues are the roots of the characteristic polynomial
+            <m>\det(A - \lambda I) = 0</m>. For a symmetric matrix, all
+            eigenvalues are real and the eigenvectors form an orthonormal
+            basis.
+        </p>
+        <p>
+            The matrix exponential, defined by
+        </p>
+        <equation number="yes" id="eq:matrix-exp">
+            <m>e^{A} = \sum_{k=0}^{\infty} \frac{A^k}{k!} = I + A + \frac{A^2}{2!} + \frac{A^3}{3!} + \cdots</m>
+        </equation>
+        <p>
+            plays a fundamental role in solving systems of linear
+            differential equations <m>\mathbf{x}'(t) = A\mathbf{x}(t)</m>,
+            where the solution is <m>\mathbf{x}(t) = e^{At}\mathbf{x}(0)</m>.
+        </p>
+    </section>
+
+    <section>
+        <title>Fourier Analysis</title>
+        <p>
+            The Fourier transform of a function <m>f \in L^1(\mathbb{R})</m>
+            is defined by
+        </p>
+        <equation number="yes" id="eq:fourier">
+            <m>\hat{f}(\xi) = \int_{-\infty}^{\infty} f(x)\, e^{-2\pi i \xi x}\, dx</m>
+        </equation>
+        <p>
+            with the inverse transform
+        </p>
+        <equation number="yes" id="eq:fourier-inv">
+            <m>f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi)\, e^{2\pi i \xi x}\, d\xi</m>
+        </equation>
+        <p>
+            Parseval's theorem asserts that the Fourier transform preserves
+            the <m>L^2</m> norm:
+            <m>\|f\|_2 = \|\hat{f}\|_2</m>.
+        </p>
+    </section>
+
+    <section>
+        <title>Number Theory</title>
+        <p>
+            Euler's identity connects five fundamental constants in a single
+            equation:
+        </p>
+        <equation number="yes" id="eq:euler">
+            <m>e^{i\pi} + 1 = 0</m>
+        </equation>
+        <p>
+            The distribution of prime numbers is governed by the Prime Number
+            Theorem, which states that the number of primes less than or
+            equal to <m>x</m>, denoted <m>\pi(x)</m>, satisfies
+        </p>
+        <equation number="yes" id="eq:pnt">
+            <m>\pi(x) \sim \frac{x}{\ln x} \quad \text{as } x \to \infty</m>
+        </equation>
+        <p>
+            The Riemann zeta function, defined for
+            <m>\operatorname{Re}(s) &gt; 1</m> by the series
+        </p>
+        <equation number="yes" id="eq:zeta">
+            <m>\zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s}</m>
+        </equation>
+        <p>
+            admits the Euler product representation
+            <m>\zeta(s) = \prod_{p \text{ prime}} \frac{1}{1 - p^{-s}}</m>,
+            revealing a deep connection between analysis and arithmetic.
+            The famous Basel problem, solved by Euler, gives
+            <m>\zeta(2) = \frac{\pi^2}{6}</m>.
+        </p>
+    </section>
+
+</article>

@@ -92,6 +92,8 @@
                         <xsl:call-template name="css.inline"/>
                     </xsl:otherwise>
                 </xsl:choose>
+
+                <xsl:call-template name="katex.head"/>
             </head>
             <body>
                 <!-- make the coverpage -->
@@ -109,6 +111,8 @@
                         </div>
                     </div>
                 </div>
+
+                <xsl:call-template name="katex.body.end"/>
             </body>
         </html>
     </xsl:document>

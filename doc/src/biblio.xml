@@ -1,5 +1,5 @@
 
-    <biblio number="no">
+    <biblio number="no" title="References">
         <bibitem label="W3CXML" id="bib:W3CXML">
             World Wide Web Consortium. <i>Extensible Markup Language (XML) 1.0 (Third Edition)</i>.
             W3C Recommendation. February 4, 2004.<br/>
@@ -16,9 +16,9 @@
             URL:&nbsp;<tt><link url="http://www.w3c.org/TR/xslt">http://&zwsp;www.&zwsp;w3c.&zwsp;org/&zwsp;TR/&zwsp;xslt</link></tt>.
         </bibitem>
         <bibitem label="DBGUIDE" id="bib:DBGUIDE">
-            Norman Walsh. <i>DocBook 5.0: The Definitive Guide</i>.
-            Draft Version 0.0.25, Mar 2008.<br/>
-            URL:&nbsp;<tt><link url="http://www.docbook.org/tdg5/en/html/docbook.html">http://&zwsp;www.&zwsp;docbook.&zwsp;org/&zwsp;tdg5/&zwsp;en/&zwsp;html/&zwsp;docbook.html</link></tt>
+            Norman Walsh. <i>DocBook 5.2: The Definitive Guide</i>.
+            Version 5.2.21. Updated: 4 January, 2026.<br/>
+            URL:&nbsp;<tt><link url="https://tdg.docbook.org/tdg/5.2/">https://&zwsp;tdg.&zwsp;docbook.&zwsp;org/&zwsp;tdg/&zwsp;5.2/</link></tt>
         </bibitem>
         <bibitem label="LSHORT" id="bib:LSHORT">
             Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabeth Schlegl. <i>The Not so Short Introduction to &latex; 2<sub><m>\varepsilon</m></sub></i>.
@@ -34,8 +34,8 @@
             URL:&nbsp;<tt><link url="https://opensource.org/licenses/MIT">https://&zwsp;opensource.&zwsp;org/&zwsp;licenses/&zwsp;MIT</link></tt>.
         </bibitem>
         <bibitem label="KOMASCR" id="bib:KOMASCR">
-            Markus Kohm. <i>KOMA-Script, The Guide</i>. June 2016.<br/>
-            URL:&nbsp;<tt><link url="http://mirrors.ctan.org/macros/latex/contrib/koma-script/doc/scrguien.pdf">http://&zwsp;mirrors.&zwsp;ctan.&zwsp;org/&zwsp;macros/&zwsp;latex/&zwsp;contrib/&zwsp;koma-script/&zwsp;doc/&zwsp;scrguien.pdf</link></tt>.
+            Markus Kohm. <i>KOMA-Script, The Guide</i>. November 26, 2025.<br/>
+            URL:&nbsp;<tt><link url="http://mirrors.ctan.org/macros/latex/contrib/koma-script/doc/scrguide-en.pdf">http://&zwsp;mirrors.&zwsp;ctan.&zwsp;org/&zwsp;macros/&zwsp;latex/&zwsp;contrib/&zwsp;koma-script/&zwsp;doc/&zwsp;scrguide-en.pdf</link></tt>.
         </bibitem>
         <bibitem label="CAPTION" id="bib:CAPTION">
             Axel Sommerfeldt. <i>Customizing captions of floating environments using the caption package</i>. March 2008.<br/>

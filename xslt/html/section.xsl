@@ -293,6 +293,8 @@
                         <title><xsl:value-of select="//head/title"/></title>
 
                         <link rel="stylesheet" href="style.css"/>
+
+                        <xsl:call-template name="katex.head"/>
                     </head>
                     <body>
 
@@ -325,6 +327,7 @@
                             <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                         </xsl:call-template>
 
+                        <xsl:call-template name="katex.body.end"/>
                     </body>
                 </html>
             </xsl:document>

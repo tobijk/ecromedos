@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #-*- encoding: utf-8 -*-
 
-import os, sys, tempfile, unittest
+import os, sys, unittest
 import lxml.etree as etree
 
 ECMDS_INSTALL_DIR = os.path.normpath(os.path.join(
@@ -20,13 +20,11 @@ class UTTestPluginMath(unittest.TestCase):
         root = etree.fromstring("<root><m>Formula Here</m></root>")
 
         config = {
-            "latex_bin": "/usr/bin/latex",
-            "dvipng_bin": "/usr/bin/dvipng",
-            "tmp_dir": "/tmp"
+            "target_format": "lualatex"
         }
 
         plugin = math.getInstance(config)
-        plugin.process(root.find("./m"), "latex")
+        plugin.process(root.find("./m"), "lualatex")
 
         tree = etree.ElementTree(element=root)
         result = etree.tostring(tree, encoding="utf-8", method="xml")
@@ -36,25 +34,49 @@ class UTTestPluginMath(unittest.TestCase):
     #end function
 
     def test_handleMathNodeHTML(self):
-        root = etree.fromstring("<root><m>Formula Here</m></root>")
+        root = etree.fromstring("<root><p><m>Formula Here</m></p></root>")
 
-        with tempfile.TemporaryDirectory() as tmpdir:
-            config = {
-                "latex_bin":  "/usr/bin/latex",
-                "dvipng_bin": "/usr/bin/dvipng",
-                "tmp_dir":    tmpdir
-            }
-            plugin = math.getInstance(config)
-            plugin.process(root.find("./m"), "html")
-            plugin.flush()
-        #end with
+        config = {
+            "target_format": "html"
+        }
+
+        plugin = math.getInstance(config)
+        plugin.process(root.find(".//m"), "html")
 
         tree = etree.ElementTree(element=root)
         result = etree.tostring(tree, encoding="utf-8", method="xml")
 
-        expected_result = b'<root><copy><img src="m000001.gif" alt="formula" class="math" style="vertical-align: -1px;"/></copy></root>'
+        expected_result = b'<root katex="yes"><p><copy>\\(Formula Here\\)</copy></p></root>'
         self.assertEqual(result, expected_result)
-        os.unlink("m000001.gif")
+    #end function
+
+    def test_handleMathNodeHTMLBlock(self):
+        root = etree.fromstring(
+            "<root><equation><m>E = mc^2</m></equation></root>"
+        )
+
+        config = {
+            "target_format": "html"
+        }
+
+        plugin = math.getInstance(config)
+        plugin.process(root.find(".//m"), "html")
+
+        tree = etree.ElementTree(element=root)
+        result = etree.tostring(tree, encoding="utf-8", method="xml")
+
+        expected_result = b'<root katex="yes"><equation><copy>\\[E = mc^2\\]</copy></equation></root>'
+        self.assertEqual(result, expected_result)
+    #end function
+
+    def test_htmlModeNoLatexRequired(self):
+        """Verify that HTML mode does not require latex or dvipng binaries."""
+        config = {
+            "target_format": "html"
+        }
+
+        plugin = math.getInstance(config)
+        self.assertIsNotNone(plugin)
     #end function
 
 #end class
