@@ -83,7 +83,7 @@ bin/ecromedos -n article > new.xml
 
 **For PDF output:** LuaLaTeX
 
-**For math/image processing:** `dvipng`, ImageMagick (`convert`, `identify`)
+**For image processing:** ImageMagick (`convert`, `identify`)
 
 ## Documentation
 

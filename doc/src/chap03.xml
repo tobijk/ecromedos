@@ -154,70 +154,35 @@ ecromedos ../main.xml
                 </p>
             </subsection>
             <subsection>
-                <title>Producing PostScript and PDF</title>
+                <title>Producing PDF</title>
                 <p>
-                    If you want to produce a PostScript or PDF version of your document, you
-                    will have to generate &latex; output first. But don't worry, you don't need
-                to know anything about &latex;. Think of it as an intermediate output format.
-                Use the <tt><b>-f</b></tt> command line switch to tell ecromedos the desired
-                target format:
+                    If you want to produce a PDF version of your document, you will have to
+                generate &lualatex; output first. But don't worry, you don't need to know
+                anything about &latex;. Think of it as an intermediate output format. Use the
+                <tt><b>-f</b></tt> command line switch to tell ecromedos the desired target
+                format:
                 </p>
                 <listing>
                     <code syntax="bash" strip="yes">
-ecromedos -f latex main.xml
+ecromedos -f lualatex main.xml
                     </code>
                 </listing>
                 <p>
                     Depending on your setting of <tt><b>secsplitdepth</b></tt> (see section
                 <ref idref="sect:outputchunking"/>), you will obtain one or more output files
-                with the extension <i>tex</i>. The main &tex;-file will be called <tt>main.tex</tt>
-                In order to compile the &latex; sources of your document, invoke the &latex;
+                with the extension <i>tex</i>. The main &tex;-file will be called <tt>main.tex</tt>.
+                In order to compile the &latex; sources of your document, invoke the &lualatex;
                 compiler like this:
                 </p>
                 <listing>
                     <code syntax="bash" strip="yes">
-latex main.tex
+lualatex main.tex
                     </code>
                 </listing>
                 <p>
-                    You may have to call &latex; two or three times until all
-                cross-references are resolved and the table of contents is completely built. The
-                result will be a file with the extension <i>dvi</i>. You can use the following
-                commands to convert the DVI file to PostScript and PDF:
-                </p>
-                <listing>
-                    <code syntax="bash" strip="yes">
-dvips -Ppdf main.dvi
-ps2pdf main.ps
-                    </code>
-                </listing>
-                <p>
-                    The first command will generate PostScript output from the DVI file and the
-                second command will turn the PostScript into PDF. Starting with ecromedos 2.0,
-                you can take advantage of the fact that &tex; can produce PDF directly through
-                the <i>pdftex</i> driver. So instead of taking a detour via an intermediate
-                PostScript file, you can instruct ecromedos to produce output that can be
-                compiled with the <tt>pdflatex</tt> command:
-                </p>
-                <listing>
-                    <code syntax="bash" strip="yes">
-ecromedos -f pdflatex main.xml
-pdflatex main.tex
-                    </code>
-                </listing>
-                <p>
-                    In addition, you can generate output which can be processed with the Unicode-aware &xetex;
-                using the <tt>xelatex</tt> command:
-                </p>
-                <listing>
-                    <code syntax="bash" strip="yes">
-ecromedos -f xelatex main.xml
-xelatex main.tex
-                    </code>
-                </listing>
-                <p>
-                    And again, remember that you may have to call &latex; multiple times before
-                your document is rendered complete.
+                    You may have to call &lualatex; two or three times until all
+                cross-references are resolved and the table of contents is completely built.
+                The result will be a PDF file.
                 </p>
             </subsection>
         </section>

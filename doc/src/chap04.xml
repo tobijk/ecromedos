@@ -511,8 +511,6 @@ can be found on the <i>Comprehensive &tex; Archive Network</i> at
                 </th>
                 <tr color="#dfeeff"><td>&amp;tex;</td><td>&tex;</td></tr>
                 <tr color="#dfeeff"><td>&amp;latex;</td><td>&latex;</td></tr>
-                <tr color="#dfeeff"><td>&amp;xetex;</td><td>&xetex;</td></tr>
-                <tr color="#dfeeff"><td>&amp;xelatex;</td><td>&xelatex;</td></tr>
                 <tr color="#dfeeff"><td>&amp;luatex;</td><td>&luatex;</td></tr>
                 <tr color="#dfeeff"><td>&amp;lualatex;</td><td>&lualatex;</td></tr>
                 <tr color="#dfeeff"><td>&amp;nbsp;</td><td>The non-breaking space</td></tr>

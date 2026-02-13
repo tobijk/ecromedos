@@ -293,8 +293,8 @@
 </xsl:template>
 
 <!--
-  - Set input and font encoding, this is e.g. overwritten in
-  - ../xelatex/ecmds.xsl
+  - Set input and font encoding, this is overwritten in
+  - ../lualatex/ecmds.xsl
 -->
 <xsl:template name="latex.preamble.encoding">
     <xsl:text>% Set input- and fontencoding&#x0a;</xsl:text>

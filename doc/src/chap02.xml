@@ -77,13 +77,6 @@ git clone https://github.com/tobijk/ecromedos.git
                     Make sure to install the LuaTeX packages and language packs for the languages
                     that you are going to write in.
                 </dd>
-                <dt>dvipng</dt>
-                <dd>
-                        A utility to convert DVI files to PNG or GIF bitmaps. ecromedos uses dvipng
-                    to convert mathematical formulas to bitmap graphics when generating HTML output.
-                    dvipng is available from <link url="http://www.nongnu.org/dvipng/"><tt>http://&zwsp;www.&zwsp;nongnu.&zwsp;org/&zwsp;dvipng/</tt></link>,
-                    it may also be included in your &tex; distribution.
-                </dd>
                 <dt>Pygments</dt>
                 <dd>
                         Pygments is a powerful syntax highlighter that can lex a vast amount of
@@ -104,7 +97,7 @@ git clone https://github.com/tobijk/ecromedos.git
                 </p>
                 <listing>
                     <code syntax="bash" strip="yes">
-apt-get install python3 python3-lxml dvipng imagemagick python3-pygments \
+apt-get install python3 python3-lxml imagemagick python3-pygments \
     texlive texlive-latex-extra texlive-luatex texlive-lang-english \
     texlive-lang-german texlive-fonts-extra fonts-noto-color-emoji
                     </code>
