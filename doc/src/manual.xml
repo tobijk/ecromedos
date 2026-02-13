@@ -20,7 +20,7 @@
         <author>Tobias Koch <link url="mailto:tobias@tobijk.de">&lt;tobias.koch@gmail.com&gt;</link></author>
         <date>Last update: 13 February 2026</date>
         <publisher>
-            <link url="http://ecromedos.net">ecromedos.net</link>
+            <link url="https://tobijk.github.io/ecromedos/">ecromedos</link>
         </publisher>
     </head>
 
@@ -39,11 +39,11 @@
         </p>
         <p>
             This manual in PDF format:<br/>
-            <link url="http://ecromedos.net/user-manual.pdf"><tt>http://ecromedos.net/&zwsp;user-manual.pdf</tt></link>
+            <link url="https://tobijk.github.io/ecromedos/user-manual.pdf"><tt>https://tobijk.github.io/&zwsp;ecromedos/&zwsp;user-manual.pdf</tt></link>
         </p>
         <p>
             This manual in HTML format:<br/>
-            <link url="http://ecromedos.net"><tt>http://ecromedos.net</tt></link>
+            <link url="https://tobijk.github.io/ecromedos/"><tt>https://tobijk.github.io/&zwsp;ecromedos/</tt></link>
         </p>
         <p>
             Copyright &#169; 2005&endash;2026 Tobias Koch

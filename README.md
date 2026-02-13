@@ -87,7 +87,7 @@ bin/ecromedos -n article > new.xml
 
 ## Documentation
 
-Full user manual at http://ecromedos.net.
+Full user manual at https://tobijk.github.io/ecromedos/.
 
 ## License
 
