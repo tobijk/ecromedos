@@ -22,6 +22,18 @@
 -->
 <xsl:template match="biblio">
     <xsl:text>\setcounter{footnote}{0}&#x0a;</xsl:text>
+    <xsl:if test="@title">
+        <xsl:choose>
+            <xsl:when test="/article">
+                <xsl:text>\renewcommand{\refname}{</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>\renewcommand{\bibname}{</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:value-of select="normalize-space(@title)"/>
+        <xsl:text>}&#x0a;</xsl:text>
+    </xsl:if>
     <xsl:text>\begin{thebibliography}{</xsl:text>
     <xsl:choose>
         <xsl:when test="@number='no'">

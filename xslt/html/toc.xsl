@@ -388,9 +388,16 @@
                             <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                             <xsl:with-param name="iteration" select="$iteration"/>
                         </xsl:call-template>
-                        <xsl:call-template name="i18n.print">
-                            <xsl:with-param name="key" select="name()"/>
-                        </xsl:call-template>
+                        <xsl:choose>
+                            <xsl:when test="@title">
+                                <xsl:value-of select="normalize-space(@title)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="i18n.print">
+                                    <xsl:with-param name="key" select="name()"/>
+                                </xsl:call-template>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </a>
                 </xsl:when>
                 <xsl:otherwise>
@@ -441,9 +448,16 @@
                             <xsl:with-param name="secnumdepth" select="$secnumdepth"/>
                             <xsl:with-param name="iteration" select="$iteration"/>
                         </xsl:call-template>
-                        <xsl:call-template name="i18n.print">
-                            <xsl:with-param name="key" select="name()"/>
-                        </xsl:call-template>
+                        <xsl:choose>
+                            <xsl:when test="@title">
+                                <xsl:value-of select="normalize-space(@title)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="i18n.print">
+                                    <xsl:with-param name="key" select="name()"/>
+                                </xsl:call-template>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </a>
                 </xsl:when>
                 <xsl:otherwise>

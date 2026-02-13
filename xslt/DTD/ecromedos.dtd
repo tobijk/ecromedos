@@ -455,6 +455,7 @@
 <!ATTLIST biblio
     number   (yes|no) #IMPLIED
     tocentry (yes|no) #IMPLIED
+    title    CDATA    #IMPLIED
 >
 <!-- ================================================================== -->
 <!-- END: bibliography                                                  -->
