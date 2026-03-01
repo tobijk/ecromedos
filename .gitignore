@@ -1,7 +1,14 @@
 TODO.TXT
+
 **.pyc
 style/css/**
 style/style.css
 doc/pdf/**
 doc/html/**
 doc/spool/**
+
+debian/.debhelper/
+debian/debhelper-build-stamp
+debian/*.substvars
+debian/ecromedos/
+debian/files
