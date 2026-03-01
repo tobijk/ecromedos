@@ -1,0 +1,29 @@
+Source: ecromedos
+Section: text
+Priority: optional
+Maintainer: Tobias Koch <tobias.koch@gmail.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Homepage: http://www.ecromedos.net
+Rules-Requires-Root: no
+
+Package: ecromedos
+Architecture: all
+Depends: ${misc:Depends},
+         python3 (>= 3.12),
+         python3-lxml,
+         python3-pygments,
+         imagemagick,
+         texlive-luatex,
+         texlive-latex-base,
+         texlive-latex-recommended,
+         texlive-latex-extra,
+         texlive-fonts-recommended,
+         python3-tidylib
+Description: Technical document preparation system
+ ecromedos converts Markdown or its own XML markup language (ECML) into
+ responsive HTML5 and professionally typeset PDF via LuaLaTeX.
+ .
+ It features syntax highlighting via Pygments, mathematical typesetting
+ via KaTeX, automatic table of contents, glossary and index generation,
+ and a plugin-based processing pipeline driven by XSLT transformations.
